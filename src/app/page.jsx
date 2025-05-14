@@ -3,11 +3,14 @@
 import { ReceiptForm } from "@/components/receipt-form";
 import { Icons } from "@/components/icons"; 
 import { useState } from "react";
-import RepairCartPage from "@/components/RepairCartPage";
+import { useRouter } from 'next/navigation';
+import useUserAuth from "@/hooks/useUserAuth";
 
 export default function HomePage() {
 
   const [openSetup, setOpenSetup] = useState(false);
+  const router = useRouter();
+  const user = useUserAuth();
 
 
   const [cartopen, setcartopen] = useState(false);
@@ -15,11 +18,7 @@ export default function HomePage() {
 
 const [dataPending, setDataPending] = useState(0)
 
-  if(cartopen){
-    return(
-      <RepairCartPage setDataPending={setDataPending} />
-    )
-  }
+ 
   return (
     <div  className="container mx-auto px-4 py-8">
       <header className="mb-8 text-center">
@@ -28,15 +27,26 @@ const [dataPending, setDataPending] = useState(0)
   
 
 <span style={{display:"flex", flexDirection:"row"}}>
+
+ <span  onClick={() => router.push('/')}>
+  { cartopen &&
+  <Icons.HomeIcon
+     
+      style={{ cursor: 'pointer' }}
+      className="ml-3 h-5 w-5"
+    />}        </span>
+
   <span>
 <Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
         </span>
 
 
-<span onClick={() => setcartopen(true)}>
+<span     onClick={() => router.push('/cart')}>
+
         <Icons.ShoppingCart style={{cursor:"pointer"}} className="ml-2 h-5 w-5" />
 
 </span>
+
 
 
 </span>
@@ -78,6 +88,9 @@ const [dataPending, setDataPending] = useState(0)
 
 </div>
 
+
+
+
         <h1 className="text-4xl font-bold text-primary flex items-center justify-center">
           <Icons.Wrench className="mr-3 h-10 w-10" />
           Magnetics Repair Shop
@@ -87,9 +100,18 @@ const [dataPending, setDataPending] = useState(0)
         <p className="text-muted-foreground">
           Manage repair receipts and client communication.
         </p>
+
+        <h2 className="text-muted-foreground " style={{fontWeight:"bold", color:"hsl(206.89deg 99.07% 58.04%)", float:"right"}} >
+          Hi, {user}
+        </h2>
       </header>
       <main>
+
+
+
         <ReceiptForm />
+
+        
       </main>
       <footer className="mt-12 text-center text-sm text-muted-foreground">
         <p>&copy; {new Date().getFullYear()}  Magnetics Repair Shop. All rights reserved.</p>

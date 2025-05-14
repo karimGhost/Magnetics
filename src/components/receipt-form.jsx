@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { receiptFormSchema } from "@/lib/schemas/receipt";
 import { useToast } from "@/hooks/use-toast";
 import { generateSMSReminder } from "@/ai/flows/generate-sms-reminder";
-
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,12 +26,16 @@ import { db } from "@/lib/firebasedb"; // adjust path as needed
 import { ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid"; // for unique ID
 import { nullable } from "zod";
+ import useUserAuth from "@/hooks/useUserAuth";
+ 
 
 
-export function ReceiptForm({user, setUser}) {
+export function ReceiptForm() {
   const { toast } = useToast();
   const [currentTime, setCurrentTime] = React.useState("");
   const [isSubmittingSms, setIsSubmittingSms] = React.useState(false);
+
+    const user = useUserAuth();
 
   React.useEffect(() => {
     const now = new Date();
@@ -43,51 +47,74 @@ export function ReceiptForm({user, setUser}) {
     return () => clearInterval(timerId);
   }, []);
 
+
+    const technicianName = user?.replace("@gmail.com", "") ; // Replace with dynamic user later
+
+
   const form = useForm({
     resolver: zodResolver(receiptFormSchema),
     defaultValues: {
       clientName: "",
-      technicianName: "",
+      technicianName: user?.toString() ,
       technicianSignature: "",
       clientSignature: "",
       itemName: "",
       itemDetails: "",
-      price: undefined, 
-      Advancepay: undefined,
-      collectionDate: undefined,
+      price: 0, 
+  advancepay: 0,    // ✅ must be present and coerced
+      collectionDate: 0,
       repairDuration: "",
       clientPhoneNumber: "",
       technicianPhoneNumber: "",
     },
   });
 
-  async function onSave(data) {
-    console.log("Receipt Data:", data);
-if(!user){
-      setUser(null)
 
-}
+  useEffect(() => {
+  if (user) {
+    form.reset({
+      ...form.getValues(),
+      technicianName: user,
+    });
+  }
+}, [user]);
 
-     const uniqueId = uuidv4();
-    const path = `/${data.technicianName}/pendingRepairs/${data.clientName}/${uniqueId}`;
 
-    try {
-      await set(ref(db, path), data);
-toast({
+
+async function onSave(data) {
+  console.log("Receipt Data:", data);
+  if (!user) return;
+
+  const uniqueId = uuidv4();
+  const path = `/${user}/pendingRepairs/${data.clientName}/${uniqueId}`;
+
+  // ✅ Sanitize/prepare data
+  const preparedData = {
+    ...data,
+    collectionDate: data.collectionDate instanceof Date
+      ? data.collectionDate.toISOString() // or .getTime()
+      : data.collectionDate,
+  };
+
+  try {
+    await set(ref(db, path), preparedData);
+
+    toast({
       title: "Receipt Saved!",
       description: "Receipt data has been logged to the console.",
-      variant: "default", 
+      variant: "default",
       className: "bg-accent text-accent-foreground",
-    });    } catch (error) {
-      console.error("Error saving data:", error);
-toast({
-      title: "failed to save data",
-      description: "Receipt data .",
-      variant: "default", 
+    });
+  } catch (error) {
+    console.error("Error saving data:", error);
+    toast({
+      title: "Failed to save data",
+      description: "Receipt data was not saved.",
+      variant: "default",
       className: "bg-accent text-accent-foreground",
-    });    }
-    
+    });
   }
+}
 
 
 
@@ -147,8 +174,9 @@ toast({
   return (
     <Card className="w-full max-w-2xl mx-auto my-8 shadow-xl">
       <CardHeader>
-        <CardTitle className="text-3xl font-bold text-primary">New Repair Receipt</CardTitle>
+        <CardTitle className="text-3xl font-bold text-primary">New Repair Receipt </CardTitle>
         <CardDescription>Fill in the details below to create a new repair receipt.</CardDescription>
+
         <div className="text-sm text-muted-foreground pt-2">
           <Icons.Clock className="inline-block mr-1 h-4 w-4" />
           Current Date & Time: {currentTime || "Loading..."}
@@ -178,7 +206,7 @@ toast({
                   <FormItem>
                     <FormLabel>Technician Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Keneth " {...field} />
+        <Input placeholder={user ?? "Technician Name"} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -231,19 +259,19 @@ toast({
                   </FormItem>
                 )}
               />
-  <FormField
-                control={form.control}
-                name="Advancepay"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Advance pay (ksh)</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="150.00" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+ <FormField
+  control={form.control}
+  name="advancepay"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Advance Pay (Ksh)</FormLabel>
+      <FormControl>
+        <Input type="number" placeholder="e.g. 100" {...field} />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
 
               <FormField
                 control={form.control}
