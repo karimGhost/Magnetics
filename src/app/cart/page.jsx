@@ -251,7 +251,7 @@ useEffect(() => {
 
   <>
   
-    {repairs.length === 0 ? (
+    {Complete.length === 0 ? (
         <p className="text-gray-500">No Completed repairs.</p>
       ) : (
         <div className="grid gap-4">
