@@ -1,0 +1,134 @@
+[debug] [2025-05-14T14:17:16.727Z] ----------------------------------------------------------------------
+[debug] [2025-05-14T14:17:16.731Z] Command:       /home/karim/.nvm/versions/node/v22.13.1/bin/node /home/karim/.nvm/versions/node/v22.13.1/bin/firebase init hosting
+[debug] [2025-05-14T14:17:16.731Z] CLI Version:   14.3.1
+[debug] [2025-05-14T14:17:16.731Z] Platform:      linux
+[debug] [2025-05-14T14:17:16.731Z] Node Version:  v22.13.1
+[debug] [2025-05-14T14:17:16.732Z] Time:          Wed May 14 2025 17:17:16 GMT+0300 (East Africa Time)
+[debug] [2025-05-14T14:17:16.732Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-14T14:17:17.121Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-14T14:17:17.123Z] > authorizing via signed-in user (eljanuzaj4@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/karim/Desktop/magnetics Reciept
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-05-14T14:17:17.129Z] Using project from CLI flag: magneticreciept
+[debug] [2025-05-14T14:17:17.130Z] Checked if tokens are valid: false, expires at: 1747232768315
+[debug] [2025-05-14T14:17:17.131Z] Checked if tokens are valid: false, expires at: 1747232768315
+[debug] [2025-05-14T14:17:17.131Z] > refreshing access token with scopes: []
+[debug] [2025-05-14T14:17:17.135Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-05-14T14:17:17.135Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-05-14T14:18:01.793Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-05-14T14:18:01.794Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-05-14T14:18:01.812Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/magneticreciept [none]
+[debug] [2025-05-14T14:18:09.209Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/magneticreciept, {"headers":{},"method":"GET","signal":{}}): FetchError: request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept failed, reason: 
+[debug] [2025-05-14T14:18:09.209Z] Failed to make request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept (original: request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept failed, reason: )
+[debug] [2025-05-14T14:18:11.107Z] FirebaseError: Failed to make request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept
+    at RetryOperation._fn (/home/karim/.nvm/versions/node/v22.13.1/lib/node_modules/firebase-tools/lib/apiv2.js:261:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project magneticreciept. Please make sure the project exists and your account has permission to access it.
+[debug] [2025-05-14T14:18:53.812Z] ----------------------------------------------------------------------
+[debug] [2025-05-14T14:18:53.815Z] Command:       /home/karim/.nvm/versions/node/v22.13.1/bin/node /home/karim/.nvm/versions/node/v22.13.1/bin/firebase init
+[debug] [2025-05-14T14:18:53.815Z] CLI Version:   14.3.1
+[debug] [2025-05-14T14:18:53.816Z] Platform:      linux
+[debug] [2025-05-14T14:18:53.816Z] Node Version:  v22.13.1
+[debug] [2025-05-14T14:18:53.816Z] Time:          Wed May 14 2025 17:18:53 GMT+0300 (East Africa Time)
+[debug] [2025-05-14T14:18:53.816Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-14T14:18:54.133Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-14T14:18:54.134Z] > authorizing via signed-in user (eljanuzaj4@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/karim/Desktop/magnetics Reciept
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-05-14T14:19:12.722Z] Using project from CLI flag: magneticreciept
+[debug] [2025-05-14T14:19:12.724Z] Checked if tokens are valid: true, expires at: 1747235880794
+[debug] [2025-05-14T14:19:12.725Z] Checked if tokens are valid: true, expires at: 1747235880794
+[debug] [2025-05-14T14:19:12.727Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/magneticreciept [none]
+[debug] [2025-05-14T14:19:12.833Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/magneticreciept, {"headers":{},"method":"GET","signal":{}}): FetchError: request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept failed, reason: getaddrinfo EAI_AGAIN firebase.googleapis.com
+[debug] [2025-05-14T14:19:12.833Z] Failed to make request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept (original: request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept failed, reason: getaddrinfo EAI_AGAIN firebase.googleapis.com)
+[debug] [2025-05-14T14:19:12.840Z] FirebaseError: Failed to make request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept
+    at RetryOperation._fn (/home/karim/.nvm/versions/node/v22.13.1/lib/node_modules/firebase-tools/lib/apiv2.js:261:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project magneticreciept. Please make sure the project exists and your account has permission to access it.
+[debug] [2025-05-14T14:19:25.450Z] ----------------------------------------------------------------------
+[debug] [2025-05-14T14:19:25.453Z] Command:       /home/karim/.nvm/versions/node/v22.13.1/bin/node /home/karim/.nvm/versions/node/v22.13.1/bin/firebase init
+[debug] [2025-05-14T14:19:25.454Z] CLI Version:   14.3.1
+[debug] [2025-05-14T14:19:25.454Z] Platform:      linux
+[debug] [2025-05-14T14:19:25.455Z] Node Version:  v22.13.1
+[debug] [2025-05-14T14:19:25.455Z] Time:          Wed May 14 2025 17:19:25 GMT+0300 (East Africa Time)
+[debug] [2025-05-14T14:19:25.455Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-14T14:19:25.780Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-14T14:19:25.780Z] > authorizing via signed-in user (eljanuzaj4@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/karim/Desktop/magnetics Reciept
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2025-05-14T14:19:31.612Z] Using project from CLI flag: magneticreciept
+[debug] [2025-05-14T14:19:31.614Z] Checked if tokens are valid: true, expires at: 1747235880794
+[debug] [2025-05-14T14:19:31.615Z] Checked if tokens are valid: true, expires at: 1747235880794
+[debug] [2025-05-14T14:19:31.617Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/magneticreciept [none]
+[debug] [2025-05-14T14:19:42.895Z] *** [apiv2] error from fetch(https://firebase.googleapis.com/v1beta1/projects/magneticreciept, {"headers":{},"method":"GET","signal":{}}): FetchError: request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept failed, reason: 
+[debug] [2025-05-14T14:19:42.895Z] Failed to make request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept (original: request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept failed, reason: )
+[debug] [2025-05-14T14:19:45.154Z] FirebaseError: Failed to make request to https://firebase.googleapis.com/v1beta1/projects/magneticreciept
+    at RetryOperation._fn (/home/karim/.nvm/versions/node/v22.13.1/lib/node_modules/firebase-tools/lib/apiv2.js:261:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project magneticreciept. Please make sure the project exists and your account has permission to access it.
