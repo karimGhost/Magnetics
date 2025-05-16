@@ -129,14 +129,14 @@ useEffect(() => {
     
     </span>
     
-    <span onClick={ () => setOpenSetup(pre => !pre)} style={{marginLeft:"20px"}}> 
+    <span  style={{marginLeft:"20px"}}> 
     
               <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
     
     { openSetup &&
     <span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
       <ul style={{background:"white", height:"100px", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
-        <li  style={{display:"flex", flexDirection:"row", marginBottom:"10px", cursor:"pointer"}}>
+        <li onClick={ () => setOpenSetup(pre => !pre)}  style={{display:"flex", flexDirection:"row", marginBottom:"10px", cursor:"pointer"}}>
                     <Icons.UserCog style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
     
           <p style={{marginLeft:"5px"}}>
