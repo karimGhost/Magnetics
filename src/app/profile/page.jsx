@@ -98,7 +98,7 @@ useEffect(() => {
   const handleEditToggle = () => setEditMode(!editMode);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
+    <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
 
 
  <div style={{position:"absolute", top:"0", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
