@@ -91,8 +91,8 @@ const [dataPending, setDataPending] = useState(0)
 
 
 
-        <h1 className="text-4xl font-bold text-primary flex items-center justify-center">
-          <Icons.Wrench className="mr-3 h-10 w-10" />
+        <h1  className="magneticH1 text-4xl font-bold text-primary flex items-center justify-center">
+          <Icons.Wrench className="magneticicon mr-3 h-10 w-10" />
           Magnetics Repair Shop
         </h1>
 

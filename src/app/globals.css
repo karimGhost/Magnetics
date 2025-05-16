@@ -105,3 +105,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+@media screen and (max-width: 424px ) {
+  
+
+
+
+.magneticH1{
+font-size: 1.25rem;
+margin-top: 15px;
+}
+
+
+.pendingSm{
+  margin-top: 50px;
+}
+.pendingSm button{
+  font-size: 20px;
+}
+.magneticicon{
+width: 1.5rem;
+}
+}
+

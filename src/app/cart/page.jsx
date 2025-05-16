@@ -195,7 +195,7 @@ useEffect(() => {
 
 
 
-<div style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+<div className="pendingSm" style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
     <Button onClick={() => {setPending(true), setComplete(false)}} style={{marginRight:"9px"}} className="text-2xl font-bold mb-4 p-1">Pending Repairs</Button>
 
       <Button onClick={() => {setPending(false), setComplete(true)}} className="text-2xl font-bold mb-4 p-1" style={{background:"black"}}>completed Repairs</Button>
