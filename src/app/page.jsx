@@ -51,7 +51,7 @@ const [dataPending, setDataPending] = useState(0)
 
 </span>
 
-<span onClick={ () => setOpenSetup(pre => !pre)} style={{marginLeft:"20px"}}> 
+<span  onClick={() => router.push('/profile')} style={{marginLeft:"20px"}}> 
 
           <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
 
