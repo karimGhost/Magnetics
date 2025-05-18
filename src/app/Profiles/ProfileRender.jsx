@@ -27,7 +27,6 @@ import Link from 'next/link';
     setIdd(value);
   }, [searchParams]);
 
-if (!id) return <p>Loading...</p>;
 
 
 const [openSetup, setOpenSetup] = useState(false);
@@ -126,7 +125,7 @@ useEffect(() => {
 
 
 
-  if (!idd) return <p>Loading profile...</p>;
+if (!id) return <p>Loading...</p>;
 
   
   const handleEditToggle = () => setEditMode(!editMode);
