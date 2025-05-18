@@ -175,7 +175,7 @@ if (!id) return <p>Loading...</p>;
       className="border rounded-lg p-4 shadow hover:shadow-lg transition"
     >
       <h2 className="text-lg font-semibold">
-        {item.data.itemName || "Unnamed Item"} — {item.clientName}
+     Item    {item.data.itemName || "Unnamed Item"} — client {item.data.clientName}
       </h2>
       <p className="text-sm text-gray-600">
         Details: {item.data.itemDetails || "N/A"}
@@ -205,7 +205,7 @@ if (!id) return <p>Loading...</p>;
         className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
       >
         <h2 className="text-base font-semibold text-gray-800 mb-1">
-          {item.data.itemName || "Unnamed Item"} — {item.clientName}
+      item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
         </h2>
         <p className="text-sm text-gray-600">
           <strong>Details:</strong> {item.data.itemDetails || "N/A"}
