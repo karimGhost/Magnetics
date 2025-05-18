@@ -2,16 +2,21 @@
 
 import { ReceiptForm } from "@/components/receipt-form";
 import { Icons } from "@/components/icons"; 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import useUserAuth from "@/hooks/useUserAuth";
-
+import { Navbtn } from "@/components/Navbtn";
 export default function HomePage() {
 
   const [openSetup, setOpenSetup] = useState(false);
   const router = useRouter();
   const user = useUserAuth();
 
+ const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
+
+  useEffect(() => {
+console.log("username", user)
+  },[user])
 
   const [cartopen, setcartopen] = useState(false);
 
@@ -25,66 +30,6 @@ const [dataPending, setDataPending] = useState(0)
 
 <div style={{position:"absolute", top:"0", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
   
-
-<span style={{display:"flex", flexDirection:"row"}}>
-
- <span  onClick={() => router.push('/')}>
-  { cartopen &&
-  <Icons.HomeIcon
-     
-      style={{ cursor: 'pointer' }}
-      className="ml-3 h-5 w-5"
-    />}        </span>
-
-  <span>
-<Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
-        </span>
-
-
-<span     onClick={() => router.push('/cart')}>
-
-        <Icons.ShoppingCart style={{cursor:"pointer"}} className="ml-2 h-5 w-5" />
-
-</span>
-
-
-
-</span>
-
-<span  onClick={() => router.push('/profile')} style={{marginLeft:"20px"}}> 
-
-          <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
-
-{ openSetup &&
-<span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
-  <ul style={{background:"white", height:"100px", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
-    <li  style={{display:"flex", flexDirection:"row", marginBottom:"10px", cursor:"pointer"}}>
-                <Icons.UserCog style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-
-      <p style={{marginLeft:"5px"}}>
-        profile
-        </p> 
-       
-       </li>
-
-    <li style={{display:"flex", flexDirection:"row",  cursor:"pointer"}}>
-
-                <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-
-     <p style={{marginLeft:"5px"}}>
-      Logout
-      </p> 
-      
-      </li>
-  </ul>
-</span>
-
-}
-
-</span>
-
-
-
 
 </div>
 
@@ -102,7 +47,7 @@ const [dataPending, setDataPending] = useState(0)
         </p>
 
         <h2 className="text-muted-foreground " style={{fontWeight:"bold", color:"hsl(206.89deg 99.07% 58.04%)", float:"right"}} >
-          Hi, {user}
+          Hi, {username}
         </h2>
       </header>
       <main>

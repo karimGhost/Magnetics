@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth"; // ✅ Add this
-
+import { getFirestore } from "firebase/firestore";
 import { Anonymous_Pro } from "next/font/google";
 import { useEffect } from "react";
 const firebaseConfig = {
@@ -27,7 +27,8 @@ const app = initializeApp(firebaseConfig);
 // ✅ Initialize both services
 const db = getDatabase(app);
 const auth = getAuth(app); // <-- Auth added here
+ const dbb = getFirestore(app); // ✅ this must be exported
 
 
 // ✅ Export both
-export { db, auth };
+export { dbb,db, auth };

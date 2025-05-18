@@ -3,24 +3,22 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
-import { Icons } from "@/components/icons"; 
-import { useRouter } from 'next/navigation';
+
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebasedb";
 import useUserAuth from "@/hooks/useUserAuth";
 import { Button } from "@/components/ui/button";
-
+import { Navbtn } from "@/components/Navbtn";
+import Router from "next/router";
 export default function RepairCartPage() {
   const user = useUserAuth();
 
+ const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
 
 
-  useEffect(() =>{
-        console.log("user", user?.replace("@gmail.com", ""));
+ 
 
-  }, [user])
-
-  const technicianName = user?.replace("@gmail.com", "") ; // Replace with dynamic user later
+  const technicianName = username?.replace("@gmail.com", "") ; // Replace with dynamic username later
   const [repairs, setRepairs] = useState([]);
   const [DataPending, setDataPending] = useState([]);
 
@@ -30,7 +28,6 @@ export default function RepairCartPage() {
 const[Complete, setComplete] = useState(false);
 
 const [openSetup, setOpenSetup] = useState(false);
-  const router = useRouter();
 
 useEffect(() => {
   if (!technicianName) return; // exit early if not ready
@@ -119,7 +116,6 @@ useEffect(() => {
 
 
 
-
   return (
 
 <>
@@ -127,82 +123,20 @@ useEffect(() => {
 
 
 
-    <div style={{position:"absolute", top:"0", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
-      
-    
-    <span style={{display:"flex", flexDirection:"row"}}>
-    
-     <span  onClick={() => router.push('/')}>
-      {
-      <Icons.HomeIcon
-         
-          style={{ cursor: 'pointer' }}
-          className="ml-3 h-5 w-5"
-        />}        </span>
-    
-      <span>
-    <Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
-            </span>
-    
-    
-    <span     onClick={() => router.push('/cart')}>
-    
-            <Icons.ShoppingCart style={{cursor:"pointer", color:"hsl(206.89deg 99.07% 58.04%)"}} className="ml-2 h-5 w-5" />
-    
-    </span>
-    
-    
-    
-    </span>
-    
-    <span onClick={ () => setOpenSetup(pre => !pre)} style={{marginLeft:"20px"}}> 
-    
-              <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
-    
-    { openSetup &&
-    <span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
-      <ul style={{background:"white", height:"100px", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
-        <li  style={{display:"flex", flexDirection:"row", marginBottom:"10px", cursor:"pointer"}}>
-                    <Icons.UserCog style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-    
-          <p style={{marginLeft:"5px"}}>
-            profile
-            </p> 
-           
-           </li>
-    
-        <li style={{display:"flex", flexDirection:"row",  cursor:"pointer"}}>
-    
-                    <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-    
-         <p style={{marginLeft:"5px"}}>
-          Logout
-          </p> 
-          
-          </li>
-      </ul>
-    </span>
-    
-    }
-    
-    </span>
-    
-    
-    
-    
-    </div>
-    
+  
 
 
 
 <div className="pendingSm" style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
-    <Button onClick={() => {setPending(true), setComplete(false)}} style={{marginRight:"9px"}} className="text-2xl font-bold mb-4 p-1">Pending Repairs</Button>
+    <Button onClick={() => {setPending(true), setComplete(false)}} style={{marginRight:"9px"}} className="text-2xl font-bold mb-4 p-1">Pending Repairs {repairs.length }</Button>
 
-      <Button onClick={() => {setPending(false), setComplete(true)}} className="text-2xl font-bold mb-4 p-1" style={{background:"black"}}>completed Repairs</Button>
+      <Button onClick={() => {setPending(false), setComplete(true)}} className="text-2xl font-bold mb-4 p-1" style={{background:"black"}}>completed Repairs {DataPending.length }</Button>
 
 
 
 </div>
+
+ 
 {Pending &&
 
 

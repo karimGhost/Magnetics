@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import * as React  from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
@@ -27,7 +27,10 @@ import { ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid"; // for unique ID
 import { nullable } from "zod";
  import useUserAuth from "@/hooks/useUserAuth";
- 
+ import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { renderToStaticMarkup } from "react-dom/server";
+import { InvoiceCard } from "./InvoicePreview";
 
 
 export function ReceiptForm() {
@@ -35,9 +38,15 @@ export function ReceiptForm() {
   const [currentTime, setCurrentTime] = React.useState("");
   const [isSubmittingSms, setIsSubmittingSms] = React.useState(false);
 
-    const user = useUserAuth();
 
-  React.useEffect(() => {
+
+
+
+
+    const user = useUserAuth();
+ const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
+
+  useEffect(() => {
     const now = new Date();
     setCurrentTime(format(now, "PPPp")); 
     
@@ -48,14 +57,76 @@ export function ReceiptForm() {
   }, []);
 
 
-    const technicianName = user?.replace("@gmail.com", "") ; // Replace with dynamic user later
+    // const technicianName = username?.replace("@gmail.com", "") ; // Replace with dynamic username later
 
+
+
+
+async function generatePDF(data) {
+  const container = document.createElement("div");
+  container.innerHTML = renderToStaticMarkup(<InvoiceCard data={data} />);
+  document.body.appendChild(container);
+
+  const canvas = await html2canvas(container, { scale: 2 });
+  const imgData = canvas.toDataURL("image/png");
+  const pdf = new jsPDF("p", "mm", "a4");
+  const imgProps = pdf.getImageProperties(imgData);
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+ 
+  
+  document.body.removeChild(container); // clean up
+
+
+  container.style.position = "fixed";
+  container.style.left = "-9999px";
+  container.innerHTML = renderToStaticMarkup(<InvoiceCard data={data} />);
+  document.body.appendChild(container);
+
+
+ 
+
+  // 🔽 Show preview & print in new window using same component
+  const previewHtml = renderToStaticMarkup(<InvoiceCard data={data} />);
+  const previewWindow = window.open("", "_blank", "width=800,height=1000");
+
+  if (previewWindow) {
+    previewWindow.document.write(`
+      <html>
+        <head>
+          <title class="text-primary ">Magnetics Repair shop</title>
+          <style>
+            body {
+              font-family: sans-serif;
+              padding: 2rem;
+              background: #fff;
+            }
+          </style>
+        </head>
+        <body onload="window.print()">
+          ${previewHtml}
+        </body>
+      </html>
+    `);
+    previewWindow.document.close();
+  } else {
+    alert("Popup blocked. Please allow popups for this site.");
+  }
+
+ pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  pdf.save(`${data.clientName.replace(/\s+/g, "_")}_magnetics.pdf`);
+
+    document.body.removeChild(container); // Clean up hidden render
+
+
+}
 
   const form = useForm({
     resolver: zodResolver(receiptFormSchema),
     defaultValues: {
       clientName: "",
-      technicianName: user?.toString() ,
+      technicianName: username?.toString() ,
       technicianSignature: "",
       clientSignature: "",
       itemName: "",
@@ -71,22 +142,22 @@ export function ReceiptForm() {
 
 
   useEffect(() => {
-  if (user) {
+  if (username) {
     form.reset({
       ...form.getValues(),
-      technicianName: user,
+      technicianName: username,
     });
   }
-}, [user]);
+}, [username]);
 
 
 
 async function onSave(data) {
   console.log("Receipt Data:", data);
-  if (!user) return;
+  if (!username) return;
 
   const uniqueId = uuidv4();
-  const path = `/${user}/pendingRepairs/${data.clientName}/${uniqueId}`;
+  const path = `/${username}/pendingRepairs/${data.clientName}/${uniqueId}`;
 
   // ✅ Sanitize/prepare data
   const preparedData = {
@@ -105,6 +176,9 @@ async function onSave(data) {
       variant: "default",
       className: "bg-accent text-accent-foreground",
     });
+
+        await generatePDF(preparedData); // 🚀 Generate PDF here
+
   } catch (error) {
     console.error("Error saving data:", error);
     toast({
@@ -114,6 +188,8 @@ async function onSave(data) {
       className: "bg-accent text-accent-foreground",
     });
   }
+
+
 }
 
 
@@ -206,7 +282,7 @@ async function onSave(data) {
                   <FormItem>
                     <FormLabel>Technician Name</FormLabel>
                     <FormControl>
-        <Input placeholder={user ?? "Technician Name"} {...field} />
+        <Input placeholder={username ?? "Technician Name"} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -388,18 +464,18 @@ async function onSave(data) {
               />
             
             <CardFooter className="flex flex-col sm:flex-row justify-end gap-3 p-0 pt-6">
-              <Button type="button" variant="outline" onClick={onPrint}>
+              {/* <Button type="button" variant="outline" onClick={onPrint}>
                 <Icons.Printer className="mr-2 h-4 w-4" />
                 Print to PDF
-              </Button>
-              <Button type="button" variant="outline" onClick={onSendSms} disabled={isSubmittingSms}>
+              </Button> */}
+              {/* <Button type="button" variant="outline" onClick={onSendSms} disabled={isSubmittingSms}>
                 {isSubmittingSms ? (
                     <Icons.Clock className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                     <Icons.Send className="mr-2 h-4 w-4" />
                 )}
                 Send SMS Reminder
-              </Button>
+              </Button> */}
               <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground" disabled={form.formState.isSubmitting}>
                  {form.formState.isSubmitting ? (
                     <Icons.Clock className="mr-2 h-4 w-4 animate-spin" />

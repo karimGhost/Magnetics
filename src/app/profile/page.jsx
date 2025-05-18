@@ -11,7 +11,7 @@ import { db } from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
 import { Icons } from "@/components/icons"; 
 import { useRouter } from 'next/navigation';
-
+import { Navbtn } from "@/components/Navbtn";
 const ProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const router = useRouter();
@@ -19,15 +19,16 @@ const [openSetup, setOpenSetup] = useState(false);
 
     const user = useUserAuth();
 
+ const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
   const [repairs, setRepairs] = useState([]);
 
   const [DataPending, setDataPending] = useState([]);
 
 
 useEffect(() => {
-  if (!user) return; // exit early if not ready
+  if (!username) return; // exit early if not ready
 
-  const repairsRef = ref(db, `/${user}/pendingRepairs`);
+  const repairsRef = ref(db, `/${username}/pendingRepairs`);
 
   const unsubscribe = onValue(repairsRef, (snapshot) => {
     const data = snapshot.val();
@@ -55,16 +56,16 @@ useEffect(() => {
 
 
   return () => unsubscribe();
-}, [user]); // 👈 depends on user
+}, [username]); // 👈 depends on username
 
 
 
 
 
 useEffect(() => {
-  if (!user) return; // exit early if not ready
+  if (!username) return; // exit early if not ready
 
-  const repairsRef = ref(db, `/${user}/repaired`);
+  const repairsRef = ref(db, `/${username}/repaired`);
 
   const unsubscribe = onValue(repairsRef, (snapshot) => {
     const data = snapshot.val();
@@ -92,7 +93,7 @@ useEffect(() => {
 
 
   return () => unsubscribe();
-}, [user]); // 👈 depends on user
+}, [username]); // 👈 depends on username
 
   
   const handleEditToggle = () => setEditMode(!editMode);
@@ -101,70 +102,6 @@ useEffect(() => {
     <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
 
 
- <div style={{position:"absolute", top:"0", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
-      
-    
-    <span style={{display:"flex", flexDirection:"row"}}>
-    
-     <span  onClick={() => router.push('/')}>
-      {
-      <Icons.HomeIcon
-         
-          style={{ cursor: 'pointer' }}
-          className="ml-3 h-5 w-5"
-        />}        </span>
-    
-      <span>
-    <Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
-            </span>
-    
-    
-    <span     onClick={() => router.push('/cart')}>
-    
-            <Icons.ShoppingCart style={{cursor:"pointer", color:"hsl(206.89deg 99.07% 58.04%)"}} className="ml-2 h-5 w-5" />
-    
-    </span>
-    
-    
-    
-    </span>
-    
-    <span  style={{marginLeft:"20px"}}> 
-    
-              <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
-    
-    { openSetup &&
-    <span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
-      <ul style={{background:"white", height:"100px", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
-        <li onClick={ () => setOpenSetup(pre => !pre)}  style={{display:"flex", flexDirection:"row", marginBottom:"10px", cursor:"pointer"}}>
-                    <Icons.UserCog style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-    
-          <p style={{marginLeft:"5px"}}>
-            profile
-            </p> 
-           
-           </li>
-    
-        <li style={{display:"flex", flexDirection:"row",  cursor:"pointer"}}>
-    
-                    <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-    
-         <p style={{marginLeft:"5px"}}>
-          Logout
-          </p> 
-          
-          </li>
-      </ul>
-    </span>
-    
-    }
-    
-    </span>
-    
-    
-    
-    
-    </div>
     
 
 
@@ -174,15 +111,15 @@ useEffect(() => {
         <div className="flex items-center gap-4">
           <Avatar className="w-20 h-20">
             <AvatarImage src="/profile.jpg" alt="User" />
-            <AvatarFallback>{user?.slice(0, 1).toUpperCase()}</AvatarFallback>
+            <AvatarFallback>{username?.slice(0, 1).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex-1">
             {editMode ? (
-              <Input defaultValue={user} className="text-xl font-bold" />
+              <Input defaultValue={username} className="text-xl font-bold" />
             ) : (
-              <h2 className="text-xl font-bold">{user}</h2>
+              <h2 className="text-xl font-bold">{username}</h2>
             )}
-            <p className="text-gray-500">@{user}</p>
+            <p className="text-gray-500">@{username}</p>
           </div>
           <Button onClick={handleEditToggle}>{editMode ? "Save" : "Edit Profile"}</Button>
         </div>
@@ -190,15 +127,16 @@ useEffect(() => {
 
       <Tabs defaultValue="followers" className="mt-6">
         <TabsList className="grid grid-cols-2 w-64">
-          <TabsTrigger value="followers">Followers</TabsTrigger>
-          <TabsTrigger value="following">Following</TabsTrigger>
+          <TabsTrigger value="followers">Techies</TabsTrigger>
+          {/* <TabsTrigger value="following">Following</TabsTrigger> */}
         </TabsList>
         <TabsContent value="followers">
-          <Card className="mt-4 p-4">List of followers will appear here.</Card>
+          <Card className="mt-4 p-4">List techies.</Card>
+
         </TabsContent>
-        <TabsContent value="following">
+        {/* <TabsContent value="following">
           <Card className="mt-4 p-4">List of following will appear here.</Card>
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
