@@ -51,7 +51,7 @@ const [dataPending, setDataPending] = useState(0);
   
   
     return () => unsubscribe();
-  }, [user]); // 👈 depends on technicianName
+  }, []); // 👈 depends on technicianName
   
 
 
@@ -76,7 +76,7 @@ const [dataPending, setDataPending] = useState(0);
 <span onClick={() => router.push('/cart')} className="relative inline-block">
   <Icons.Wrench style={{ cursor: "pointer" }} className="ml-2 h-5 w-5" />
 
-  { (
+  { loadedRepairs?.length >=0 && (
     <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] leading-none font-semibold rounded-full px-1.5 min-w-[16px] h-[16px] flex items-center justify-center">
  {loadedRepairs?.length > 9 ? "9+" : loadedRepairs?.length} 
     </span>

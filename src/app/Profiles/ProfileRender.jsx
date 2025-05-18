@@ -12,18 +12,35 @@ import { ref, onValue, remove, set } from "firebase/database";
 import { Icons } from "@/components/icons"; 
 import { useRouter } from 'next/navigation';
 import { Navbtn } from "@/components/Navbtn";
-import { doc, updateDoc } from "firebase/firestore";
-import { dbb } from "@/lib/firebasedb";
+import { useSearchParams } from "next/navigation";
 import Link from 'next/link';
-const ProfilePage = () => {
+ const ProfileRender = () => {
   const [editMode, setEditMode] = useState(false);
   const router = useRouter();
-const [openSetup, setOpenSetup] = useState(false);
 
-    const {user, users} = useUserAuth();
+  const [id, setIdd] = useState(null);
+  
+    const searchParams = useSearchParams();
+
+      useEffect(() => {
+    const value = searchParams.get('id');
+    setIdd(value);
+  }, [searchParams]);
+
+if (!id) return <p>Loading...</p>;
+
+
+const [openSetup, setOpenSetup] = useState(false);
+    const { users} = useUserAuth();
+  const user = users.find(u => u.id === id);
 
  const username  =  user?.email?.replace("@gmail.com", "") ?? null;
-const [newUsername, setNewUsername] = useState(username);
+
+
+  // use id to find the user
+
+ 
+
 
   const [repairs, setRepairs] = useState([]);
 
@@ -31,29 +48,6 @@ const [newUsername, setNewUsername] = useState(username);
   const [ Techies, setTechies] = useState(false)
 
   const [DataPending, setDataPending] = useState([]);
-
-
-const handleEditToggle = async () => {
-
- 
-  if (editMode) {
- if(newUsername === null){
-  alert(`${username } ..you cannot save blank refresh or edit name`)
-    return;
-  }
-    try {
-      const userDocRef = doc(dbb, "users", user.uid);
-      await updateDoc(userDocRef, { username: newUsername });
-      console.log("Username updated!");
-
-      // Optional: update UI or fetch fresh data
-    } catch (error) {
-      console.error("Failed to update username:", error);
-    }
-  }
-  setEditMode(!editMode);
-};
-
 
 useEffect(() => {
 console.log("usernames", username)
@@ -129,7 +123,13 @@ useEffect(() => {
   return () => unsubscribe();
 }, [username]); // 👈 depends on username
 
+
+
+
+  if (!idd) return <p>Loading profile...</p>;
+
   
+  const handleEditToggle = () => setEditMode(!editMode);
 
   return (
     <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
@@ -148,77 +148,17 @@ useEffect(() => {
           </Avatar>
           <div className="flex-1">
             {editMode ? (
-              <Input defaultValue={username}
-                    value={newUsername}
-      onChange={(e) => setNewUsername(e.target.value)}
-
-              className="text-xl font-bold" />
+              <Input defaultValue={username} className="text-xl font-bold" />
             ) : (
-              <h2 className="text-xl font-bold">   {users.find(i => i.uid === user.uid)?.username || "Unknown User"}
-</h2>
+              <h2 className="text-xl font-bold">{username}</h2>
             )}
             <p className="text-gray-500">@{username}</p>
           </div>
-
-
-          <Button onClick={handleEditToggle}>{editMode ? "Save" : "Edit Profile"}</Button>
-
-
         </div>
       </Card>
 
       <Tabs defaultValue="followers" className="mt-6">
-        <TabsList className="grid grid-cols-2 w-64">
-<Button
-  onClick={() => setTechies(prev => !prev)}
-  value="followers"
-  className="bg-white text-black shadow-md hover:shadow-lg active:shadow-inner transition-all duration-200 border border-gray-200 px-6 py-2 rounded-xl"
->
-  toggleTechies
-</Button>          {/* <TabsTrigger value="following">Following</TabsTrigger> */}
-        </TabsList>
-<TabsContent value="followers">
-  <Card className="mt-4 p-6 rounded-2xl shadow-lg">
-    <h2 className="text-2xl font-bold mb-6 text-gray-800">List of Techies</h2>
-   {Techies && 
-   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {users.map((userd) => (
-
-userd.uid === user.uid ? " " :
-      <div onClick={() => router.push(`/Profiles?id=${userd.id}`)}  key={userd?.id}>
-          <li className="bg-white border border-gray-200 p-4 rounded-xl hover:shadow-md transition-shadow flex gap-4 items-center cursor-pointer">
-            {/* Avatar / DP */}
-            <img
-              src={
-                userd.photoURL || 
-                `https://ui-avatars.com/api/?name=${userd.username}&background=random`
-              }
-              alt="Profile"
-              className="w-12 h-12 rounded-full object-cover"
-            />
-
-            {/* User Info */}
-            <div className="flex-1">
-              <div className="flex items-center gap-2 text-gray-700 mb-1">
-                <Icons.User className="w-4 h-4 text-blue-500" />
-                <span className="font-semibold text-lg">{userd.username}</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <Icons.Mail className="w-4 h-4 text-green-500" />
-                <span>{userd.email}</span>
-              </div>
-              <div className="text-xs text-gray-400 mt-1">UID: {userd.uid}</div>
-            </div>
-          </li>
-        </div>
-      ))}
-    </ul>
-   
-   }
-   
-    
-  </Card>
-</TabsContent>
+     
         {/* <TabsContent value="following">
           <Card className="mt-4 p-4">List of following will appear here.</Card>
         </TabsContent> */}
@@ -292,4 +232,4 @@ userd.uid === user.uid ? " " :
   );
 };
 
-export default ProfilePage;
+export default ProfileRender;

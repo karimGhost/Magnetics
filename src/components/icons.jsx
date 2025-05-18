@@ -10,13 +10,14 @@ import {
   CalendarDays,
   Clock,
   BellIcon,
-  ShoppingCart,
+  
   UserCog, 
   LogOut,
-  HomeIcon
+  HomeIcon,
+ Mail ,
+ 
 
 } from 'lucide-react';
-
 
 export const Icons = {
   DollarSign: (props) => <DollarSign {...props} />,
@@ -33,5 +34,7 @@ export const Icons = {
   ShoppingCart: (props) => <ShoppingCart  {...props}/>,
   UserCog: (props) => <UserCog  {...props}/>,
   LogOut: (props) => <LogOut {...props} />,
-  HomeIcon: (props) => <HomeIcon {...props} />
+  HomeIcon: (props) => <HomeIcon {...props} />,
+  Mail: (props) => <Mail {...props} />,
+
 };

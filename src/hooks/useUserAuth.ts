@@ -18,6 +18,7 @@ const [user, setUser] = useState<User | null>(null);
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
+         console.log("users", currentUser)
       setUser(currentUser); // ✅ Save the full user object
     } else {
       setUser(null);
@@ -35,8 +36,24 @@ useEffect(() => {
  
 
   // Get all users from Firestore
- 
-  
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(dbb, "users"));
+        const userList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setUsers(userList);
+        console.log("usersis", userList)
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);  
+
   return  {user, users};
 }
 

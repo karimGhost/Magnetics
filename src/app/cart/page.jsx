@@ -3,13 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
-
+import { Icons } from "@/components/icons"; 
+import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebasedb";
 import useUserAuth from "@/hooks/useUserAuth";
 import { Button } from "@/components/ui/button";
-import { Navbtn } from "@/components/Navbtn";
-import Router from "next/router";
 export default function RepairCartPage() {
   const user = useUserAuth();
 
@@ -18,7 +17,7 @@ export default function RepairCartPage() {
 
  
 
-  const technicianName = username?.replace("@gmail.com", "") ; // Replace with dynamic username later
+  const technicianName = username ; // Replace with dynamic username later
   const [repairs, setRepairs] = useState([]);
   const [DataPending, setDataPending] = useState([]);
 
@@ -116,6 +115,7 @@ useEffect(() => {
 
 
 
+
   return (
 
 <>
@@ -123,11 +123,10 @@ useEffect(() => {
 
 
 
-  
 
 
 
-<div className="pendingSm" style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
+<div className="pendingSm btTop" style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
     <Button onClick={() => {setPending(true), setComplete(false)}} style={{marginRight:"9px"}} className="text-2xl font-bold mb-4 p-1">Pending Repairs {repairs.length }</Button>
 
       <Button onClick={() => {setPending(false), setComplete(true)}} className="text-2xl font-bold mb-4 p-1" style={{background:"black"}}>completed Repairs {DataPending.length }</Button>
