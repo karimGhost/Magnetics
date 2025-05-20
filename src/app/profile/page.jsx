@@ -35,6 +35,22 @@ const [newUsername, setNewUsername] = useState(username);
   const [DataPending, setDataPending] = useState([]);
 
 
+const [availability, setAvailability] = useState("Available");
+
+const toggleAvailability = async () => {
+  const newStatus = availability === "Available" ? "Busy" : "Available";
+  setAvailability(newStatus);
+
+  try {
+    const userDocRef = doc(dbb, "users", user.uid);
+    await updateDoc(userDocRef, {
+      availability: newStatus,
+    });
+    console.log("Availability updated to", newStatus);
+  } catch (error) {
+    console.error("Error updating availability:", error);
+  }
+};
 
 
 const handleEditToggle = async () => {
@@ -99,6 +115,24 @@ useEffect(() => {
 }, [username]); // 👈 depends on username
 
 
+useEffect(() => {
+  const fetchAvailability = async () => {
+    try {
+      const userDocRef = doc(dbb, "users", user.uid);
+      const userSnap = await getDoc(userDocRef);
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        if (data.availability) {
+          setAvailability(data.availability);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch availability:", err);
+    }
+  };
+
+  fetchAvailability();
+}, [user?.uid]);
 
 
 
@@ -165,9 +199,25 @@ useEffect(() => {
             <p className="text-gray-500">@{username}</p>
           </div>
 
-
-          <Button onClick={()  => handleEditToggle()}>{editMode ? "Save" : "Edit Profile"}</Button>
-
+<div style={{display:"flex", flexDirection:"column"}}>
+   <Button style={{marginBottom:"5px"}} onClick={()  => handleEditToggle()}>{editMode ? "Save" : "Edit Profile"}</Button>
+         
+<button
+  onClick={toggleAvailability}
+  style={{    
+width: "90px",
+    height: "40px",
+    fontSize: "15px",
+    padding: "10px"
+}}
+  className={`px-4 py-2 rounded-full text-white ${
+    availability === "Available" ? "bg-green-500" : "bg-yellow-500"
+  }`}
+>
+  {availability}
+</button>
+</div>
+         
 
         </div>
       </Card>
@@ -207,6 +257,7 @@ userd.uid === user.uid ? " " :
               <div className="flex items-center gap-2 text-gray-700 mb-1">
                 <Icons.User className="w-4 h-4 text-blue-500" />
                 <span className="font-semibold text-lg">{userd.username}</span>
+               <span><p style={{fontSize:"10px", color: userd.availability === "Busy" ? "red" :"green" }}>  {userd.availability}</p>  </span>
               </div>
               <div className="flex items-center gap-2 text-gray-600 text-sm">
                 <Icons.Mail className="w-4 h-4 text-green-500" />

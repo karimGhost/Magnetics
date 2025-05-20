@@ -115,7 +115,9 @@ useEffect(() => {
   };
 
 
-
+useEffect(() => {
+console.log("viewp", viewP)
+},[viewP])
 
   return (
 
@@ -146,6 +148,19 @@ useEffect(() => {
         <p className="text-gray-500">No pending repairs.</p>
       ) : (
         <div className="grid gap-4">
+
+
+  { viewP  &&
+   
+
+        repairs.filter((i) => i.collectionDate === viewP.collectionDate )  &&
+             <div >
+
+
+             <InvoiceCard data={viewP.data}/>
+             <Button onClick={() => setviewP("") } >exit</Button>
+ </div>
+}
           {repairs.map((item) => (
             <div
               key={item.id}
@@ -167,6 +182,14 @@ useEffect(() => {
               >
                 Completed Fix
               </button>
+
+                 <button
+                onClick={() => setviewP(item)}
+                style={{float:"right"}}
+                className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              >
+                view
+              </button> 
             </div>
           ))}
         </div>
@@ -189,19 +212,23 @@ useEffect(() => {
         <p className="text-gray-500">No Completed repairs.</p>
       ) : (
         <div className="grid gap-4">
+
+
+  { viewP  &&
+   
+
+        DataPending.filter((i) => i.collectionDate === viewP.collectionDate )  &&
+             <div >
+
+
+             <InvoiceCard data={viewP.data}/>
+             <Button onClick={() => setviewP("") } >exit</Button>
+ </div>
+}
           {DataPending.map((item) => (
 
 
-
-   viewP  &&
-   
-             viewP.collectionDate === item.collectionDate  ?
-             <div >
-
-             <InvoiceCard data={item}/>
-             <Button onClick={() => setviewP("") } >exit</Button>
- </div>
-                 :
+  
 
             <div
             
