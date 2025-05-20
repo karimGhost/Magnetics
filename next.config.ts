@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -7,9 +8,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-     domains: ['placehold.co', 'res.cloudinary.com'], // both domains allowed
-
-
+    domains: ['placehold.co'], // ✅ Required
     remotePatterns: [
       {
         protocol: 'https',

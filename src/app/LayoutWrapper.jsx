@@ -26,7 +26,7 @@ const [loadedRepairs, setloadedRepairs] = useState(null)
     <>
       {!user && <LoginPopup user={username} />}  {/* Show LoginPopup if user is null */}
 
- <div style={{position:"absolute", top:"0", zIndex:"99", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
+ <div style={{position:"absolute", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
       
     <Navbtn />
 

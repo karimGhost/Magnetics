@@ -9,6 +9,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebasedb";
 import useUserAuth from "@/hooks/useUserAuth";
 import { Button } from "@/components/ui/button";
+import { InvoiceCard } from "@/components/InvoicePreview";
 export default function RepairCartPage() {
   const user = useUserAuth();
 
@@ -20,7 +21,7 @@ export default function RepairCartPage() {
   const technicianName = username ; // Replace with dynamic username later
   const [repairs, setRepairs] = useState([]);
   const [DataPending, setDataPending] = useState([]);
-
+const [viewP,setviewP] = useState()
 
 
   const[Pending,setPending] = useState(true);
@@ -189,10 +190,25 @@ useEffect(() => {
       ) : (
         <div className="grid gap-4">
           {DataPending.map((item) => (
+
+
+
+   viewP  &&
+   
+             viewP.collectionDate === item.collectionDate  ?
+             <div >
+
+             <InvoiceCard data={item}/>
+             <Button onClick={() => setviewP("") } >exit</Button>
+ </div>
+                 :
+
             <div
+            
               key={item.id}
               className="border rounded-lg p-4 shadow hover:shadow-lg transition"
             >
+
               <h2 className="text-lg font-semibold">
                 {item.data.itemName || "Unnamed Item"} — {item.clientName}
               </h2>
@@ -203,13 +219,17 @@ useEffect(() => {
               <p className="text-sm">Advance: ksh{item.data.advancepay ?? "N/A"}</p>
               <p className="text-sm">Collection Date: {item.data.collectionDate || "N/A"}</p>
 
-              {/* <button
-                onClick={() => handleComplete(item)}
+               <button
+                onClick={() => setviewP(item)}
                 className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
               >
-                Completed Fix
-              </button> */}
+                view
+              </button> 
             </div>
+
+          
+        
+         
           ))}
         </div>
       )}
@@ -218,6 +238,8 @@ useEffect(() => {
   
   </>
 }
+
+
 
 
 

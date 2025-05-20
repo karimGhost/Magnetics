@@ -15,8 +15,7 @@ import {
   LogOut,
   HomeIcon,
  Mail ,
- 
-
+Rss
 } from 'lucide-react';
 
 export const Icons = {
@@ -36,5 +35,5 @@ export const Icons = {
   LogOut: (props) => <LogOut {...props} />,
   HomeIcon: (props) => <HomeIcon {...props} />,
   Mail: (props) => <Mail {...props} />,
-
+   Rss: (props) => <Rss {...props} />
 };

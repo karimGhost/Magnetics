@@ -142,7 +142,7 @@ if (!id) return <p>Loading...</p>;
       <Card className="p-6 shadow-md rounded-2xl">
         <div className="flex items-center gap-4">
           <Avatar className="w-20 h-20">
-            <AvatarImage src="/profile.jpg" alt="User" />
+            <AvatarImage src={users.find(u => u.id === id).dp} alt="User" />
             <AvatarFallback>{username?.slice(0, 1).toUpperCase()}</AvatarFallback>
           </Avatar>
           <div className="flex-1">

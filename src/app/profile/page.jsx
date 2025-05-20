@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
 import useUserAuth from "@/hooks/useUserAuth";
 import { db } from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
@@ -15,6 +16,7 @@ import { Navbtn } from "@/components/Navbtn";
 import { doc, updateDoc } from "firebase/firestore";
 import { dbb } from "@/lib/firebasedb";
 import Link from 'next/link';
+import UserAvatar from "./userAvatar";
 const ProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const router = useRouter();
@@ -31,6 +33,8 @@ const [newUsername, setNewUsername] = useState(username);
   const [ Techies, setTechies] = useState(false)
 
   const [DataPending, setDataPending] = useState([]);
+
+
 
 
 const handleEditToggle = async () => {
@@ -53,6 +57,8 @@ const handleEditToggle = async () => {
   }
   setEditMode(!editMode);
 };
+
+
 
 
 useEffect(() => {
@@ -129,7 +135,6 @@ useEffect(() => {
   return () => unsubscribe();
 }, [username]); // 👈 depends on username
 
-  
 
   return (
     <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
@@ -142,11 +147,11 @@ useEffect(() => {
 
       <Card className="p-6 shadow-md rounded-2xl">
         <div className="flex items-center gap-4">
-          <Avatar className="w-20 h-20">
-            <AvatarImage src="/profile.jpg" alt="User" />
-            <AvatarFallback>{username?.slice(0, 1).toUpperCase()}</AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
+       
+              <UserAvatar user={user} username={username} editMode={editMode} />
+ 
+         
+        <div className="flex-1">
             {editMode ? (
               <Input defaultValue={username}
                     value={newUsername}
@@ -161,7 +166,7 @@ useEffect(() => {
           </div>
 
 
-          <Button onClick={handleEditToggle}>{editMode ? "Save" : "Edit Profile"}</Button>
+          <Button onClick={()  => handleEditToggle()}>{editMode ? "Save" : "Edit Profile"}</Button>
 
 
         </div>
@@ -190,7 +195,7 @@ userd.uid === user.uid ? " " :
             {/* Avatar / DP */}
             <img
               src={
-                userd.photoURL || 
+                 userd?.dp || 
                 `https://ui-avatars.com/api/?name=${userd.username}&background=random`
               }
               alt="Profile"
@@ -230,7 +235,7 @@ userd.uid === user.uid ? " " :
           <ul className="list-disc pl-5 space-y-1">
            
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-  {DataPending.map((item) => (
+  {repairs.map((item) => (
     <div
       key={item.id}
       className="border rounded-lg p-4 shadow hover:shadow-lg transition"
@@ -260,7 +265,7 @@ userd.uid === user.uid ? " " :
   <div className="mt-6">
   <h3 className="text-xl font-bold mb-4">Pending Repairs</h3>
   <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
-    {repairs.map((item) => (
+    {DataPending.map((item) => (
       <div
         key={item.id}
         className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"

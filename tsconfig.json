@@ -6,15 +6,16 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
     "noEmit": true,
+    "module": "ESNext",
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": false,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "plugins": [
       {
         "name": "next"
@@ -29,8 +30,7 @@
     "incremental": true
   },
   "include": [
-    "**/*.js",
-    "**/*.jsx",
+    "src/**/*",
     ".next/types/**/*.ts",
     "out/types/**/*.ts"
   ],
