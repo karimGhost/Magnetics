@@ -60,12 +60,17 @@ const router = useRouter();
   }
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const loggedInUser = userCredential.user;
+      const loggedInUser = userCredential?.user;
       console.log("Logged in user:", loggedInUser.email);
+          router.refresh(); // For App Router
+
       // Optionally, you can do additional user-related tasks here (e.g., saving data to the database)
     } catch (error) {
       console.error("Login error:", error);
       //alert("Invalid email or password!");
+      alert("invalid credential")
+          router.refresh(); // For App Router
+
     }
   };
 

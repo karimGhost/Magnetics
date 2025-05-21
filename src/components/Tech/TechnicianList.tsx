@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, {useState} from 'react';
 import useUserAuth from '@/hooks/useUserAuth';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useRouter } from 'next/navigation';
@@ -12,7 +12,37 @@ export default function TechnicianList() {
     alert(`Leave a message for tech ID: ${techId}`);
   };
 
+  const [trackId, setTrackId] = useState('');
+
+const handleTrack = () => {
+  if (!trackId) return;
+  router.push(`/track?id=${trackId}`);
+};
+
   return (
+
+    <>
+  {/* Tracking Input */}
+  <div className="mb-6" style={{width:"50%", margin:"auto"}}>
+    <label className="block mb-2 text-sm font-medium text-gray-700 " >
+      Track my item by ID
+    </label>
+    <div className="flex items-center space-x-2">
+      <input
+        type="text"
+        placeholder="Enter ID"
+        value={trackId}
+        onChange={(e) => setTrackId(e.target.value)}
+        className="border rounded px-3 py-2 w-full max-w-xs"
+      />
+      <button
+        onClick={handleTrack}
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Track
+      </button>
+    </div>
+  </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {users.map(tech => (
         <div key={tech.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition relative">
@@ -65,5 +95,7 @@ export default function TechnicianList() {
         </div>
       ))}
     </div>
+
+    </>
   );
 }

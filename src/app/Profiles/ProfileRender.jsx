@@ -161,11 +161,24 @@ useEffect(() => {
           </Avatar>  
 
   <div style={{marginTop:"15px", marginLeft:"10px"}}>
-             <h2 className="text-xl font-bold">
+       
+
+      <div style={{display:"flex"}}>
+        
+              <h2 className="text-xl font-bold">
                 {users.find(i => i.uid === id)?.username || "Unknown User"}
               </h2>
-                          <p className="text-gray-500">@{username}</p>
+                  <i   className={`ml-2 ${
+                                users.find(i => i.uid === id)?.availability === "Available" ? "text-green-500" : "text-yellow-500"
 
+              }`}
+            >
+            is  {users.find(i => i.uid === id)?.availability}
+      </i>
+        </div>       
+
+                          <p className="text-gray-500">@{username}</p>
+ 
             </div> 
 
 </div>
@@ -204,24 +217,7 @@ useEffect(() => {
         
       
           {/* Buttons */}
-          <div className="flex flex-col items-end gap-2 ">
-           
-      
-            <button
-              style={{
-                width: "90px",
-                height: "40px",
-                fontSize: "15px",
-                padding: "10px"
-              }}
-              className={`px-4 py-2  rounded-full text-white btAvailableDP btAvailable ${
-                users.find(i => i.uid === id)?.availability === "Available" ? "bg-green-500" : "bg-yellow-500"
-              }`}
-            >
-              {users.find(i => i.uid === id)?.availability}
-      
-            </button>
-          </div>
+        
         </div>
       </Card>
       

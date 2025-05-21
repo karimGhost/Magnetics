@@ -23,6 +23,14 @@ const [dataPending, setDataPending] = useState(0);
 
 
 const handleLogout = async () => {
+    const storedClient = localStorage.getItem("clientUser");
+if(storedClient){
+  localStorage.removeItem("clientUser");
+      router.refresh(); // For App Router
+
+  return;
+}
+
   const confirmLogout = window.confirm("Are you sure you want to log out?");
   if (!confirmLogout) return;
 
@@ -30,6 +38,8 @@ const handleLogout = async () => {
     await signOut(auth);
     console.log("User logged out");
     // Optional: Redirect or update UI
+        router.refresh(); // For App Router
+
   } catch (err) {
     console.error("Logout failed:", err);
     alert("Failed to log out!");
@@ -112,10 +122,28 @@ const handleLogout = async () => {
 
 
 
-<span  onClick={() => router.push('/Techs') } style={{marginLeft:"20px"}}> 
+<span  onClick={ () => setOpenSetup(pre => !pre)} style={{marginLeft:"20px"}}> 
 
           <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
 
+{ openSetup &&
+<span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
+  <ul  style={{background:"white", height:"fit-content", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
+  
+
+    <li style={{display:"flex", flexDirection:"row",  cursor:"pointer"}}>
+
+                <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
+
+     <p style={{marginLeft:"5px"}} onClick={handleLogout}>
+      Logout
+      </p> 
+      
+      </li>
+  </ul>
+</span>
+
+}
 
 </span>
 </>

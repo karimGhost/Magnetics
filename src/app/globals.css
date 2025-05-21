@@ -109,6 +109,18 @@
 
 @media screen and (max-width: 537px ) {
 
+  .floatl{
+    float: left;
+    font-size: 13px;
+  }
+
+
+      .magneticH1 {
+        font-size: 1rem !important;
+        margin-top: -1px !important;
+       
+    }
+
 .smalldev{
   flex-direction: column !important;
 }
@@ -144,6 +156,11 @@ font-size: 1rem !important;
 }
 
 
+.btAvailables{
+          margin-left: auto;
+        margin-top: -0px !important;
+}
+
 .magneticH1{
 font-size: 1.25rem;
 margin-top: 15px;
@@ -168,6 +185,84 @@ width: 1.5rem;
 @media screen and (max-width: 820px ) {
 .pendingSm{
   margin-top: 80px;
+}
+
+}
+
+
+@media screen and (max-width: 869px ) {
+.magneticH1{
+font-size: 1.25rem;
+margin-top: 15px;
+
+float: left;
+}
+
+.floatl{
+float: left;
+} 
+
+.createPost{
+display: none;
+}
+
+.wrench{
+width: 1.5rem !important;
+margin-right: -1px !important;
+}
+
+
+}
+
+@media screen and (max-width: 368px ) {
+.magneticH1{
+font-size: 1rem;
+margin-top: 15px;
+float: left;
+
+}
+
+
+
+.wrench{
+width: 1.5rem !important;
+margin-right: -1px !important;
+}
+
+}
+
+
+
+
+@media screen and (min-width: 900px ) {
+
+.blogBg{
+  margin: auto;
+  width: 800px;
+}
+
+
+
+}
+
+
+
+@media screen and (max-width: 863px ) {
+
+.btTwo{
+  margin-top: -100px;
+  flex-direction: column-reverse;
+}
+
+
+}
+
+@media screen and (max-width: 369px ) {
+.btTwo{
+  margin-top: -100px;
+  flex-direction: column-reverse;
+  position: fixed;
+right: 0;
 }
 
 }

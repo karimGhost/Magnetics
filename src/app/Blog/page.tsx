@@ -11,10 +11,10 @@ export default function BlogPage() {
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col mt-5" style={{marginTop:"70px"}}>
       <AppHeader onOpenCreatePost={() => setIsCreatePostOpen(true)} />
       <div className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-3xl mx-auto space-y-8">
+        <div className="max-w-3xl mx-auto space-y-8 blogBg">
           <BlogList />
         </div>
       </div>

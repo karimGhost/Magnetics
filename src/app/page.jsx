@@ -41,10 +41,10 @@ if(user?.user?.client){
 
 
         <h1  className="magneticH1 text-4xl font-bold text-primary flex items-center justify-center">
-          <Icons.Wrench className="magneticicon mr-3 h-10 w-10" />
-          Magnetics Repair Shop
+          <Icons.Wrench className="magneticicon mr-3 h-10 w-10 wrench" />
+          Magnetics Repair 
         </h1>
- <p className="text-muted-foreground">
+ <p className="text-muted-foreground createPost">
     client communication
          .
         </p>      
@@ -75,11 +75,11 @@ if(user?.user?.client){
 
         <h1  className="magneticH1 text-4xl font-bold text-primary flex items-center justify-center">
           <Icons.Wrench className="magneticicon mr-3 h-10 w-10" />
-          Magnetics Repair Shop
+          Magnetics Repair
         </h1>
 
       
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground floatl">
           Manage repair receipts and client communication.
         </p>
 

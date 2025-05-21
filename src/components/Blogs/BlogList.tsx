@@ -7,10 +7,11 @@ import { db2 } from '@/lib/firebasedb';
 import { onSnapshot, collection } from "firebase/firestore";
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-
+import { useRouter } from 'next/navigation';
 export default function BlogList({ limit }: { limit?: number }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db2, "posts"), snapshot => {
@@ -32,7 +33,7 @@ export default function BlogList({ limit }: { limit?: number }) {
     return (
       <>
         {Array.from({ length: 2 }).map((_, index) => (
-          <Card key={index} className="w-full shadow-lg">
+          <Card key={index} className="w-full shadow-lg blogcard" >
             <CardHeader>
               <div className="flex items-center space-x-3">
                 <Skeleton className="h-10 w-10 rounded-full" />

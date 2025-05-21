@@ -1,12 +1,11 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
+import { Textarea } from "@/components/ui/textarea";
 import useUserAuth from "@/hooks/useUserAuth";
 import { db , dbb} from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
@@ -16,6 +15,7 @@ import { Navbtn } from "@/components/Navbtn";
 import { doc, updateDoc } from "firebase/firestore";
 import Link from 'next/link';
 import UserAvatar from "./userAvatar";
+
 const ProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const router = useRouter();
@@ -23,11 +23,13 @@ const [openSetup, setOpenSetup] = useState(false);
 
 const [bio, setBio] = useState("");
 const [skills, setSkills] = useState("");
-const [newUsername, setNewUsername] = useState(username); // optional
-
     const {user, users} = useUserAuth();
 
  const username  =  user?.email?.replace("@gmail.com", "") ?? null;
+
+const [newUsername, setNewUsername]=  useState(username); // optional
+
+
 
   const [repairs, setRepairs] = useState([]);
 
@@ -115,6 +117,24 @@ useEffect(() => {
 }, [username]); // 👈 depends on username
 
 
+// useEffect(() => {
+//   const fetchAvailability = async () => {
+//     try {
+//       const userDocRef = doc(dbb, "users", user.uid);
+//       const userSnap = await getDoc(userDocRef);
+//       if (userSnap.exists()) {
+//         const data = userSnap.data();
+//         if (data.availability) {
+//           setAvailability(data.availability);
+//         }
+//       }
+//     } catch (err) {
+//       console.error("Failed to fetch availability:", err);
+//     }
+//   };
+
+//   fetchAvailability();
+// }, [user?.uid]);
 useEffect(() => {
   const fetchUserInfo = async () => {
     const docRef = doc(dbb, "users", user.uid);
@@ -123,7 +143,7 @@ useEffect(() => {
       const data = docSnap.data();
       setBio(data.bio || "");
       setSkills(data.skills || "");
-        }
+    }
   };
 
   fetchUserInfo();
@@ -142,6 +162,8 @@ const handleEditToggle = async () => {
 
   setEditMode(prev => !prev);
 };
+
+
 
 
 
@@ -177,9 +199,37 @@ useEffect(() => {
 
   return () => unsubscribe();
 }, [username]); // 👈 depends on username
-
+ 
 
   return (
+
+    <>
+    
+    
+  
+
+   <header className="mb-8 text-center" style={{position:"fixed" ,left:"0", right:"0", top:"0", zIndex:"99" , background:"white"}}>
+
+<div style={{position:"absolute", top:"0", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
+  
+
+</div>
+
+
+
+
+        <h1  className="magneticH1 text-4xl font-bold text-primary flex items-center justify-center">
+          <Icons.Wrench className="magneticicon mr-3 h-10 w-10 wrench" />
+          Magnetics Repair 
+        </h1>
+ <p className="text-muted-foreground createPost">
+   
+         .
+        </p>      
+      {/* <input /> */}
+
+      </header>
+
     <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
 
 
@@ -193,31 +243,33 @@ useEffect(() => {
 
 
 
-      <Card className="p-6 shadow-md rounded-2xl">
-        <div className="flex items-center gap-4">
+  <Card className="p-6 shadow-md rounded-2xl">
+        <div className="flex items-center gap-4 ">
  
 
           <div className="flex-1">
 
             <div className="flex smalldev" >
-       
-              <UserAvatar user={user} username={username} editMode={editMode} />
- 
-         
+
+                <UserAvatar user={user} username={username} editMode={editMode} />
+
+
   <div style={{marginTop:"15px", marginLeft:"10px"}}>
            
-            {editMode ? (
+ {editMode ? (
         <Input
-                    value={newUsername}
-      onChange={(e) => setNewUsername(e.target.value)}
+          value={newUsername}
+          onChange={(e) => setNewUsername(e.target.value)}
           className="text-xl font-bold"
         />
-            ) : (
+      ) : (
         <h2 className="text-xl font-bold">
-          {users.find(i => i.uid === user.uid)?.username || "Unknown User"}
-</h2>
-            )}
-            <p className="text-gray-500">@{username}</p>
+          {users.find(i => i.uid === user?.uid)?.username || "Unknown User"}
+
+         
+        </h2>
+      )}
+                          <p className="text-gray-500">@{username}</p>
 
             </div>    
             </div>
@@ -252,7 +304,7 @@ useEffect(() => {
           <Input
             value={skills}
             onChange={(e) => setSkills(e.target.value)}
-            placeholder="e.g., React, Node.js"
+            placeholder="e.g., crafting, problem soving"
           />
         ) : (
           <p className="text-gray-700">{skills || "No skills listed."}</p>
@@ -261,30 +313,30 @@ useEffect(() => {
           </div>
 
           </div>
-
+        
       
           {/* Buttons */}
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-2 btTwo">
       <Button onClick={handleEditToggle}>
         {editMode ? "Save" : "Edit Profile"}
       </Button>
-         
-<button
-  onClick={toggleAvailability}
-  style={{    
-width: "90px",
-    height: "40px",
-    fontSize: "15px",
-    padding: "10px"
-}}
-        className={`px-4 py-2 rounded-full text-white btAvailable ${
-          users.find(i => i.uid === user.uid)?.availability === "Available" ? "bg-green-500" : "bg-yellow-500"
-  }`}
->
-        {users.find(i => i.uid === user.uid)?.availability}
 
-</button>
-</div>
+      <button
+        onClick={toggleAvailability}
+        style={{
+          width: "90px",
+          height: "40px",
+          fontSize: "15px",
+          padding: "10px"
+        }}
+        className={`px-4 py-2 rounded-full text-white btAvailable btAvailables ${
+          users.find(i => i.uid === user?.uid)?.availability === "Available" ? "bg-green-500" : "bg-yellow-500"
+        }`}
+      >
+        {users.find(i => i.uid === user?.uid)?.availability}
+
+      </button>
+    </div>
         </div>
       </Card>
 
@@ -347,22 +399,22 @@ userd.uid === user.uid ? " " :
       </Tabs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-        <Card className="p-4">
-          <h3 className="text-lg font-semibold mb-2">Items Repaired</h3>
+      <Card className="p-4">
+               <h3 className="text-lg font-semibold mb-2">Items Repaired</h3>
        <div className="mt-6">
        <h3 className="text-xl font-bold mb-4"> repaired</h3>
        <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
          {DataPending.map((item) => (
-    <div
-      key={item.id}
+           <div
+             key={item.id}
              className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
-    >
+           >
              <h2 className="text-base font-semibold text-gray-800 mb-1">
            item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
-      </h2>
-      <p className="text-sm text-gray-600">
+             </h2>
+             <p className="text-sm text-gray-600">
                <strong>Details:</strong> {item.data.itemDetails || "N/A"}
-      </p>
+             </p>
              <p className="text-sm text-gray-600">
                <strong>Price:</strong> Ksh{item.data.price ?? "N/A"}
              </p>
@@ -372,47 +424,48 @@ userd.uid === user.uid ? " " :
              <p className="text-sm text-gray-600">
                <strong>Collection Date:</strong> {item.data.collectionDate || "N/A"}
              </p>
-    </div>
-  ))}
-</div>
+           </div>
+         ))}
+       </div>
      </div>
-
-
-        </Card>
-        <Card className="p-4">
-          <h3 className="text-lg font-semibold mb-2">Items Pending Repair</h3>
-  <div className="mt-6">
-  <h3 className="text-xl font-bold mb-4">Pending Repairs</h3>
-  <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
+     
+              
+             </Card>
+         <Card className="p-4">
+                 <h3 className="text-lg font-semibold mb-2">Items Pending Repair</h3>
+         <div className="mt-6">
+         <h3 className="text-xl font-bold mb-4">Pending Repairs</h3>
+         <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
            {repairs.map((item) => (
-      <div
-        key={item.id}
-        className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
-      >
-        <h2 className="text-base font-semibold text-gray-800 mb-1">
+             <div
+               key={item.id}
+               className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
+             >
+               <h2 className="text-base font-semibold text-gray-800 mb-1">
              item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
-        </h2>
-        <p className="text-sm text-gray-600">
-          <strong>Details:</strong> {item.data.itemDetails || "N/A"}
-        </p>
-        <p className="text-sm text-gray-600">
-          <strong>Price:</strong> Ksh{item.data.price ?? "N/A"}
-        </p>
-        <p className="text-sm text-gray-600">
-          <strong>Advance:</strong> Ksh{item.data.advancepay ?? "N/A"}
-        </p>
-        <p className="text-sm text-gray-600">
-          <strong>Collection Date:</strong> {item.data.collectionDate || "N/A"}
-        </p>
-      </div>
-    ))}
-  </div>
-</div>
-
-         
-        </Card>
+               </h2>
+               <p className="text-sm text-gray-600">
+                 <strong>Details:</strong> {item.data.itemDetails || "N/A"}
+               </p>
+               <p className="text-sm text-gray-600">
+                 <strong>Price:</strong> Ksh{item.data.price ?? "N/A"}
+               </p>
+               <p className="text-sm text-gray-600">
+                 <strong>Advance:</strong> Ksh{item.data.advancepay ?? "N/A"}
+               </p>
+               <p className="text-sm text-gray-600">
+                 <strong>Collection Date:</strong> {item.data.collectionDate || "N/A"}
+               </p>
+             </div>
+           ))}
+         </div>
+       </div>
+       
+                
+               </Card>
       </div>
     </div>
+      </>
   );
 };
 
