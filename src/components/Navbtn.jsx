@@ -2,10 +2,12 @@
 // components/InvoiceCard.tsx
 import React, {useEffect, useState} from "react";
 import useUserAuth from "@/hooks/useUserAuth";
-import { db } from "@/lib/firebasedb";
+import { db, auth } from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
 import { useRouter } from 'next/navigation';
 import { Icons } from "@/components/icons";
+import { signOut } from "firebase/auth";
+
 export const Navbtn = () => {
   const [cartopen, setcartopen] = useState(false);
 const [loadedRepairs, setloadedRepairs] = useState(null);
@@ -18,6 +20,21 @@ const [loadedRepairs, setloadedRepairs] = useState(null);
 
 
 const [dataPending, setDataPending] = useState(0);
+
+
+const handleLogout = async () => {
+  const confirmLogout = window.confirm("Are you sure you want to log out?");
+  if (!confirmLogout) return;
+
+  try {
+    await signOut(auth);
+    console.log("User logged out");
+    // Optional: Redirect or update UI
+  } catch (err) {
+    console.error("Logout failed:", err);
+    alert("Failed to log out!");
+  }
+};
 
   useEffect(() => {
     if (!username) return; // exit early if not ready
@@ -52,6 +69,60 @@ const [dataPending, setDataPending] = useState(0);
   
     return () => unsubscribe();
   }, []); // 👈 depends on technicianName
+  
+
+
+  if(user?.user?.client){
+
+
+  return (
+
+    <>
+<span style={{display:"flex", flexDirection:"row"}}>
+ <span  onClick={() => router.push('/')}>
+  { 
+  <Icons.HomeIcon
+     
+      style={{ cursor: 'pointer' }}
+      className="ml-3 h-5 w-5"
+    />}        </span>
+
+ <span  onClick={() => router.push('/Blog')}>
+  { 
+  <Icons.Rss
+     
+      style={{ cursor: 'pointer' }}
+      className="ml-3 h-5 w-5"
+    />}        </span>
+
+
+</span>
+
+
+<span>
+
+
+<Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
+        </span>
+
+
+
+
+
+
+
+
+<span  onClick={() => router.push('/Techs') } style={{marginLeft:"20px"}}> 
+
+          <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
+
+
+</span>
+</>
+)
+
+}
+  
   
 
 
@@ -123,7 +194,7 @@ const [dataPending, setDataPending] = useState(0);
 
                 <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
 
-     <p style={{marginLeft:"5px"}}>
+     <p style={{marginLeft:"5px"}} onClick={handleLogout}>
       Logout
       </p> 
       

@@ -217,7 +217,7 @@ width: "90px",
   {availability}
 </button>
 </div>
-         
+
 
         </div>
       </Card>
@@ -283,34 +283,36 @@ userd.uid === user.uid ? " " :
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         <Card className="p-4">
           <h3 className="text-lg font-semibold mb-2">Items Repaired</h3>
-          <ul className="list-disc pl-5 space-y-1">
-           
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-  {repairs.map((item) => (
+       <div className="mt-6">
+       <h3 className="text-xl font-bold mb-4"> repaired</h3>
+       <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
+         {DataPending.map((item) => (
     <div
       key={item.id}
-      className="border rounded-lg p-4 shadow hover:shadow-lg transition"
+             className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
     >
-      <h2 className="text-lg font-semibold">
-        {item.data.itemName || "Unnamed Item"} — {item.clientName}
+             <h2 className="text-base font-semibold text-gray-800 mb-1">
+           item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
       </h2>
       <p className="text-sm text-gray-600">
-        Details: {item.data.itemDetails || "N/A"}
+               <strong>Details:</strong> {item.data.itemDetails || "N/A"}
       </p>
-      <p className="text-sm">Price: ksh{item.data.price ?? "N/A"}</p>
-      <p className="text-sm">Advance: ksh{item.data.advancepay ?? "N/A"}</p>
-      <p className="text-sm">Collection Date: {item.data.collectionDate || "N/A"}</p>
+             <p className="text-sm text-gray-600">
+               <strong>Price:</strong> Ksh{item.data.price ?? "N/A"}
+             </p>
+             <p className="text-sm text-gray-600">
+               <strong>Advance:</strong> Ksh{item.data.advancepay ?? "N/A"}
+             </p>
+             <p className="text-sm text-gray-600">
+               <strong>Collection Date:</strong> {item.data.collectionDate || "N/A"}
+             </p>
     </div>
   ))}
 </div>
-
-          
-
+     </div>
 
 
-          </ul>
         </Card>
-
         <Card className="p-4">
           <h3 className="text-lg font-semibold mb-2">Items Pending Repair</h3>
   <div className="mt-6">

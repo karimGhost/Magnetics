@@ -107,7 +107,36 @@
 }
 
 
+@media screen and (max-width: 537px ) {
 
+.smalldev{
+  flex-direction: column !important;
+}
+
+.btAvailable{
+  margin-top: -80px !important;
+   margin-left: auto;
+
+}
+.btAvailableDP{
+ margin-left: auto;
+ margin-top: -120px !important;
+}
+.btAvailableusers{
+  margin-top: -80px !important;
+}
+
+.discontent{
+  display: contents !important;
+}
+
+.pBioState{
+  
+  text-overflow: clip;
+    white-space: break-spaces;
+    width: 100px;
+}
+}
 @media screen and (max-width: 462px ) {
   
 .text-2xl{

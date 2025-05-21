@@ -13,9 +13,32 @@ export default function useUserAuth() {
 const [user, setUser] = useState<User | null>(null);
   const [users, setUsers] = useState<any[]>([]);
 
+   useEffect(() => {
+    const storedClient = localStorage.getItem("clientUser");
+    if (storedClient) {
+      try {
+        const parsed = JSON.parse(storedClient);
+        setUser(parsed); // or whatever field you need
+
+       
+      } catch (e) {
+        console.error("Failed to parse clientUser from localStorage", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+ console.log("user", user)
+  }, [  user])
+  
   // Get currently logged-in user        const username = currentUser.email?.replace("@gmail.com", "") ?? null;
 
 useEffect(() => {
+    const storedClient = localStorage.getItem("clientUser");
+
+  if(storedClient){
+    return;
+  }
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
          console.log("users", currentUser)

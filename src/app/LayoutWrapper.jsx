@@ -19,20 +19,37 @@ const [loadedRepairs, setloadedRepairs] = useState(null)
   );
 
 
+const [clientName, setClientName] = useState(null);
 
-  
-  
+  // UseEffect to control the popup visibility based on user state
+useEffect(() => {
+  const storedClient = localStorage.getItem("clientUser");
+  if (storedClient) {
+    try {
+      const parsed = JSON.parse(storedClient);
+      setClientName(parsed); // This should be an object now
+    } catch (err) {
+      console.error("Invalid JSON in clientUser:", err);
+    }
+  }
+}, []);
+
+
   return (
     <>
-      {!user && <LoginPopup user={username} />}  {/* Show LoginPopup if user is null */}
+      {/* Show LoginPopup if user is null */}
+{ (!user?.user && !clientName?.username) && (
+    <LoginPopup user={username} />
+) }
 
- <div style={{position:"absolute", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
+ <div className="topbottom" style={{position:"fixed", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
       
     <Navbtn />
 
     
     
-    </div>      {childrenWithProps}
+    </div>   
+       {childrenWithProps}
     </>
   );
 }

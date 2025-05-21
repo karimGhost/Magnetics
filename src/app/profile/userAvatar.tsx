@@ -5,10 +5,11 @@ import { updateDoc, doc , getDoc} from "firebase/firestore";
 import { dbb } from "@/lib/firebasedb"; // adjust path as needed
 import React from 'react';
 import useUserAuth from '@/hooks/useUserAuth';
-const UserAvatar = ({ username, editMode }: {  username: string; editMode: boolean }) => {
+const UserAvatar = ({user, username, editMode }: {user:any;  username: string; editMode: boolean }) => {
+
   const [localUser, setLocalUser] = useState();
     const fileInputRef = useRef<HTMLInputElement>();
-const {user, users} =useUserAuth();
+const { users} =useUserAuth();
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;

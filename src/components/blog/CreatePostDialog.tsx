@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -104,8 +104,12 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ isOpen, onOpenChang
 };
 
 
-const userdp =  users.find(i => i.uid === user.uid)?.dp ;
-const username = users.find(i => i.uid === user.uid)?.username;
+ useEffect(() => {
+console.log("usesr", user)
+  }, [user])
+
+const userdp = user?.client? "" : users?.find(i => i.uid === user.uid)?.dp ;
+const username = user?.client ? "" :  users?.find(i => i.uid === user.uid)?.username;
 
   const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
 
