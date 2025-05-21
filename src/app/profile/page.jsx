@@ -8,13 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 import useUserAuth from "@/hooks/useUserAuth";
-import { db } from "@/lib/firebasedb";
+import { db , dbb} from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
 import { Icons } from "@/components/icons"; 
 import { useRouter } from 'next/navigation';
 import { Navbtn } from "@/components/Navbtn";
 import { doc, updateDoc } from "firebase/firestore";
-import { dbb } from "@/lib/firebasedb";
 import Link from 'next/link';
 import UserAvatar from "./userAvatar";
 const ProfilePage = () => {
@@ -22,10 +21,13 @@ const ProfilePage = () => {
   const router = useRouter();
 const [openSetup, setOpenSetup] = useState(false);
 
+const [bio, setBio] = useState("");
+const [skills, setSkills] = useState("");
+const [newUsername, setNewUsername] = useState(username); // optional
+
     const {user, users} = useUserAuth();
 
  const username  =  user?.email?.replace("@gmail.com", "") ?? null;
-const [newUsername, setNewUsername] = useState(username);
 
   const [repairs, setRepairs] = useState([]);
 
@@ -53,33 +55,31 @@ const toggleAvailability = async () => {
 };
 
 
-const handleEditToggle = async () => {
+// const handleEditToggle = async () => { R
 
  
-  if (editMode) {
- if(newUsername === null){
-  alert(`${username } ..you cannot save blank refresh or edit name`)
-    return;
-  }
-    try {
-      const userDocRef = doc(dbb, "users", user.uid);
-      await updateDoc(userDocRef, { username: newUsername });
-      console.log("Username updated!");
+//   if (editMode) {
+//  if(newUsername === null){
+//   alert(`${username } ..you cannot save blank refresh or edit name`)
+//     return;
+//   }
+//     try {
+//       const userDocRef = doc(dbb, "users", user.uid);
+//       await updateDoc(userDocRef, { username: newUsername });
+//       console.log("Username updated!");
 
-      // Optional: update UI or fetch fresh data
-    } catch (error) {
-      console.error("Failed to update username:", error);
-    }
-  }
-  setEditMode(!editMode);
-};
-
-
+//       // Optional: update UI or fetch fresh data
+//     } catch (error) {
+//       console.error("Failed to update username:", error);
+//     }
+//   }
+//   setEditMode(!editMode);
+// };
 
 
-useEffect(() => {
-console.log("usernames", username)
-}, [user])
+
+
+
 
 useEffect(() => {
   if (!username) return; // exit early if not ready
@@ -116,23 +116,32 @@ useEffect(() => {
 
 
 useEffect(() => {
-  const fetchAvailability = async () => {
-    try {
-      const userDocRef = doc(dbb, "users", user.uid);
-      const userSnap = await getDoc(userDocRef);
-      if (userSnap.exists()) {
-        const data = userSnap.data();
-        if (data.availability) {
-          setAvailability(data.availability);
+  const fetchUserInfo = async () => {
+    const docRef = doc(dbb, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setBio(data.bio || "");
+      setSkills(data.skills || "");
         }
-      }
-    } catch (err) {
-      console.error("Failed to fetch availability:", err);
-    }
   };
 
-  fetchAvailability();
-}, [user?.uid]);
+  fetchUserInfo();
+}, []);
+
+
+const handleEditToggle = async () => {
+  if (editMode) {
+    const userDocRef = doc(dbb, "users", user.uid);
+    await updateDoc(userDocRef, {
+      bio,
+      skills,
+      username: newUsername,
+    });
+  }
+
+  setEditMode(prev => !prev);
+};
 
 
 
@@ -179,28 +188,86 @@ useEffect(() => {
 
 
 
+    
+
+
+
+
       <Card className="p-6 shadow-md rounded-2xl">
         <div className="flex items-center gap-4">
+ 
+
+          <div className="flex-1">
+
+            <div className="flex smalldev" >
        
               <UserAvatar user={user} username={username} editMode={editMode} />
  
          
-        <div className="flex-1">
+  <div style={{marginTop:"15px", marginLeft:"10px"}}>
+           
             {editMode ? (
-              <Input defaultValue={username}
+        <Input
                     value={newUsername}
       onChange={(e) => setNewUsername(e.target.value)}
-
-              className="text-xl font-bold" />
+          className="text-xl font-bold"
+        />
             ) : (
-              <h2 className="text-xl font-bold">   {users.find(i => i.uid === user.uid)?.username || "Unknown User"}
+        <h2 className="text-xl font-bold">
+          {users.find(i => i.uid === user.uid)?.username || "Unknown User"}
 </h2>
             )}
             <p className="text-gray-500">@{username}</p>
+
+            </div>    
+            </div>
+           
+         
+          <div className="flex column smalldev" style={{flexDirection:"row ", justifyContent:"space-evenly", marginTop:"40px"}}>
+           
+             
+           
+      
+            {/* BIO */}
+            <div className="mt-3" >
+
+              <label className="font-semibold text-sm">Bio:</label>
+              {editMode ? (
+          <Textarea
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            placeholder="Write something about yourself..."
+          />
+        ) : (
+          <p className="text-gray-700">{bio || "No bio available."}</p>
+        )}
+              
+            </div>
+      
+            {/* SKILLS */}
+            <div className="mt-2 ">
+              <label className="font-semibold text-sm">Skills:</label>
+            
+  {editMode ? (
+          <Input
+            value={skills}
+            onChange={(e) => setSkills(e.target.value)}
+            placeholder="e.g., React, Node.js"
+          />
+        ) : (
+          <p className="text-gray-700">{skills || "No skills listed."}</p>
+        )}              
+            </div>
           </div>
 
-<div style={{display:"flex", flexDirection:"column"}}>
-   <Button style={{marginBottom:"5px"}} onClick={()  => handleEditToggle()}>{editMode ? "Save" : "Edit Profile"}</Button>
+          </div>
+
+      
+          {/* Buttons */}
+          <div className="flex flex-col items-end gap-2">
+      <Button onClick={handleEditToggle}>
+        {editMode ? "Save" : "Edit Profile"}
+      </Button>
          
 <button
   onClick={toggleAvailability}
@@ -210,15 +277,14 @@ width: "90px",
     fontSize: "15px",
     padding: "10px"
 }}
-  className={`px-4 py-2 rounded-full text-white ${
-    availability === "Available" ? "bg-green-500" : "bg-yellow-500"
+        className={`px-4 py-2 rounded-full text-white btAvailable ${
+          users.find(i => i.uid === user.uid)?.availability === "Available" ? "bg-green-500" : "bg-yellow-500"
   }`}
 >
-  {availability}
+        {users.find(i => i.uid === user.uid)?.availability}
+
 </button>
 </div>
-
-
         </div>
       </Card>
 
@@ -318,13 +384,13 @@ userd.uid === user.uid ? " " :
   <div className="mt-6">
   <h3 className="text-xl font-bold mb-4">Pending Repairs</h3>
   <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
-    {DataPending.map((item) => (
+           {repairs.map((item) => (
       <div
         key={item.id}
         className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
       >
         <h2 className="text-base font-semibold text-gray-800 mb-1">
-          {item.data.itemName || "Unnamed Item"} — {item.clientName}
+             item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
         </h2>
         <p className="text-sm text-gray-600">
           <strong>Details:</strong> {item.data.itemDetails || "N/A"}
