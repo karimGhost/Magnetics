@@ -56,7 +56,7 @@ export function TechnicianDisplaySection() {
           </div>
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-primary">Meet Our Skilled Technicians</h2>
           <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Our team of certified and experienced technicians is the backbone of FixTech HQ. Get to know the experts who will handle your devices with utmost care and precision.
+            Our team of certified and experienced technicians is the backbone of Magnetics. Get to know the experts who will handle your devices with utmost care and precision.
           </p>
         </div>
         <div className="mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

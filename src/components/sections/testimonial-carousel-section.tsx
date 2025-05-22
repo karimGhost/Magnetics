@@ -41,7 +41,7 @@ const testimonialsData: Testimonial[] = [
   },
   {
     id: 3,
-    quote: "The team at Magnetics HQ is incredibly knowledgeable. They diagnosed and resolved a complex software issue on my PC efficiently.",
+    quote: "The team at Magnetics  is incredibly knowledgeable. They diagnosed and resolved a complex software issue on my PC efficiently.",
     author: "Mary muthoni",
     role: "Software Engineer",
     avatarSrc: "https://placehold.co/100x100.png",

@@ -68,7 +68,7 @@ const router = useRouter();
     } catch (error) {
       console.error("Login error:", error);
       //alert("Invalid email or password!");
-      alert("invalid credential")
+     // alert("invalid credential")
           router.refresh(); // For App Router
 
     }
