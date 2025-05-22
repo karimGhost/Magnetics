@@ -208,29 +208,7 @@ useEffect(() => {
     
   
 
-   <header className="mb-8 text-center" style={{position:"fixed" ,left:"0", right:"0", top:"0", zIndex:"99" , background:"white"}}>
-
-<div style={{position:"absolute", top:"0", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
-  
-
-</div>
-
-
-
-
-        <h1  className="magneticH1 text-4xl font-bold text-primary flex items-center justify-center">
-          <Icons.Wrench className="magneticicon mr-3 h-10 w-10 wrench" />
-          Magnetics Repair 
-        </h1>
- <p className="text-muted-foreground createPost">
-   
-         .
-        </p>      
-      {/* <input /> */}
-
-      </header>
-
-    <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
+    <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"120px"}}>
 
 
     
@@ -243,102 +221,77 @@ useEffect(() => {
 
 
 
-  <Card className="p-6 shadow-md rounded-2xl">
-        <div className="flex items-center gap-4 ">
- 
-
-          <div className="flex-1">
-
-            <div className="flex smalldev" >
-
-                <UserAvatar user={user} username={username} editMode={editMode} />
-
-
-  <div style={{marginTop:"15px", marginLeft:"10px"}}>
-           
- {editMode ? (
-        <Input
-          value={newUsername}
-          onChange={(e) => setNewUsername(e.target.value)}
-          className="text-xl font-bold"
-        />
-      ) : (
-        <h2 className="text-xl font-bold">
-          {users.find(i => i.uid === user?.uid)?.username || "Unknown User"}
-
-         
-        </h2>
-      )}
-                          <p className="text-gray-500">@{username}</p>
-
-            </div>    
-            </div>
-           
-         
-          <div className="flex column smalldev" style={{flexDirection:"row ", justifyContent:"space-evenly", marginTop:"40px"}}>
-           
-             
-           
-      
-            {/* BIO */}
-            <div className="mt-3" >
-
-              <label className="font-semibold text-sm">Bio:</label>
-              {editMode ? (
-          <Textarea
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            placeholder="Write something about yourself..."
-          />
-        ) : (
-          <p className="text-gray-700">{bio || "No bio available."}</p>
-        )}
-              
-            </div>
-      
-            {/* SKILLS */}
-            <div className="mt-2 ">
-              <label className="font-semibold text-sm">Skills:</label>
-            
-  {editMode ? (
+  <Card className="p-6 shadow-md rounded-2xl w-full max-w-4xl mx-auto">
+  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    {/* Left Section - Avatar and Name */}
+    <div className="flex items-start gap-4 w-full md:w-auto">
+      <UserAvatar user={user} username={username} editMode={editMode} />
+      <div className="mt-1">
+        {editMode ? (
           <Input
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-            placeholder="e.g., crafting, problem soving"
+            value={newUsername}
+            onChange={(e) => setNewUsername(e.target.value)}
+            className="text-xl font-bold"
           />
         ) : (
-          <p className="text-gray-700">{skills || "No skills listed."}</p>
-        )}              
-            </div>
-          </div>
+          <h2 className="text-xl font-bold">
+            {users.find((i) => i.uid === user.uid)?.username || "Unknown User"}
+          </h2>
+        )}
+        <p className="text-gray-500">@{username}</p>
+      </div>
+    </div>
 
-          </div>
-        
-      
-          {/* Buttons */}
-          <div className="flex flex-col items-end gap-2 btTwo">
-      <Button onClick={handleEditToggle}>
+    {/* Right Section - Buttons */}
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 self-start md:self-center">
+      <Button onClick={handleEditToggle} className="w-full sm:w-auto">
         {editMode ? "Save" : "Edit Profile"}
       </Button>
-
       <button
         onClick={toggleAvailability}
-        style={{
-          width: "90px",
-          height: "40px",
-          fontSize: "15px",
-          padding: "10px"
-        }}
-        className={`px-4 py-2 rounded-full text-white btAvailable btAvailables ${
-          users.find(i => i.uid === user?.uid)?.availability === "Available" ? "bg-green-500" : "bg-yellow-500"
+        className={`px-4 py-2 rounded-full text-white w-full sm:w-auto ${
+          users.find((i) => i.uid === user.uid)?.availability === "Available"
+            ? "bg-green-500"
+            : "bg-yellow-500"
         }`}
       >
-        {users.find(i => i.uid === user?.uid)?.availability}
-
+        {users.find((i) => i.uid === user.uid)?.availability}
       </button>
     </div>
-        </div>
-      </Card>
+  </div>
+
+  {/* Bio and Skills Section */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+    {/* Bio */}
+    <div>
+      <label className="font-semibold text-sm block mb-1">Bio:</label>
+      {editMode ? (
+        <Textarea
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+          placeholder="Write something about yourself..."
+        />
+      ) : (
+        <p className="text-gray-700">{bio || "No bio available."}</p>
+      )}
+    </div>
+
+    {/* Skills */}
+    <div>
+      <label className="font-semibold text-sm block mb-1">Skills:</label>
+      {editMode ? (
+        <Input
+          value={skills}
+          onChange={(e) => setSkills(e.target.value)}
+          placeholder="e.g., React, Node.js"
+        />
+      ) : (
+        <p className="text-gray-700">{skills || "No skills listed."}</p>
+      )}
+    </div>
+  </div>
+</Card>
+
 
       <Tabs defaultValue="followers" className="mt-6">
         <TabsList className="grid grid-cols-2 w-64">

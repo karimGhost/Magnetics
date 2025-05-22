@@ -131,7 +131,7 @@ useEffect(() => {
   const handleEditToggle = () => setEditMode(!editMode);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"50px"}}>
+    <div className="p-4 max-w-4xl mx-auto " style={{marginTop:"120px"}}>
 
 
     
@@ -140,86 +140,62 @@ useEffect(() => {
 
      
 
-          
+          <Card className="p-6 shadow-md rounded-2xl w-full max-w-4xl mx-auto">
+  <div className="flex flex-col gap-6">
+    {/* Top section: Avatar, Name, Status */}
+    <div className="flex items-center gap-4 flex-wrap">
+      <Avatar className="w-20 h-20">
+        <AvatarImage
+          src={users.find((u) => u.id === id)?.dp}
+          alt="User"
+        />
+        <AvatarFallback>
+          {users.find((u) => u.id === id)?.username?.slice(0, 1).toUpperCase()}
+        </AvatarFallback>
+      </Avatar>
 
-
-       <Card className="p-6 shadow-md rounded-2xl">
-        <div className="flex items-center gap-4">
- 
-
-          <div className="flex-1 discontent " >
-
-<div className="smalldev">
-
-    <div className="flex smalldev" >
-<div className="flex row">
-
-
-                <Avatar className="w-20 h-20">
-            <AvatarImage src={users.find(u => u.id === id)?.dp} alt="User" />
-            <AvatarFallback>{users.find(u => u.id === id)?.username?.slice(0, 1).toUpperCase()}</AvatarFallback>
-          </Avatar>  
-
-  <div style={{marginTop:"15px", marginLeft:"10px"}}>
-       
-
-      <div style={{display:"flex"}}>
-        
-              <h2 className="text-xl font-bold">
-                {users.find(i => i.uid === id)?.username || "Unknown User"}
-              </h2>
-                  <i   className={`ml-2 ${
-                                users.find(i => i.uid === id)?.availability === "Available" ? "text-green-500" : "text-yellow-500"
-
-              }`}
-            >
-            is  {users.find(i => i.uid === id)?.availability}
-      </i>
-        </div>       
-
-                          <p className="text-gray-500">@{username}</p>
- 
-            </div> 
-
-</div>
-
-
-
-            </div>
-           
-         
-          <div className="flex column smalldev" style={{flexDirection:"row ", justifyContent:"space-evenly", marginTop:"40px"}}>
-           
-             
-            
-      
-            {/* BIO */}
-            <div className="mt-3" >
-
-              <label className="font-semibold text-sm">Bio:</label>
-             
-                <p className="text-gray-700 pBioState">{ users.find(u => u.id === id)?.bio || "No bio available."}</p>
-              
-            </div>
-      
-            {/* SKILLS */}
-            <div className="mt-2 ">
-              <label className="font-semibold text-sm">Skills:</label>
-            
-                <p className="text-gray-700 pBioState">{users.find(u => u.id === id)?.skills || "No skills listed."}</p>
-              
-            </div>
-          </div>
-
-          </div>
-</div>
-          
-        
-      
-          {/* Buttons */}
-        
+      <div className="flex flex-col">
+        <div className="flex items-center gap-2">
+          <h2 className="text-xl font-bold">
+            {users.find((i) => i.uid === id)?.username || "Unknown User"}
+          </h2>
+          <span
+            className={`text-sm font-medium ${
+              users.find((i) => i.uid === id)?.availability === "Available"
+                ? "text-green-500"
+                : "text-yellow-500"
+            }`}
+          >
+            is {users.find((i) => i.uid === id)?.availability}
+          </span>
         </div>
-      </Card>
+        <p className="text-gray-500">@{username}</p>
+      </div>
+    </div>
+
+    {/* Bio & Skills section */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Bio */}
+      <div>
+        <label className="font-semibold text-sm block mb-1">Bio:</label>
+        <p className="text-gray-700">
+          {users.find((u) => u.id === id)?.bio || "No bio available."}
+        </p>
+      </div>
+
+      {/* Skills */}
+      <div>
+        <label className="font-semibold text-sm block mb-1">Skills:</label>
+        <p className="text-gray-700">
+          {users.find((u) => u.id === id)?.skills || "No skills listed."}
+        </p>
+      </div>
+    </div>
+  </div>
+</Card>
+
+
+
       
 
       <Tabs defaultValue="followers" className="mt-6">

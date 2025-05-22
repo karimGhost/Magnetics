@@ -122,7 +122,7 @@ console.log("viewp", viewP)
   return (
 
 <>
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6 cartTop" >
 
 
 
@@ -132,7 +132,7 @@ console.log("viewp", viewP)
 <div className="pendingSm btTop" style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
     <Button onClick={() => {setPending(true), setComplete(false)}} style={{marginRight:"9px"}} className="text-2xl font-bold mb-4 p-1">Pending Repairs {repairs.length }</Button>
 
-      <Button onClick={() => {setPending(false), setComplete(true)}} className="text-2xl font-bold mb-4 p-1" style={{background:"black"}}>completed Repairs {DataPending.length }</Button>
+      <Button onClick={() => {setPending(false), setComplete(true)}} className="text-2xl font-bold mb-4 p-1" style={{background:"black", color:"white"}}>completed Repairs {DataPending.length }</Button>
 
 
 

@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 207 99% 58%; /* #2E9AFE Blue */
+    --primary: 120 99% 58%; /* green
     --primary-foreground: 0 0% 100%; /* White for text on primary */
 
     --secondary: 0 0% 90%; /* Slightly darker gray for secondary elements */
@@ -48,7 +48,14 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+
+
+
   }
+
+
+
 
   .dark {
     --background: 240 10% 3.9%;
@@ -106,6 +113,10 @@
   }
 }
 
+
+.cartTop{
+  margin-top: 50px ;
+}
 
 @media screen and (max-width: 537px ) {
 
@@ -189,7 +200,14 @@ width: 1.5rem;
 
 }
 
+@media screen and (min-width: 821px ) {
+.cartTop{
+  margin-top: 130px ;
+}
 
+}
+
+  
 @media screen and (max-width: 869px ) {
 .magneticH1{
 font-size: 1.25rem;
@@ -265,4 +283,11 @@ margin-right: -1px !important;
 right: 0;
 }
 
+}
+
+@media screen and (max-width: 669px ) {
+
+.mttp{
+margin-top: -11px;
+}
 }

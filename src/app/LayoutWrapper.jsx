@@ -43,13 +43,16 @@ useEffect(() => {
 ) }
 
  <div className="topbottom" style={{position:"fixed", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
-      
+      <main className="pt-[140px]">
+
     <Navbtn />
 
-    
+    </main>
     
     </div>   
        {childrenWithProps}
     </>
   );
 }
+
+

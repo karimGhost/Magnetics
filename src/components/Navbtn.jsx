@@ -27,6 +27,8 @@ const handleLogout = async () => {
 if(storedClient){
   localStorage.removeItem("clientUser");
       router.refresh(); // For App Router
+location.reload();
+
 
   return;
 }
@@ -39,6 +41,9 @@ if(storedClient){
     console.log("User logged out");
     // Optional: Redirect or update UI
         router.refresh(); // For App Router
+        location.reload();
+
+
 
   } catch (err) {
     console.error("Logout failed:", err);
@@ -87,65 +92,69 @@ if(storedClient){
 
   return (
 
-    <>
-<span style={{display:"flex", flexDirection:"row"}}>
- <span  onClick={() => router.push('/')}>
-  { 
-  <Icons.HomeIcon
-     
-      style={{ cursor: 'pointer' }}
-      className="ml-3 h-5 w-5"
-    />}        </span>
 
- <span  onClick={() => router.push('/Blog')}>
-  { 
-  <Icons.Rss
-     
-      style={{ cursor: 'pointer' }}
-      className="ml-3 h-5 w-5"
-    />}        </span>
+ 
+  <>
+  {/* Header */}
+  <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+      <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3">
+        <div className="flex items-center justify-center space-x-3">
+          <Icons.Wrench className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
+            Magnetics Repair
+          </h1>
+        </div>
+        <p className="text-sm sm:text-base text-muted-foreground">
+          Manage repair receipts and client communication.
+        </p>
+      </div>
+    </div>
+  </header>
 
+  {/* Icon Nav Bar Below Header */}
+  <div className="fixed top-[90px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[100px]">
+    {/* Home */}
+    <Icons.HomeIcon
+      onClick={() => router.push('/')}
+      className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
+    />
 
-</span>
+    {/* Blog */}
+    <Icons.Rss
+      onClick={() => router.push('/Blog')}
+      className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
+    />
 
+    {/* Notifications */}
+    <Icons.BellIcon
+      className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
+    />
 
-<span>
-
-
-<Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
-        </span>
-
-
-
-
-
-
-
-
-<span  onClick={ () => setOpenSetup(pre => !pre)} style={{marginLeft:"20px"}}> 
-
-          <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
-
-{ openSetup &&
-<span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
-  <ul  style={{background:"white", height:"fit-content", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
   
+   
 
-    <li style={{display:"flex", flexDirection:"row",  cursor:"pointer"}}>
+    {/* User Settings Dropdown */}
+    <div className="relative">
+      <Icons.UserCog
+        onClick={() => setOpenSetup((prev) => !prev)}
+        className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-blue-500 cursor-pointer transition"
+      />
 
-                <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-
-     <p style={{marginLeft:"5px"}} onClick={handleLogout}>
-      Logout
-      </p> 
-      
-      </li>
-  </ul>
-</span>
-
-}
-
-</span>
+      {openSetup && (
+        <div className="absolute right-0 mt-2 w-32 bg-white border shadow-md rounded-md z-50 py-2">
+       
+          <div
+            onClick={handleLogout}
+            className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+          >
+            <Icons.LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
 </>
 )
 
@@ -156,85 +165,82 @@ if(storedClient){
 
   return (
 
-    <>
-<span style={{display:"flex", flexDirection:"row"}}>
+  <>
+  {/* Header */}
+  <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-4">
+      <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3">
+        <div className="flex items-center justify-center space-x-3">
+          <Icons.Wrench className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
+            Magnetics Repair
+          </h1>
+        </div>
+        <p className="text-sm sm:text-base text-muted-foreground">
+          Manage repair receipts and client communication.
+        </p>
+      </div>
+    </div>
+  </header>
 
- <span  onClick={() => router.push('/')}>
-  { 
-  <Icons.HomeIcon
-     
-      style={{ cursor: 'pointer' }}
-      className="ml-3 h-5 w-5"
-    />}        </span>
+  {/* Icon Nav Bar Below Header */}
+  <div className="fixed top-[75px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[90px]">
+    {/* Home */}
+    <Icons.HomeIcon
+      onClick={() => router.push('/')}
+      className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
+    />
 
+    {/* Blog */}
+    <Icons.Rss
+      onClick={() => router.push('/Blog')}
+      className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
+    />
 
+    {/* Notifications */}
+    <Icons.BellIcon
+      className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
+    />
 
-
-
- <span  onClick={() => router.push('/Blog')}>
-  { 
-  <Icons.Rss
-     
-      style={{ cursor: 'pointer' }}
-      className="ml-3 h-5 w-5"
-    />}        </span>
-
- 
-
-  <span>
-
-
-<Icons.BellIcon style={{cursor:"pointer"}}  className="ml-3 h-5 w-5" />
+    {/* Cart */}
+    <div onClick={() => router.push('/cart')} className="relative cursor-pointer">
+      <Icons.Wrench className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary transition" />
+      {loadedRepairs?.length > 0 && (
+        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-semibold rounded-full px-1.5 min-w-[16px] h-[16px] flex items-center justify-center">
+          {loadedRepairs?.length > 9 ? '9+' : loadedRepairs?.length}
         </span>
+      )}
+    </div>
 
+    {/* User Settings Dropdown */}
+    <div className="relative">
+      <Icons.UserCog
+        onClick={() => setOpenSetup((prev) => !prev)}
+        className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-blue-500 cursor-pointer transition"
+      />
 
-<span onClick={() => router.push('/cart')} className="relative inline-block">
-  <Icons.Wrench style={{ cursor: "pointer" }} className="ml-2 h-5 w-5" />
-
-  { loadedRepairs?.length >= 0 && (
-    <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] leading-none font-semibold rounded-full px-1.5 min-w-[16px] h-[16px] flex items-center justify-center">
- {loadedRepairs?.length > 9 ? "9+" : loadedRepairs?.length} 
-    </span>
-  )}
-</span>
-
-
-
-</span>
-
-<span  onClick={ () => setOpenSetup(pre => !pre)} style={{marginLeft:"20px"}}> 
-
-          <Icons.UserCog style={{cursor:"pointer", marginTop:"-7px", color:"hsl(206.89deg 99.07% 58.04%)"}}  className="ml-2 mb-3 h-7 w-7" />
-
-{ openSetup &&
-<span style={{zIndex:"99", position:"absolute", top:"50px", right:"20px"}}>
-  <ul style={{background:"white", height:"100px", width:"100px", marginTop:"5px", paddingTop:"20px" }}>
-    <li onClick={() => router.push('/profile')}   style={{display:"flex", flexDirection:"row", marginBottom:"10px", cursor:"pointer"}}>
-                <Icons.UserCog style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-
-      <p style={{marginLeft:"5px"}}>
-        profile
-        </p> 
-       
-       </li>
-
-    <li style={{display:"flex", flexDirection:"row",  cursor:"pointer"}}>
-
-                <Icons.LogOut style={{cursor:"pointer", }}  className="ml-2  h-5 w-5" />
-
-     <p style={{marginLeft:"5px"}} onClick={handleLogout}>
-      Logout
-      </p> 
-      
-      </li>
-  </ul>
-</span>
-
-}
-
-</span>
-
+      {openSetup && (
+        <div className="absolute right-0 mt-2 w-32 bg-white border shadow-md rounded-md z-50 py-2">
+          <div
+            onClick={() => router.push('/profile')}
+            className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+          >
+            <Icons.User className="h-4 w-4 mr-2" />
+            Profile
+          </div>
+          <div
+            onClick={handleLogout}
+            className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+          >
+            <Icons.LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
 </>
+
 
   )
 }
