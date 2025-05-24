@@ -17,6 +17,9 @@ const router = useRouter();
     const [isClient, setIsClient] = useState(true);
   const [clientName, setClientName] = useState();
 
+
+
+  
   // UseEffect to control the popup visibility based on user state setClientNames
  useEffect(() => {
   const storedClient = localStorage.getItem("clientUser");
@@ -90,7 +93,7 @@ location.reload();
         </button>
 
         <div className="mb-4 text-center">
-          <Bell size={32} className="mx-auto text-blue-600" />
+          <Bell size={32} className="mx-auto text-primary-600" />
           <h2 className="text-xl font-bold mt-2">
             {isClient ? "Welcome Client" : "Welcome Techie"}
           </h2>
@@ -103,17 +106,20 @@ location.reload();
           <button
             onClick={() => setIsClient(true)}
             className={`px-4 py-1 rounded-full text-sm ${
-              isClient ? "bg-blue-600 text-white" : "bg-gray-200"
+              isClient ? " bg-primary-600 text-white" : "bg-gray-200"
             }`}
-          >
+
+style={{background: isClient ? "#2ab455 " : "gray"}}
+        >
             Client Login
           </button>
 
              <button
             onClick={() => setIsClient(false)}
-            className={`px-4 py-1 rounded-full text-sm ${
-              !isClient ? "bg-blue-600 text-white" : "bg-gray-200"
-            }`}
+            className={`px-4 py-1 rounded-full text-sm `}
+
+
+            style={{color:"white", background: isClient ? "#2ab455 " : "gray" , }}
           >
             Tech Login
           </button>
@@ -129,7 +135,7 @@ location.reload();
                 placeholder="Your Name"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
@@ -142,7 +148,7 @@ location.reload();
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -153,7 +159,7 @@ location.reload();
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
               </div>
@@ -162,7 +168,7 @@ location.reload();
 
           <button
             type="submit"
-            className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
           >
             Login
           </button>

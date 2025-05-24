@@ -15,9 +15,9 @@ import {
   LogOut,
   HomeIcon,
  Mail ,
-Rss
+Rss,
+LogIn
 } from 'lucide-react';
-
 export const Icons = {
   DollarSign: (props) => <DollarSign {...props} />,
   User: (props) => <User {...props} />,
@@ -33,6 +33,7 @@ export const Icons = {
   ShoppingCart: (props) => <ShoppingCart  {...props}/>,
   UserCog: (props) => <UserCog  {...props}/>,
   LogOut: (props) => <LogOut {...props} />,
+LogIn: (props) => <LogIn {...props} />,
   HomeIcon: (props) => <HomeIcon {...props} />,
   Mail: (props) => <Mail {...props} />,
    Rss: (props) => <Rss {...props} />

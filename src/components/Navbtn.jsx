@@ -48,7 +48,7 @@ const handleLogout = async () => {
 if(storedClient){
   localStorage.removeItem("clientUser");
       router.refresh(); // For App Router
-location.reload();
+router.push('/')
 
 
 
@@ -134,7 +134,7 @@ location.reload();
       <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3">
         <div className="flex items-center justify-center space-x-3">
           <Icons.Wrench className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary" >
             Magnetics Repair
           </h1>
         </div>
@@ -190,7 +190,8 @@ location.reload();
             onClick={ !user.email && activeUSer ? handleLogout :  handleLoginn   }
             className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
           >
-            <Icons.LogOut className="h-4 w-4 mr-2" />
+
+        {!user.email && activeUSer ? <Icons.LogOut className="h-4 w-4 mr-2" />  :    <Icons.LogIn className="h-4 w-4 mr-2"/>       }
           {!user.email && activeUSer  ?   "Logout"  :  "Login"     }
 
           </div>
