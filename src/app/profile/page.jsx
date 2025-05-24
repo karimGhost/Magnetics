@@ -15,7 +15,7 @@ import { Navbtn } from "@/components/Navbtn";
 import { doc, updateDoc } from "firebase/firestore";
 import Link from 'next/link';
 import UserAvatar from "./userAvatar";
-
+import { getDoc } from "firebase/firestore";
 const ProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const router = useRouter();
@@ -31,7 +31,9 @@ const [newUsername, setNewUsername]=  useState(username); // optional
 
 
 useEffect(() =>{
-console.log("loll", username)
+
+  const lll = user?.uid;
+console.log("loll", lll)
 
 
 }, [username])
@@ -143,18 +145,30 @@ useEffect(() => {
 //   fetchAvailability();
 // }, [user?.uid]);
 useEffect(() => {
+      const lll = user?.uid;
+if(!lll){
+  return;
+}
+
   const fetchUserInfo = async () => {
-    const docRef = doc(dbb, "users", user?.uid);
+      const lll = user?.uid;
+                console.log("dbd", lll)
+
+    const docRef = doc(dbb, "users", lll);
+
     const docSnap = await getDoc(docRef);
+console.log("dbd", docSnap)
     if (docSnap.exists()) {
       const data = docSnap.data();
+
       setBio(data.bio || "");
       setSkills(data.skills || "");
+      setNewUsername(data.username)
     }
   };
 
   fetchUserInfo();
-}, []);
+}, [user]);
 
 
 const handleEditToggle = async () => {
@@ -240,11 +254,13 @@ useEffect(() => {
             onChange={(e) => setNewUsername(e.target.value)}
             className="text-xl font-bold"
           />
-        ) : (
+        ) :
+         (
           <h2 className="text-xl font-bold">
             {users.find((i) => i.uid === user.uid)?.username || "Unknown User"}
           </h2>
         )}
+
         <p className="text-gray-500">@{username}</p>
       </div>
     </div>

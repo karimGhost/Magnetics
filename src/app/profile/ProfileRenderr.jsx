@@ -137,6 +137,7 @@ useEffect(() => {
   const fetchUserInfo = async () => {
     const docRef = doc(dbb, "users", user.uid);
     const docSnap = await getDoc(docRef);
+    console.log("dbb", user)
     if (docSnap.exists()) {
       const data = docSnap.data();
       setBio(data.bio || "");
