@@ -63,7 +63,7 @@ image:"/Image/5.png",
     imageSrc: "/Image/6.png",
     imageHint: "Home Appliancess",
     id: 5,
-    descrip: "We specialize in repairing refrigerators, washing machines, ovens, dryers, microwaves, and more — fast, affordable, and reliable.",
+ descrip :"🛠️ Home Appliance Repairs at Magnetics Repair\n\nWe specialize in repairing all major home appliances — fast, affordable, and reliable. Whether it’s your refrigerator, washing machine, or microwave, we get it working like new again.\n\n🧊 1. Refrigerator Repairs\nFrom cooling issues to compressor or defrost problems, we service all brands quickly to keep your food fresh and safe.\n\n🧺 2. Washing Machines & Dryers\nWe handle everything from drum issues and water leaks to electrical faults. Whether it's top-load, front-load, or dryer combos — we've got you covered.\n\n🔥 3. Oven & Microwave Repairs\nIf your oven won’t heat or the microwave isn’t working, we fix heating elements, control panels, and more — restoring full kitchen function.\n\n🔧 4. Other Appliances\nDishwashers, freezers, cooktops, and more — we provide expert repair for a wide range of appliances to keep your home running smoothly.\n\n✅ Certified Technicians & Genuine Parts\nOur experienced team uses high-quality tools and manufacturer-approved parts for every job.\n\n🚀 Fast Turnaround + Warranty\nMost repairs are completed same-day or next-day, and all work is backed by a service warranty.\n\n🛡️ Why Choose Magnetics Repair?\n✔ Prompt & professional service\n✔ Upfront pricing\n✔ Skilled, certified technicians\n✔ Trusted for home comfort & safety",
      name: "Home Appliancess",
 image:"/Image/6.png",
   },
@@ -74,7 +74,7 @@ export function ServicesHighlightSection() {
     const [selected, setSelected] = useState(null);
 
   return (
-    <section  id="services" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
+    <section  id="services" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50" >
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary font-medium">
