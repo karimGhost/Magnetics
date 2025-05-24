@@ -9,6 +9,10 @@ export default {
   ],
   theme: {
   	extend: {
+
+	
+
+	
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -61,16 +65,26 @@ export default {
   				ring: 'hsl(var(--sidebar-ring))'
   			}
   		},
+		  animation: {
+        fadeInUp: 'fadeInUp 0.2s ease forwards',
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		keyframes: {
+
+ fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+
   			'accordion-down': {
   				from: {
   					height: '0'
   				},
+
   				to: {
   					height: 'var(--radix-accordion-content-height)'
   				}
@@ -84,10 +98,7 @@ export default {
   				}
   			}
   		},
-  		animation: {
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  	
   	}
   },
   plugins: [require("tailwindcss-animate")],

@@ -7,13 +7,13 @@
     --background: 0 0% 96.1%; /* #F5F5F5 Light Gray */
     --foreground: 240 10% 3.9%; /* Dark Gray for text */
 
-    --card: 0 0% 100%; /* White for card backgrounds */
+    --card: 0 0% 100%; /* White for card backgrounds */ 
     --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary: 120 99% 58%; /* green
+    --primary:140, 63%, 43%; /* green
     --primary-foreground: 0 0% 100%; /* White for text on primary */
 
     --secondary: 0 0% 90%; /* Slightly darker gray for secondary elements */
@@ -67,7 +67,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 207 99% 58%; /* #2E9AFE Blue */
+    --primary: 140, 63%, 43%; /* #2E9AFE Blue */
     --primary-foreground: 0 0% 100%; /* White for text on primary */
 
     --secondary: 240 3.7% 15.9%;
@@ -117,6 +117,9 @@
 .cartTop{
   margin-top: 50px ;
 }
+
+
+
 
 @media screen and (max-width: 537px ) {
 
@@ -289,5 +292,15 @@ right: 0;
 
 .mttp{
 margin-top: -11px;
+width: fit-content;
+}
+
+.txtcentr{
+text-align: center;
+}
+
+.txtcentrb{
+justify-content: center;
+
 }
 }

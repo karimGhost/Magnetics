@@ -25,9 +25,16 @@ const [bio, setBio] = useState("");
 const [skills, setSkills] = useState("");
     const {user, users} = useUserAuth();
 
- const username  =  user?.email?.replace("@gmail.com", "") ?? null;
+ const username  =   users?.find((i) => i.uid === user?.uid)?.username ?? null;
 
 const [newUsername, setNewUsername]=  useState(username); // optional
+
+
+useEffect(() =>{
+console.log("loll", username)
+
+
+}, [username])
 
 
 

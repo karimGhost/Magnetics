@@ -9,7 +9,7 @@ export function Footer() {
       <div className="container max-w-screen-2xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">Magnetics </h3>
+            <h3 className="text-lg font-semibold text-foreground mb-2" style={{color:"2ab455"}}>Magnetics </h3>
             <p className="text-sm">
               Your trusted partner for all electronic repair needs. We bring your devices back to life!
             </p>
@@ -24,8 +24,8 @@ export function Footer() {
             </ul>
           </div> */}
           <div style={{float:"right"}}>
-            <h3 className="text-lg font-semibold text-foreground mb-2">Follow Us</h3>
-            <div className="flex space-x-4">
+            <h3 className="text-lg font-semibold text-foreground mb-2 txtcentr">Follow Us</h3>
+            <div className="flex space-x-4 txtcentrb">
               <Link href="#" aria-label="Facebook" className="hover:text-primary"><Facebook size={20} /></Link>
               <Link href="#" aria-label="Twitter" className="hover:text-primary"><Twitter size={20} /></Link>
               <Link href="#" aria-label="Instagram" className="hover:text-primary"><Instagram size={20} /></Link>
@@ -33,7 +33,7 @@ export function Footer() {
           </div>
         </div>
         <Separator className="my-4 bg-border" />
-        <div className="text-center text-sm">
+        <div className="text-center text-sm ">
           <p>&copy; {currentYear} Magnetics. All rights reserved.</p>
           <p>Designed with care by karim.</p>
         </div>
