@@ -2,8 +2,11 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Zap, ChevronRight } from 'lucide-react';
-
+import GetQuotePopup from '../GetQuotePopup';
+import { useState } from 'react';
 export function HeroSection() {
+
+  const [open, setOpen] = useState(false)
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-br from-primary/10 via-background to-background">
       <div className="container px-4 md:px-6">
@@ -17,8 +20,15 @@ export function HeroSection() {
                 At Magnetics , we revive your devices with precision and accuracy. From computers, smartphones to complex electronics, trust our certified technicians.
               </p>
             </div>
+
+{
+  
+  <GetQuotePopup open={open}  setOpen={setOpen}/>
+
+}
+
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button asChild size="lg" className="shadow-lg hover:shadow-xl transition-shadow">
+              <Button onClick={() => setOpen(true)} asChild size="lg" className="shadow-lg hover:shadow-xl transition-shadow">
                 <Link href="#quote">
                   Get a Free Quote
                   <ChevronRight className="ml-2 h-5 w-5" />

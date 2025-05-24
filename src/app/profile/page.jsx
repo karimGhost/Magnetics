@@ -46,7 +46,7 @@ const toggleAvailability = async () => {
   setAvailability(newStatus);
 
   try {
-    const userDocRef = doc(dbb, "users", user.uid);
+    const userDocRef = doc(dbb, "users", user?.uid);
     await updateDoc(userDocRef, {
       availability: newStatus,
     });
@@ -137,7 +137,7 @@ useEffect(() => {
 // }, [user?.uid]);
 useEffect(() => {
   const fetchUserInfo = async () => {
-    const docRef = doc(dbb, "users", user.uid);
+    const docRef = doc(dbb, "users", user?.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       const data = docSnap.data();
@@ -152,7 +152,7 @@ useEffect(() => {
 
 const handleEditToggle = async () => {
   if (editMode) {
-    const userDocRef = doc(dbb, "users", user.uid);
+    const userDocRef = doc(dbb, "users", user?.uid);
     await updateDoc(userDocRef, {
       bio,
       skills,
@@ -250,12 +250,12 @@ useEffect(() => {
       <button
         onClick={toggleAvailability}
         className={`px-4 py-2 rounded-full text-white w-full sm:w-auto ${
-          users.find((i) => i.uid === user.uid)?.availability === "Available"
+          users?.find((i) => i.uid === user?.uid)?.availability === "Available"
             ? "bg-green-500"
             : "bg-yellow-500"
         }`}
       >
-        {users.find((i) => i.uid === user.uid)?.availability}
+        {users?.find((i) => i.uid === user?.uid)?.availability}
       </button>
     </div>
   </div>
@@ -272,7 +272,7 @@ useEffect(() => {
           placeholder="Write something about yourself..."
         />
       ) : (
-        <p className="text-gray-700">{bio || "No bio available."}</p>
+        <p className="text-gray-700">{ bio || "No bio available."}</p>
       )}
     </div>
 
@@ -286,9 +286,45 @@ useEffect(() => {
           placeholder="e.g., React, Node.js"
         />
       ) : (
-        <p className="text-gray-700">{skills || "No skills listed."}</p>
-      )}
-    </div>
+
+
+
+
+<>
+   {Array.isArray(skills) ? (
+  skills.map((skill) => (
+ 
+
+
+         <p key={skill} className="text-gray-700">{skill} </p>
+      
+  
+  ))
+) : skills && typeof skills === "object" ? (
+  Object.entries(skills).map(([key, value]) => (
+
+
+             <p key={key} className="text-gray-700">     <strong>{key}:</strong> {value} </p>
+
+  
+  ))
+) : (
+  <p  className="text-gray-700"> 
+    {skills || "No skills listed."}
+  </p>
+)}
+
+
+
+</>
+
+       
+
+
+      )
+    }
+
+  </div>
   </div>
 </Card>
 
@@ -308,7 +344,7 @@ useEffect(() => {
     <h2 className="text-2xl font-bold mb-6 text-gray-800">List of Techies</h2>
    {Techies && 
    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {users.map((userd) => (
+      {users?.map((userd) => (
 
 userd.uid === user.uid ? " " :
       <div onClick={() => router.push(`/Profiles?id=${userd.id}`)}  key={userd?.id}>

@@ -33,7 +33,7 @@ const [openSetup, setOpenSetup] = useState(false);
     const { users} = useUserAuth();
   const user = users.find(u => u.id === id);
 
- const username  =  user?.email?.replace("@gmail.com", "") ?? null;
+ const username  =  users.find(u => u.id === id)?.username;
 
 
   // use id to find the user
@@ -186,9 +186,41 @@ useEffect(() => {
       {/* Skills */}
       <div>
         <label className="font-semibold text-sm block mb-1">Skills:</label>
-        <p className="text-gray-700">
-          {users.find((u) => u.id === id)?.skills || "No skills listed."}
-        </p>
+       
+
+
+
+<>
+   {Array.isArray(users?.find((u) => u.id === id)?.skills ) ? (
+ users?.find((u) => u.id === id)?.skills .map((skill) => (
+ 
+
+
+         <p key={skill} className="text-gray-700">{skill} </p>
+      
+  
+  ))
+) : users?.find((u) => u.id === id)?.skills  && typeof users?.find((u) => u.id === id)?.skills  === "object" ? (
+  Object.entries(users.find((u) => u.id === id)?.skills ).map(([key, value]) => (
+
+
+             <p key={key} className="text-gray-700">     <strong>{key}:</strong> {value} </p>
+
+  
+  ))
+) : (
+  <p  className="text-gray-700"> 
+    {users?.find((u) => u.id === id)?.skills  || "No skills listed."}
+  </p>
+)}
+
+
+
+</>
+
+
+
+       
       </div>
     </div>
   </div>

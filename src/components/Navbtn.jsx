@@ -7,16 +7,37 @@ import { ref, onValue, remove, set } from "firebase/database";
 import { useRouter } from 'next/navigation';
 import { Icons } from "@/components/icons";
 import { signOut } from "firebase/auth";
+import LoginPopup from "./LoginPopup";
 
-export const Navbtn = () => {
+
+export const Navbtn = ({notLogedin, clientName}) => {
   const [cartopen, setcartopen] = useState(false);
 const [loadedRepairs, setloadedRepairs] = useState(null);
   const user = useUserAuth();
  const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
  const [openSetup, setOpenSetup] = useState(false);
   const router = useRouter();
+const [login, setLogin] = useState(false)
+const handleLoginn =() =>{
+ setLogin(true)
+}
+  
+
+const [active,  setActive] = useState(false)
+const [activeUSer, setActiveuser] = useState(false)
+
+ useEffect(() => {
+if(user?.user?.email){
+  setActive(true)
+}else if(localStorage.getItem("clientUser")){
+  
+    
+
+setActiveuser(true);
+}
 
 
+ }, [user])
 
 
 const [dataPending, setDataPending] = useState(0);
@@ -28,6 +49,7 @@ if(storedClient){
   localStorage.removeItem("clientUser");
       router.refresh(); // For App Router
 location.reload();
+
 
 
   return;
@@ -50,6 +72,12 @@ location.reload();
     alert("Failed to log out!");
   }
 };
+
+
+
+
+
+
 
   useEffect(() => {
     if (!username) return; // exit early if not ready
@@ -87,7 +115,12 @@ location.reload();
   
 
 
-  if(user?.user?.client){
+
+  if(login){
+    return  <LoginPopup  setLogin={setLogin}/>
+  }
+
+  if( !user?.user?.email   ){
 
 
   return (
@@ -113,7 +146,7 @@ location.reload();
   </header>
 
   {/* Icon Nav Bar Below Header */}
-  <div className="fixed top-[90px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[100px]">
+  <div className="fixed top-[90px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[100px]" style={{zIndex:"99"}}>
     {/* Home */}
     <Icons.HomeIcon
       onClick={() => router.push('/')}
@@ -133,29 +166,51 @@ location.reload();
 
   
    
-
+{
+  <>
+  
+  
     {/* User Settings Dropdown */}
-    <div className="relative">
+        <div className="relative">
       <Icons.UserCog
         onClick={() => setOpenSetup((prev) => !prev)}
         className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-blue-500 cursor-pointer transition"
       />
 
+
+
+
       {openSetup && (
+
+
+
         <div className="absolute right-0 mt-2 w-32 bg-white border shadow-md rounded-md z-50 py-2">
        
           <div
-            onClick={handleLogout}
+            onClick={ !user.email && activeUSer ? handleLogout :  handleLoginn   }
             className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
           >
             <Icons.LogOut className="h-4 w-4 mr-2" />
-            Logout
+          {!user.email && activeUSer  ?   "Logout"  :  "Login"     }
+
           </div>
+
+
+
         </div>
+
+
       )}
     </div>
+  
+  
+  </>
+
+    }
   </div>
 </>
+
+  
 )
 
 }
@@ -184,7 +239,7 @@ location.reload();
   </header>
 
   {/* Icon Nav Bar Below Header */}
-  <div className="fixed top-[75px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[90px]">
+  <div className="fixed top-[75px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[90px]" style={{zIndex:"99"}}>
     {/* Home */}
     <Icons.HomeIcon
       onClick={() => router.push('/')}
@@ -228,14 +283,19 @@ location.reload();
             <Icons.User className="h-4 w-4 mr-2" />
             Profile
           </div>
-          <div
+        
+       <div
             onClick={handleLogout}
             className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
           >
             <Icons.LogOut className="h-4 w-4 mr-2" />
             Logout
           </div>
+
+      
         </div>
+
+
       )}
     </div>
   </div>

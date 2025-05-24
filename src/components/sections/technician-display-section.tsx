@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Wrench, Cpu, ShieldCheck } from 'lucide-react';
 import useUserAuth from '@/hooks/useUserAuth';
-
+import { useRouter } from 'next/navigation';
 const technicians = [
   {
     name: "Alice Wonderland",
@@ -46,7 +46,7 @@ const technicians = [
 export function TechnicianDisplaySection() {
 
   const {users} = useUserAuth();
-
+  const router = useRouter();
   return (
     <section id="techs" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
       <div className="container px-4 md:px-6">
@@ -61,38 +61,39 @@ export function TechnicianDisplaySection() {
         </div>
         <div className="mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {users.map((tech) => (
-            <Card key={tech.name} className="shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 flex flex-col text-center">
-              <CardHeader className="items-center pt-6">
+            <Card key={tech.name}  onClick={() => router.push(`/Profiles?id=${tech.id}`)} className="shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 flex flex-col text-center">
+              <CardHeader  className="items-center pt-6">
                 <Avatar className="w-24 h-24 mb-4 border-4 border-primary shadow-md">
                   <AvatarImage src={tech.dp} alt={tech.username} data-ai-hint={tech.dp} />
                   <AvatarFallback>{tech.username?.slice(0, 1).toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <CardTitle className="text-xl">{tech.username}</CardTitle>
-                <CardDescription className="text-accent font-medium">{tech.skills}</CardDescription>
+
+   {Array.isArray(tech.skills) ? (
+  tech.skills.map((skill) => (
+    <CardDescription
+      key={skill}
+className="text-accent font-medium"    >
+      {skill}
+    </CardDescription>
+  ))
+) : tech.skills && typeof tech.skills === "object" ? (
+  Object.entries(tech.skills).map(([key, value]) => (
+    <CardDescription key={key} className="text-accent font-medium">
+      <strong>{key}:</strong> {value}
+    </CardDescription>
+  ))
+) : (
+  <CardDescription className="text-accent font-medium">
+    {tech.skills || "No skills listed."}
+  </CardDescription>
+)}
+
               </CardHeader>
               <CardContent className="flex-grow">
                 <p className="text-sm text-muted-foreground mb-3">{tech.bio}</p>
                 <div className="flex flex-wrap justify-center gap-2">
-                {Array.isArray(tech.skills) ? (
-  tech.skills.map((skill) => (
-    <span
-      key={skill}
-      className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full mr-1"
-    >
-      {skill}
-    </span>
-  ))
-) : tech.skills && typeof tech.skills === "object" ? (
-  Object.entries(tech.skills).map(([key, value]) => (
-    <div key={key} className="text-sm text-muted-foreground">
-      <strong>{key}:</strong> {value}
-    </div>
-  ))
-) : (
-  <p className="text-sm text-muted-foreground">
-    {tech.skills || "No skills listed."}
-  </p>
-)}
+             
                 </div>
               </CardContent>
             </Card>

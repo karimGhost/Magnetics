@@ -8,7 +8,7 @@ import useUserAuth from "@/hooks/useUserAuth";
 import { Navbtn } from "@/components/Navbtn";
 // import BlogList from "@/components/Blogs/BlogList";
 import TechnicianList from "@/components/Tech/TechnicianList";
-export default function HomePage() {
+export default function HomePage({active}) {
 
   const [openSetup, setOpenSetup] = useState(false);
   const router = useRouter();
@@ -27,7 +27,7 @@ const [dataPending, setDataPending] = useState(0)
 
  
 
-if(user?.user?.client){
+if(!user?.user?.email){
   return(
     <>
   
@@ -41,6 +41,25 @@ if(user?.user?.client){
 </>
   )
 }
+
+
+// if(!user?.user?.client && !user?.user?.uid){
+//   return(
+
+//   <>
+  
+//      <div style={{marginTop:"80px"}}>
+
+//   <Navbtn notLogedin={ !user?.user?.client && !user?.user?.uid} />
+//       <TechnicianList   />
+   
+//      </div>
+
+// </>
+
+//   )
+   
+// }
   return (
     <div  className="container mx-auto px-4 py-8">
    

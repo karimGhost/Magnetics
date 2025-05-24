@@ -6,25 +6,29 @@ import CreatePostDialog from '@/components/blog/CreatePostDialog';
 import { Button } from '@/components/ui/buttonn';
 import { useState } from 'react';
 import useUserAuth from '@/hooks/useUserAuth';
+import { Navbtn } from '@/components/Navbtn';
 export default function BlogPage() {
   const {user} = useUserAuth();
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col mt-5" style={{marginTop:"90px"}}>
+   
       <AppHeader onOpenCreatePost={() => setIsCreatePostOpen(true)} />
       <div className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-3xl mx-auto space-y-8 blogBg">
           <BlogList />
         </div>
       </div>
-{user?.user?.client ? "" :
-   <CreatePostDialog 
+{/* 
+{user ? 
+  <CreatePostDialog 
         isOpen={isCreatePostOpen} 
         onOpenChange={setIsCreatePostOpen} 
         onCreatePost={() => {}} // You can keep this or wire it up
-      />
-}
+      />: 
+      <></>
+} */}
      
 
       <footer className="text-center py-6 border-t border-border/50 mt-12">

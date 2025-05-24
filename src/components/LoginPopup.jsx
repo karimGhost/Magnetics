@@ -7,7 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 
-export default function LoginPopup({user}) {
+export default function LoginPopup({user, setClientNames, setLogin}) {
   const [showPopup, setShowPopup] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ const router = useRouter();
     const [isClient, setIsClient] = useState(true);
   const [clientName, setClientName] = useState();
 
-  // UseEffect to control the popup visibility based on user state
+  // UseEffect to control the popup visibility based on user state setClientNames
  useEffect(() => {
   const storedClient = localStorage.getItem("clientUser");
   if (storedClient) {
@@ -47,10 +47,10 @@ const router = useRouter();
 
     localStorage.setItem("clientUser", JSON.stringify(clientData));
     console.log("Client login stored in localStorage:", clientData);
-
+    location.reload();
+setClientNames(clientData)
     // Optional: close the popup or redirect
     setShowPopup(false);
-    router.refresh(); // For App Router
 
 
   } else {
@@ -62,12 +62,12 @@ const router = useRouter();
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const loggedInUser = userCredential?.user;
       console.log("Logged in user:", loggedInUser.email);
-          router.refresh(); // For App Router
-
+        //  location.reload();; // For App Router
+location.reload();
       // Optionally, you can do additional user-related tasks here (e.g., saving data to the database)
     } catch (error) {
       console.error("Login error:", error);
-      //alert("Invalid email or password!");
+      alert("Invalid email or password!");
      // alert("invalid credential")
           router.refresh(); // For App Router
 
@@ -83,7 +83,7 @@ const router = useRouter();
       <div className="bg-white w-full max-w-sm rounded-lg shadow-lg p-6 relative">
         {/* Close Button */}
         <button
-          onClick={() => setShowPopup(false)}
+          onClick={() => setLogin(false)}
           className="absolute top-3 right-3 text-gray-500 hover:text-red-500"
         >
           <X size={20} />
