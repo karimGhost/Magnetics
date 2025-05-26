@@ -10,8 +10,7 @@ import { onChildAdded } from "firebase/database";
 import { signOut } from "firebase/auth";
 import LoginPopup from "./LoginPopup";
 
-
-
+import Image from 'next/image';
 export const Navbtn = ({notLogedin, clientName, login, setLogin}) => {
 
   const [cartopen, setcartopen] = useState(false);
@@ -169,10 +168,14 @@ router.push('/')
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
       <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3">
         <div className="flex items-center justify-center space-x-3">
-          <Icons.Wrench className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary" >
-            Magnetics Repair
-          </h1>
+           <Image
+          alt="Magnetics" 
+              width={300} 
+              height={300} 
+              style={{    marginTop:"-45px",
+    marginBottom: "-60px"
+}}
+         src={"/Image/Logo.png"}/>
         </div>
         <p className="text-sm sm:text-base text-muted-foreground">
           Manage repair receipts and client communication.
@@ -262,11 +265,15 @@ router.push('/')
   <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b">
     <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-4">
       <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3">
-        <div className="flex items-center justify-center space-x-3">
-          <Icons.Wrench className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
-            Magnetics Repair
-          </h1>
+        <div className="flex items-center justify-center space-x-1">
+         <Image
+          alt="Magnetics" 
+              width={300} 
+              height={300} 
+              style={{    marginTop:"-45px",
+    marginBottom: "-60px"
+}}
+         src={"/Image/Logo.png"}/>
         </div>
         <p className="text-sm sm:text-base text-muted-foreground">
           Manage repair receipts and client communication.

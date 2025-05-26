@@ -31,7 +31,7 @@ if(!user?.user?.email){
   return(
     <>
   
-     <div style={{marginTop:"80px"}}>
+     <div style={{marginTop:"70px"}}>
 
   
       <TechnicianList   />

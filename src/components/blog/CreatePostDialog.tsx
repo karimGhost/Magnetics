@@ -108,8 +108,8 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({ isOpen, onOpenChang
 console.log("usesr", user)
   }, [user])
 
-const userdp = user?.client? "" : users?.find(i => i.uid === user.uid)?.dp ;
-const username = user?.client ? "" :  users?.find(i => i.uid === user.uid)?.username;
+const userdp = user?.client? "" : users?.find(i => i?.uid === user?.uid)?.dp ;
+const username = user?.client ? "" :  users?.find(i => i?.uid === user?.uid)?.username;
 
   const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
 

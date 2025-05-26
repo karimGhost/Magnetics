@@ -30,10 +30,10 @@ const PostCard: React.FC<{ post: Post }> = ({ post: initialPost }) => {
   
 const {user, users} = useUserAuth()
 
-   const username  =  users?.find(u => u.id === user.uid)?.username;
-   const dp  =  users?.find(u => u.id === user.uid)?.dp;
+   const username  =  users?.find(u => u?.id === user?.uid)?.username;
+   const dp  =  users?.find(u => u?.id === user?.uid)?.dp;
 
-     const userid  =  users?.find(u => u.id === user.uid)?.username;
+     const userid  =  users?.find(u => u?.id === user?.uid)?.username;
 
 
  const handleReaction = async (type: 'like' | 'love' | 'insightful') => {
