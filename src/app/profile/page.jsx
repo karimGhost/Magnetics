@@ -173,6 +173,7 @@ console.log("dbd", docSnap)
 
 
 const handleEditToggle = async () => {
+
   if (editMode) {
     const userDocRef = doc(dbb, "users", user?.uid);
   
@@ -202,13 +203,21 @@ await remove(ref(db, oldPath2));
       skills,
       username: newUsername,
     });
-  }
-  setEditMode(prev => !prev);
 
-  setTimeout(() => {
+
+
+     setTimeout(() => {
+   
+    
   location.reload()
-
+    
   }, 1000)
+
+
+  }
+
+     setEditMode(prev => !prev);
+
 };
 
 
