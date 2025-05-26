@@ -87,7 +87,7 @@ const { users} =useUserAuth();
 :
 
  <Avatar className="w-20 h-20">
-            <AvatarImage src={users.find(i => i.uid === user.uid)?.dp} alt="User" />
+            <AvatarImage src={users?.find(i => i?.uid === user?.uid)?.dp} alt="User" />
     <AvatarFallback>{username?.slice(0, 1).toUpperCase()}</AvatarFallback>
   </Avatar>
 

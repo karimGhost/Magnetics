@@ -25,7 +25,7 @@ const [bio, setBio] = useState("");
 const [skills, setSkills] = useState("");
     const {user, users} = useUserAuth();
 
- const username  =   users?.find((i) => i.uid === user?.uid)?.username ?? null;
+ const username  =   users?.find((i) => i?.uid === user?.uid)?.username ?? null;
 
 const [newUsername, setNewUsername]=  useState(username); // optional
 
@@ -284,7 +284,7 @@ useEffect(() => {
         ) :
          (
           <h2 className="text-xl font-bold">
-            {users.find((i) => i.uid === user.uid)?.username || "Unknown User"}
+            {users?.find((i) => i?.uid === user?.uid)?.username || "Unknown User"}
           </h2>
         )}
 

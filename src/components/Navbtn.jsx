@@ -223,12 +223,12 @@ router.push('/')
         <div className="absolute right-0 mt-2 w-32 bg-white border shadow-md rounded-md z-50 py-2">
        
           <div
-            onClick={ !user.email && activeUSer ? handleLogout :  handleLoginn   }
+            onClick={ !user?.email && activeUSer ? handleLogout :  handleLoginn   }
             className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
           >
 
-        {!user.email && activeUSer ? <Icons.LogOut className="h-4 w-4 mr-2" />  :    <Icons.LogIn className="h-4 w-4 mr-2"/>       }
-          {!user.email && activeUSer  ?   "Logout"  :  "Login"     }
+        {!user?.email && activeUSer ? <Icons.LogOut className="h-4 w-4 mr-2" />  :    <Icons.LogIn className="h-4 w-4 mr-2"/>       }
+          {!user?.email && activeUSer  ?   "Logout"  :  "Login"     }
 
           </div>
 
