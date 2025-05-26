@@ -11,9 +11,9 @@ import useUserAuth from "@/hooks/useUserAuth";
 import { Button } from "@/components/ui/button";
 import { InvoiceCard } from "@/components/InvoicePreview";
 export default function RepairCartPage() {
-  const user = useUserAuth();
+  const {user, users} = useUserAuth();
 
- const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
+ const username  =   users?.find((i) => i?.uid === user?.uid)?.username ?? null;
 
 
  
