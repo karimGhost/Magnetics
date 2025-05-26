@@ -11,6 +11,7 @@ export default function LoginPopup({user, setClientNames, setLogin}) {
   const [showPopup, setShowPopup] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
 const router = useRouter();
 
 
@@ -168,7 +169,8 @@ style={{background: isClient ? "#2ab455 " : "gray"}}
 
           <button
             type="submit"
-            className="w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+            style={{background:"#228C22"}}
+            className="w-full py-2  text-white rounded hover:bg-green-700 transition"
           >
             Login
           </button>

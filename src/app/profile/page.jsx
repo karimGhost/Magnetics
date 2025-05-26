@@ -8,7 +8,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import useUserAuth from "@/hooks/useUserAuth";
 import { db , dbb} from "@/lib/firebasedb";
-import { ref, onValue, remove, set } from "firebase/database";
+import {get, ref, onValue, remove, set } from "firebase/database";
 import { Icons } from "@/components/icons"; 
 import { useRouter } from 'next/navigation';
 import { Navbtn } from "@/components/Navbtn";
@@ -163,7 +163,8 @@ console.log("dbd", docSnap)
 
       setBio(data.bio || "");
       setSkills(data.skills || "");
-      setNewUsername(data.username)
+      setNewUsername(data.username);
+      setAvailability(data.availability)
     }
   };
 
@@ -174,14 +175,40 @@ console.log("dbd", docSnap)
 const handleEditToggle = async () => {
   if (editMode) {
     const userDocRef = doc(dbb, "users", user?.uid);
-    await updateDoc(userDocRef, {
+  
+
+const oldPath = `/${username}/pendingRepairs/`;
+const oldPath2 = `/${username}/repaired/`;
+
+const snapshot = await get(ref(db, oldPath));
+const snapshot2 = await get(ref(db, oldPath2));
+
+const oldData = snapshot.val();
+const oldData2 = snapshot2.val(); // ✅ fixed this line
+
+const newPath = `/${newUsername}/pendingRepairs/`;
+const newPath2 = `/${newUsername}/repaired/`;
+
+await set(ref(db, newPath), oldData);
+await set(ref(db, newPath2), oldData2);
+
+await remove(ref(db, oldPath));
+await remove(ref(db, oldPath2));
+
+
+
+  await updateDoc(userDocRef, {
       bio,
       skills,
       username: newUsername,
     });
   }
-
   setEditMode(prev => !prev);
+
+  setTimeout(() => {
+  location.reload()
+
+  }, 1000)
 };
 
 
@@ -273,12 +300,12 @@ useEffect(() => {
       <button
         onClick={toggleAvailability}
         className={`px-4 py-2 rounded-full text-white w-full sm:w-auto ${
-          users?.find((i) => i.uid === user?.uid)?.availability === "Available"
+       availability === "Available"
             ? "bg-green-500"
             : "bg-yellow-500"
         }`}
       >
-        {users?.find((i) => i.uid === user?.uid)?.availability}
+        {availability}
       </button>
     </div>
   </div>
@@ -360,7 +387,7 @@ useEffect(() => {
   className="bg-white text-black shadow-md hover:shadow-lg active:shadow-inner transition-all duration-200 border border-gray-200 px-6 py-2 rounded-xl"
 >
   toggleTechies
-</Button>          {/* <TabsTrigger value="following">Following</TabsTrigger> */}
+</Button>          {/* <TabsTrigger value="following">Following</TabsTrigger> busy */}
         </TabsList>
 <TabsContent value="followers">
   <Card className="mt-4 p-6 rounded-2xl shadow-lg">
@@ -411,44 +438,12 @@ userd.uid === user.uid ? " " :
       </Tabs>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-      <Card className="p-4">
-               <h3 className="text-lg font-semibold mb-2">Items Repaired</h3>
-       <div className="mt-6">
-       <h3 className="text-xl font-bold mb-4"> repaired</h3>
-       <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
-         {DataPending.map((item) => (
-           <div
-             key={item.id}
-             className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
-           >
-             <h2 className="text-base font-semibold text-gray-800 mb-1">
-           item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
-             </h2>
-             <p className="text-sm text-gray-600">
-               <strong>Details:</strong> {item.data.itemDetails || "N/A"}
-             </p>
-             <p className="text-sm text-gray-600">
-               <strong>Price:</strong> Ksh{item.data.price ?? "N/A"}
-             </p>
-             <p className="text-sm text-gray-600">
-               <strong>Advance:</strong> Ksh{item.data.advancepay ?? "N/A"}
-             </p>
-             <p className="text-sm text-gray-600">
-               <strong>Collection Date:</strong> {item.data.collectionDate || "N/A"}
-             </p>
-           </div>
-         ))}
-       </div>
-     </div>
-     
-              
-             </Card>
-         <Card className="p-4">
+  <Card className="p-4">
                  <h3 className="text-lg font-semibold mb-2">Items Pending Repair</h3>
          <div className="mt-6">
          <h3 className="text-xl font-bold mb-4">Pending Repairs</h3>
          <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
-           {repairs.map((item) => (
+           {DataPending.map((item) => (
              <div
                key={item.id}
                className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
@@ -475,6 +470,41 @@ userd.uid === user.uid ? " " :
        
                 
                </Card>
+
+
+      <Card className="p-4"> 
+               <h3 className="text-lg font-semibold mb-2">Items Repaired</h3>
+       <div className="mt-6">  
+       <h3 className="text-xl font-bold mb-4"> repaired</h3>
+       <div className="max-h-[500px] overflow-y-auto rounded-lg border p-4 bg-white shadow-inner space-y-4">
+         {  repairs.map((item) => (
+           <div
+             key={item.id}
+             className="bg-gray-50 border border-gray-200 rounded-md p-4 shadow-sm hover:shadow-md transition"
+           >
+             <h2 className="text-base font-semibold text-gray-800 mb-1">
+           item :   {item.data.itemName || "Unnamed Item"} — client : <i style={{color:"aqua"}}>  {item.data.clientName} </i>
+             </h2>
+             <p className="text-sm text-gray-600">
+               <strong>Details:</strong> {item.data.itemDetails || "N/A"}
+             </p>
+             <p className="text-sm text-gray-600">
+               <strong>Price:</strong> Ksh{item.data.price ?? "N/A"}
+             </p>
+             <p className="text-sm text-gray-600">
+               <strong>Advance:</strong> Ksh{item.data.advancepay ?? "N/A"}
+             </p>
+             <p className="text-sm text-gray-600">
+               <strong>Collection Date:</strong> {item.data.collectionDate || "N/A"}
+             </p>
+           </div>
+         ))}
+       </div>
+     </div>
+     
+              
+             </Card>
+       
       </div>
     </div>
       </>

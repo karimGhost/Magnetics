@@ -43,8 +43,8 @@ export function ReceiptForm() {
 
 
 
-    const user = useUserAuth();
- const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
+    const {user, users } = useUserAuth();
+ const username  =   users?.find((i) => i.uid === user?.uid)?.username ?? null;
 
   useEffect(() => {
     const now = new Date();
@@ -273,7 +273,7 @@ async function onSave(data) {
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )}
+                )} 
               />
               <FormField
                 control={form.control}
@@ -335,6 +335,7 @@ async function onSave(data) {
                   </FormItem>
                 )}
               />
+              
  <FormField
   control={form.control}
   name="advancepay"

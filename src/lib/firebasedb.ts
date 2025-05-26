@@ -29,6 +29,17 @@ const firebaseConfig2 = {
 };
 
 
+
+const firebaseConfigMess = {
+  apiKey: "AIzaSyDKdTspx1XcVos9BWqHhTclCKP3AQ9F-uw",
+  authDomain: "lijlllll.firebaseapp.com",
+  databaseURL: "https://lijlllll-default-rtdb.firebaseio.com",
+  projectId: "lijlllll",
+  storageBucket: "lijlllll.firebasestorage.app",
+  messagingSenderId: "1014520233340",
+  appId: "1:1014520233340:web:05b46d83eb0368a27fb8f9",
+  measurementId: "G-BVL35WYZ8V"
+};
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -41,11 +52,17 @@ const auth = getAuth(app); // <-- Auth added here
 const app2 = initializeApp(firebaseConfig2, "app2"); // ✅ name it to avoid conflict
 
 
-export const db2 = getFirestore(app2);
+const app3 =   initializeApp(firebaseConfigMess, "app3"); // ✅ name it to avoid conflict
 
+
+export const db2 = getFirestore(app2);
+export const  dbmessage = getDatabase(app3)
+
+
+
+export const storage = getStorage(app2);
 
 // ✅ Export both
 export { dbb,db, auth };
 
-export const storage = getStorage(app2);
 

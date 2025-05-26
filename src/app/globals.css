@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   :root {
     --background: 0 0% 96.1%; /* #F5F5F5 Light Gray */
@@ -13,7 +12,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
-    --primary:140, 63%, 43%; /* green
+    --primary:120, 61%, 34%; /* green
     --primary-foreground: 0 0% 100%; /* White for text on primary */
 
     --secondary: 0 0% 90%; /* Slightly darker gray for secondary elements */
@@ -67,7 +66,7 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 140, 63%, 43%; /* #2E9AFE Blue */
+    --primary:120, 61%, 34%; /* #2E9AFE Blue */
     --primary-foreground: 0 0% 100%; /* White for text on primary */
 
     --secondary: 240 3.7% 15.9%;
@@ -162,6 +161,17 @@
     white-space: break-spaces;
     width: 100px;
 }
+}
+
+
+.ScrollToTop{
+ background:  #228C22;
+
+}
+
+.ScrollToTop:hover{
+ background:  #175e17;
+
 }
 @media screen and (max-width: 462px ) {
   
@@ -304,3 +314,4 @@ justify-content: center;
 
 }
 }
+

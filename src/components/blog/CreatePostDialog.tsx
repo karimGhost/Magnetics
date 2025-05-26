@@ -146,7 +146,7 @@ if (userdp && typeof userdp !== 'string') {
 const docRef = await addDoc(collection(db2, 'posts'), newPost); // ✅ capture the returned reference
 
 await updateDoc(docRef, {
-  id: docRef.id, // ✅ store the actual Firestore document ID in the document
+  id: docRef.id, // ✅ store the actual Firestore document ID in the document onOpenCreatePost
 });
 
     onCreatePost(newPost);
@@ -169,7 +169,7 @@ await updateDoc(docRef, {
         setMediaType(null);
       }
     }}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+      <DialogContent style={{position:"fixed",  zIndex:"220", }} className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">Create New Post</DialogTitle>
           <DialogDescription>

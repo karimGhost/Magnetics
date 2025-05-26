@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
-import { Facebook, Twitter, Instagram } from 'lucide-react';
-
+import { Facebook, Instagram, Twitter, Music2 } from 'lucide-react'; // Music2 as TikTok placeholder
+import { Wrench } from 'lucide-react';
 export function Footer() {
   const currentYear = new Date().getFullYear();
   return (
@@ -9,7 +9,14 @@ export function Footer() {
       <div className="container max-w-screen-2xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="text-lg font-semibold text-foreground mb-2" style={{color:"2ab455"}}>Magnetics </h3>
+            <div style={{display:"flex", flexDirection:"row", }}>
+               <Wrench  className="w-5 h-5 mt-1 text-primary"/>
+ <h3 className="text-lg font-semibold text-foreground mb-2" style={{color:"green"}}>
+             
+              Magnetics </h3>
+
+            </div>
+           
             <p className="text-sm">
               Your trusted partner for all electronic repair needs. We bring your devices back to life!
             </p>
@@ -24,11 +31,23 @@ export function Footer() {
             </ul>
           </div> */}
           <div style={{float:"right"}}>
-            <h3 className="text-lg font-semibold text-foreground mb-2 txtcentr">Follow Us</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-2 txtcentr text-primary">Follow Us</h3>
             <div className="flex space-x-4 txtcentrb">
-              <Link href="#" aria-label="Facebook" className="hover:text-primary"><Facebook size={20} /></Link>
-              <Link href="#" aria-label="Twitter" className="hover:text-primary"><Twitter size={20} /></Link>
-              <Link href="#" aria-label="Instagram" className="hover:text-primary"><Instagram size={20} /></Link>
+                <Link href="https://facebook.com" aria-label="Facebook" className="hover:text-primary" target="_blank">
+      <Facebook size={20} />
+    </Link>
+
+    <Link href="https://instagram.com" aria-label="Instagram" className="hover:text-primary" target="_blank">
+      <Instagram size={20} />
+    </Link>
+
+    <Link href="https://x.com" aria-label="Twitter/X" className="hover:text-primary" target="_blank">
+      <Twitter size={20} />
+    </Link>
+
+    <Link href="https://tiktok.com" aria-label="TikTok" className="hover:text-primary" target="_blank">
+      <Music2 size={20} />
+    </Link>
             </div>
           </div>
         </div>

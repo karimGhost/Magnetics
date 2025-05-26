@@ -6,6 +6,7 @@ import React from "react";
 import useUserAuth from "@/hooks/useUserAuth";
 import LoginPopup from "@/components/LoginPopup";
 import { Navbtn } from "@/components/Navbtn";
+import ScrollToTop from "@/components/ScrollToTop";
 export default function LayoutWrapper({ children }) {
   const {user} = useUserAuth();
 
@@ -16,9 +17,10 @@ const [clientName, setClientNames] = useState(null);
 const [dataPending, setDataPending] = useState(null)
 const [loadedRepairs, setloadedRepairs] = useState(null)
   const [active , setActive] = useState(false)
+    const [login, setLogin] = useState(false)
 
   const childrenWithProps = React.Children.map(children, (child) =>
-    React.isValidElement(child) ? cloneElement(child, {active, setClientNames, username,  setDataPending, setloadedRepairs, loadedRepairs}) : child
+    React.isValidElement(child) ? cloneElement(child, {active, setClientNames, username, login, setLogin, setDataPending, setloadedRepairs, loadedRepairs}) : child
   );
 
 
@@ -72,9 +74,10 @@ useEffect(() => {
  <div className="topbottom" style={{position:"fixed", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
       <main className="pt-[140px]">
 { 
-   <Navbtn   />
+   <Navbtn  login={login} setLogin ={ setLogin} />
 }
    
+   <ScrollToTop />
 
     </main>
     

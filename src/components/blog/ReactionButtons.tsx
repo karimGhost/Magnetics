@@ -3,7 +3,6 @@
 import type React from 'react';
 import { Button } from "@/components/ui/button";
 import { ThumbsUp, Heart, Lightbulb } from "lucide-react";
-
 interface ReactionButtonsProps {
   likes: number;
   loves: number;
@@ -14,6 +13,7 @@ interface ReactionButtonsProps {
 }
 
 const ReactionButtons: React.FC<ReactionButtonsProps> = ({ likes, loves, insightfuls, onLike, onLove, onInsightful }) => {
+
   return (
     <div className="flex space-x-2">
       <Button variant="outline" size="sm" onClick={onLike} className="flex items-center group hover:bg-accent/10 hover:border-accent hover:text-accent transition-colors duration-150">

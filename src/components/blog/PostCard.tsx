@@ -10,7 +10,9 @@ import ReactionButtons from './ReactionButtons';
 import CommentSection from './CommentSection';
 import { MessageCircle, UserCircle2 } from 'lucide-react';
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db2 } from '@/lib/firebasedb';
+import { db2 , dbmessage} from '@/lib/firebasedb';
+import { ref, set, push } from 'firebase/database';
+
 // Removed Button import as it's no longer directly used in the problematic spot
 // import { Button } from '@/components/ui/button'; 
 import {
@@ -19,10 +21,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import useUserAuth from '@/hooks/useUserAuth';
 
 
 const PostCard: React.FC<{ post: Post }> = ({ post: initialPost }) => {
   const [post, setPost] = useState<Post>(initialPost);
+
+  
+const {user, users} = useUserAuth()
+
+   const username  =  users?.find(u => u.id === user.uid)?.username;
+   const dp  =  users?.find(u => u.id === user.uid)?.dp;
+
+     const userid  =  users?.find(u => u.id === user.uid)?.username;
+
 
  const handleReaction = async (type: 'like' | 'love' | 'insightful') => {
 
@@ -58,6 +70,8 @@ let updatedReactionBy = { ...reactionBy };
     updatedReactions[reactionType] = Math.max(0, updatedReactions[reactionType] - 1);
     delete updatedReactionBy[post.author  || 
 "anonymous"];
+
+
   } else {
     // 👍 Add or replace reaction
     if (currentReaction) {
@@ -98,6 +112,19 @@ if (post.reactionBy[post.author]) {
       [post.author]: undefined, // Optional, can be omitted if `delete` already used
     }
   }));
+
+
+
+ const newNotifRef = push(ref(dbmessage, `notif/${post.author}`));
+await set(newNotifRef, {
+  type: "reactions",
+  message: `${username} unliked  your post.`,
+  avatar: dp,
+  userId: userid,
+  postId: post.id,
+  createdAt: new Date().toISOString(),
+});
+
 } else {
   // 👍 New reaction
   post.reactionBy[post.author] = reactionKey;
@@ -112,6 +139,17 @@ if (post.reactionBy[post.author]) {
       [post.author]: reactionKey,
     }
   }));
+
+
+   const newNotifRef = push(ref(dbmessage, `notif/${post.author}`));
+await set(newNotifRef, {
+  type: "reactions",
+  message: `${username} liked  your post.`,
+  avatar: dp,
+  userId: userid,
+  postId: post.id,
+  createdAt: new Date().toISOString(),
+});
 }
 
 };

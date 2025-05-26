@@ -1,23 +1,25 @@
 "use client";
 // components/InvoiceCard.tsx
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import useUserAuth from "@/hooks/useUserAuth";
-import { db, auth } from "@/lib/firebasedb";
+import { db,dbmessage, auth } from "@/lib/firebasedb";
 import { ref, onValue, remove, set } from "firebase/database";
 import { useRouter } from 'next/navigation';
 import { Icons } from "@/components/icons";
+import { onChildAdded } from "firebase/database";
 import { signOut } from "firebase/auth";
 import LoginPopup from "./LoginPopup";
 
 
-export const Navbtn = ({notLogedin, clientName}) => {
+
+export const Navbtn = ({notLogedin, clientName, login, setLogin}) => {
+
   const [cartopen, setcartopen] = useState(false);
 const [loadedRepairs, setloadedRepairs] = useState(null);
-  const user = useUserAuth();
- const username  =  user?.user?.email?.replace("@gmail.com", "") ?? null;
+  const {user, users}= useUserAuth();
+ const username  =   users?.find((i) => i.uid === user?.uid)?.username ?? null;
  const [openSetup, setOpenSetup] = useState(false);
   const router = useRouter();
-const [login, setLogin] = useState(false)
 const handleLoginn =() =>{
  setLogin(true)
 }
@@ -27,7 +29,7 @@ const [active,  setActive] = useState(false)
 const [activeUSer, setActiveuser] = useState(false)
 
  useEffect(() => {
-if(user?.user?.email){
+if(user?.email){
   setActive(true)
 }else if(localStorage.getItem("clientUser")){
   
@@ -38,7 +40,21 @@ setActiveuser(true);
 
 
  }, [user])
+  const menuRef = useRef(null);
 
+
+ useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenSetup(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [])
 
 const [dataPending, setDataPending] = useState(0);
 
@@ -114,13 +130,33 @@ router.push('/')
   }, []); // 👈 depends on technicianName
   
 
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const notifRef = ref(dbmessage, `notif/${username}`);
+
+    const unsubscribe = onChildAdded(notifRef, (snapshot) => {
+      const newNotif = snapshot.val();
+      setNotifications((prev) => [
+        { key: snapshot.key || "", ...newNotif },
+        ...prev,
+      ]);
+
+
+    });
+
+
+    return () => unsubscribe(); // clean up listener
+  }, [username]);
+
+
 
 
   if(login){
     return  <LoginPopup  setLogin={setLogin}/>
   }
 
-  if( !user?.user?.email   ){
+  if( !user?.email   ){
 
 
   return (
@@ -171,10 +207,10 @@ router.push('/')
   
   
     {/* User Settings Dropdown */}
-        <div className="relative">
+        <div className="relative" ref={menuRef}>
       <Icons.UserCog
         onClick={() => setOpenSetup((prev) => !prev)}
-        className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-blue-500 cursor-pointer transition"
+        className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-green-500 cursor-pointer transition"
       />
 
 
@@ -254,9 +290,20 @@ router.push('/')
     />
 
     {/* Notifications */}
+        <div onClick={() => router.push('/cart')} className="relative cursor-pointer">
+
     <Icons.BellIcon
+    onClick={() => router.push('/Notif')}
       className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
     />
+ {notifications?.length > 0 && (
+        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-semibold rounded-full px-1.5 min-w-[16px] h-[16px] flex items-center justify-center">
+          {notifications?.length > 9 ? '9+' : notifications?.length}
+        </span>
+      )}
+      </div>
+
+
 
     {/* Cart */}
     <div onClick={() => router.push('/cart')} className="relative cursor-pointer">
@@ -269,10 +316,10 @@ router.push('/')
     </div>
 
     {/* User Settings Dropdown */}
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <Icons.UserCog
         onClick={() => setOpenSetup((prev) => !prev)}
-        className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-blue-500 cursor-pointer transition"
+        className="h-6 w-6 sm:h-7 sm:w-7 text-primary hover:text-green-500 cursor-pointer transition"
       />
 
       {openSetup && (
