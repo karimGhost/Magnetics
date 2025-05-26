@@ -290,10 +290,10 @@ router.push('/')
     />
 
     {/* Notifications */}
-        <div onClick={() => router.push('/cart')} className="relative cursor-pointer">
+        <div onClick={() => router.push('/Notif')} className="relative cursor-pointer">
 
     <Icons.BellIcon
-    onClick={() => router.push('/Notif')}
+
       className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary cursor-pointer transition"
     />
  {notifications?.length > 0 && (
