@@ -14,11 +14,13 @@ import { ref, set, push } from 'firebase/database';
 
 interface CommentSectionProps {
   postId: string;
+  postowner: string;
   initialComments: Comment[];
+
 }
 
 
-const CommentSection: React.FC<CommentSectionProps> = ({ postId, initialComments }) => {
+const CommentSection: React.FC<CommentSectionProps> = ({ postId, postowner, initialComments }) => {
   const [comments, setComments] = useState<Comment[]>(initialComments);
   const [newComment, setNewComment] = useState('');
 const {user, users} = useUserAuth();
@@ -61,13 +63,14 @@ const handleAddComment = async (e: React.FormEvent) => {
 
 
 
-     const newNotifRef = push(ref(dbmessage, `notif/${username}`));
+     const newNotifRef = push(ref(dbmessage, `notif/${postowner}`));
 await set(newNotifRef, {
   type: "comment",
   message: `${commentToAdd.user} commented on your post.`,
   commentText: commentToAdd.text,
   avatar: commentToAdd.userAvatarUrl,
   postId: postId,
+  
   createdAt: new Date().toISOString(),
 });
 

@@ -7,18 +7,23 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { formatDistanceToNow } from 'date-fns';
 import useUserAuth from '@/hooks/useUserAuth';
+import { useDeprecatedAnimatedState } from 'framer-motion';
 
-export default function NotificationPage({ userId = 'OR6YwktZaQV96OFHSVF' }) {
+export default function NotificationPage() {
   const [notifications, setNotifications] = useState([]);
 const {user, users} = useUserAuth();
-
+const userId =  user?.uid;
 const username = users?.find((i) => i.uid === user.uid)?.username
- 
+
   useEffect(() => {
     const notifRef = ref(dbmessage, `notif/${username}`);
+ console.log("notif",   username   );
 
     const unsubscribe = onChildAdded(notifRef, (snapshot) => {
       const newNotif = snapshot.val();
+     
+ console.log("notif",   newNotif   );
+
       setNotifications((prev) => [
         { key: snapshot.key || "", ...newNotif },
         ...prev,
@@ -41,7 +46,6 @@ const username = users?.find((i) => i.uid === user.uid)?.username
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {notifications.map((notif) => {
           const isContactForm = notif.phone;
-
           return (
             <Card key={notif.key}>
               <CardHeader>

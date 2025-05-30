@@ -170,22 +170,23 @@ router.push('/')
         <div className="flex items-center justify-center space-x-3">
            <Image
           alt="Magnetics" 
-              width={300} 
+              width={200} 
               height={300} 
               style={{    marginTop:"-45px",
     marginBottom: "-60px"
 }}
+
          src={"/Image/Logo.png"}/>
         </div>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          Manage repair receipts and client communication.
+        <p className="text-sm sm:text-base text-muted-foreground" style={{marginTop:"25px",  marginBottom:"-10px"}}>
+Your electronics service provider.
         </p>
       </div>
     </div>
   </header>
 
   {/* Icon Nav Bar Below Header */}
-  <div className="fixed top-[90px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[100px]" style={{zIndex:"99"}}>
+  <div className="fixed top-[90px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[100px]" style={{zIndex:"99",  marginTop:"-24px"}}>
     {/* Home */}
     <Icons.HomeIcon
       onClick={() => router.push('/')}
@@ -268,22 +269,22 @@ router.push('/')
         <div className="flex items-center justify-center space-x-1">
          <Image
           alt="Magnetics" 
-              width={300} 
+              width={200} 
               height={300} 
               style={{    marginTop:"-45px",
     marginBottom: "-60px"
 }}
          src={"/Image/Logo.png"}/>
         </div>
-        <p className="text-sm sm:text-base text-muted-foreground">
-          Manage repair receipts and client communication.
+        <p className="text-sm sm:text-base text-muted-foreground" style={{marginTop:"25px"}}>
+Your electronics service provider.
         </p>
       </div>
     </div>
   </header>
 
   {/* Icon Nav Bar Below Header */}
-  <div className="fixed top-[75px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[90px]" style={{zIndex:"99"}}>
+  <div className="fixed top-[75px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[90px]" style={{zIndex:"99", marginTop:"-14px"}}>
     {/* Home */}
     <Icons.HomeIcon
       onClick={() => router.push('/')}
@@ -313,7 +314,7 @@ router.push('/')
 
 
     {/* Cart */}
-    <div onClick={() => router.push('/cart')} className="relative cursor-pointer">
+    <div onClick={() => router.push('/cart')} className="relative cursor-pointer" >
       <Icons.Wrench className="h-5 w-5 sm:h-6 sm:w-6 text-gray-700 hover:text-primary transition" />
       {loadedRepairs?.length > 0 && (
         <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-semibold rounded-full px-1.5 min-w-[16px] h-[16px] flex items-center justify-center">

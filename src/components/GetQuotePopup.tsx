@@ -142,7 +142,7 @@ alert(users.find((user) => user.username === "remi"))
 
   return (
      <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" style={{zIndex:"300"}}>
         <DialogHeader>
           <DialogTitle>Get Your Free Quote</DialogTitle>
           <DialogDescription>

@@ -2,20 +2,28 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { Facebook, Instagram, Twitter, Music2 } from 'lucide-react'; // Music2 as TikTok placeholder
 import { Wrench } from 'lucide-react';
+import Image from 'next/image';
 export function Footer() {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="w-full bg-muted text-muted-foreground py-8 " style={{alignItems:"center"}}>
       <div className="container max-w-screen-2xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <div style={{display:"flex", flexDirection:"row", }}>
-               <Wrench  className="w-5 h-5 mt-1 text-primary"/>
- <h3 className="text-lg font-semibold text-foreground mb-2" style={{color:"green"}}>
-             
-              Magnetics </h3>
+       <div>
+            
+         
+         <>
+         
+          <Image
+                      alt="Magnetics" 
+                          width={150} 
+                          height={150} 
+            //     //           style={{    marginTop:"-45px",
+            //     // marginBottom: "-60px"
+            // }}
+                     src={"/Image/Logo.png"}/>
 
-            </div>
+         </>
            
             <p className="text-sm">
               Your trusted partner for all electronic repair needs. We bring your devices back to life!

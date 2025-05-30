@@ -129,7 +129,7 @@ if (userdp && typeof userdp !== 'string') {
  const newPost: Post = {
   id: `post-${Date.now()}`,
   author: username,
-  avatarUrl: uploadedAvatarUrl || userdp,         // ✅ Use uploaded avatar if available
+  avatarUrl: uploadedAvatarUrl || userdp,         // ✅ Use uploaded avatar if available postId
   timestamp: new Date().toLocaleDateString(),
   title: data.title,
   content: data.content,
@@ -146,7 +146,7 @@ if (userdp && typeof userdp !== 'string') {
 const docRef = await addDoc(collection(db2, 'posts'), newPost); // ✅ capture the returned reference
 
 await updateDoc(docRef, {
-  id: docRef.id, // ✅ store the actual Firestore document ID in the document onOpenCreatePost
+  id: docRef.id, // ✅ store the actual Firestore document ID in the document onOpenCreatePost postcard
 });
 
     onCreatePost(newPost);

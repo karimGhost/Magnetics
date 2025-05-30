@@ -38,7 +38,7 @@ const {user, users} = useUserAuth()
 
  const handleReaction = async (type: 'like' | 'love' | 'insightful') => {
 
-  const postRef = doc(db2, "posts", post.id); // ✅ Use passed postId
+  const postRef = doc(db2, "posts", post.id); // ✅ Use passed postId postId
   const postSnap = await getDoc(postRef);
 
   if (!postSnap.exists()) return;
@@ -65,7 +65,7 @@ const currentReaction = reactionBy[post.author ||
 let updatedReactions = { ...reactions };
 let updatedReactionBy = { ...reactionBy };
 
-  if (currentReaction === reactionType) {
+  if (currentReaction === reactionType )  {
     // 👎 Remove reaction
     updatedReactions[reactionType] = Math.max(0, updatedReactions[reactionType] - 1);
     delete updatedReactionBy[post.author  || 
@@ -155,7 +155,6 @@ await set(newNotifRef, {
 };
 
 
-
   return (
     <Card className="w-full shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
       <CardHeader>
@@ -214,7 +213,7 @@ await set(newNotifRef, {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              <CommentSection postId={post.id} initialComments={post.comments} />
+              <CommentSection postId={post.id}  postowner={post.author} initialComments={post.comments} />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
