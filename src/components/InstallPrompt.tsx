@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 export default function InstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstall, setShowInstall] = useState(false);
+  const [isin, setisin] = useState(false);
 
   const isInStandaloneMode = () =>
     window.matchMedia('(display-mode: standalone)').matches ||
     (window.navigator as any).standalone === true;
 
   useEffect(() => {
-    if (isInStandaloneMode()) return; // Don't show if already installed
+    if (isInStandaloneMode()){
+      setisin(true)
+return;
+
+    } ; // Don't show if already installed
 
     const dismissed = localStorage.getItem("install-dismissed");
     if (dismissed === "true") return;
@@ -45,7 +50,7 @@ export default function InstallPrompt() {
   return (
 
     <>
-     { isInStandaloneMode() 
+     { isin 
     
   ?
 <></>

@@ -8,6 +8,7 @@ import useUserAuth from "@/hooks/useUserAuth";
 import { Navbtn } from "@/components/Navbtn";
 // import BlogList from "@/components/Blogs/BlogList";
 import TechnicianList from "@/components/Tech/TechnicianList";
+import InstallPrompt from "@/components/InstallPrompt";
 export default function HomePage({active}) {
 
   const [openSetup, setOpenSetup] = useState(false);
@@ -32,9 +33,9 @@ if(!user?.user?.email){
     <>
   
      <div style={{marginTop:"70px"}}>
-
-  
       <TechnicianList   />
+
+  <InstallPrompt />
    
      </div>
 
