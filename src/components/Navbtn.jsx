@@ -9,7 +9,7 @@ import { Icons } from "@/components/icons";
 import { onChildAdded } from "firebase/database";
 import { signOut } from "firebase/auth";
 import LoginPopup from "./LoginPopup";
-
+import InstallPrompt from "./InstallPrompt";
 import Image from 'next/image';
 export const Navbtn = ({notLogedin, clientName, login, setLogin}) => {
 
@@ -39,6 +39,24 @@ setActiveuser(true);
 
 
  }, [user])
+
+
+const [isin, setisin] = useState(false);
+  
+const isInStandaloneMode = () =>
+  window.matchMedia('(display-mode: standalone)').matches ||
+  (window.navigator ).standalone === true;
+
+    useEffect(() => {
+      if (isInStandaloneMode() === true){
+  
+setisin(true)
+
+      }
+    }, [] );
+ 
+
+
   const menuRef = useRef(null);
 
 
@@ -249,6 +267,10 @@ Your electronics service provider.
 
     }
   </div>
+
+
+     { isin ? <></> :   <InstallPrompt />  }
+
 </>
 
   

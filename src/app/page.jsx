@@ -26,6 +26,19 @@ console.log("username", user)
 
 const [dataPending, setDataPending] = useState(0)
 
+const [isin, setisin] = useState(false);
+  
+const isInStandaloneMode = () =>
+  window.matchMedia('(display-mode: standalone)').matches ||
+  (window.navigator ).standalone === true;
+
+    useEffect(() => {
+      if (isInStandaloneMode() === true){
+  
+setisin(true)
+
+      }
+    }, [] );
  
 
 if(!user?.user?.email){
@@ -33,9 +46,11 @@ if(!user?.user?.email){
     <>
   
      <div style={{marginTop:"70px"}}>
-      <TechnicianList   />
+   { isin ? <></> :   <InstallPrompt />  }
 
-  <InstallPrompt />
+
+ <TechnicianList   />
+
    
      </div>
 

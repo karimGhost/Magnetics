@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
       >
               {!user && <LoginPopup />}
 
-<InstallPrompt />
+
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
