@@ -7,6 +7,7 @@ import useUserAuth from "@/hooks/useUserAuth";
 import LoginPopup from "@/components/LoginPopup";
 import { Navbtn } from "@/components/Navbtn";
 import ScrollToTop from "@/components/ScrollToTop";
+import InstallPrompt from "@/components/InstallPrompt";
 export default function LayoutWrapper({ children }) {
   const {user} = useUserAuth();
 
@@ -73,6 +74,7 @@ useEffect(() => {
 
  <div className="topbottom" style={{position:"fixed", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
       <main className="pt-[140px]">
+        <InstallPrompt />
 { 
    <Navbtn  login={login} setLogin ={ setLogin} />
 }

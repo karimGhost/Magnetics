@@ -43,11 +43,24 @@ export default function InstallPrompt() {
   if (!showInstall) return null;
 
   return (
+
+    <>
+     { isInStandaloneMode() 
+    
+  ?
+<></>
+
+:
+
     <button
       onClick={handleInstall}
       className="fixed bottom-4 right-4 p-3 rounded-lg bg-black text-white shadow-xl"
     >
       Add to Home Screen
     </button>
+
+   }
+    </>
+  
   );
 }
