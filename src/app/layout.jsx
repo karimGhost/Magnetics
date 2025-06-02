@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import LayoutWrapper from './LayoutWrapper'; // client component
 import { Toaster } from "@/components/ui/toaster";
+import InstallPrompt from '@/components/InstallPrompt';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <InstallPrompt />
         <LayoutWrapper>{children}</LayoutWrapper>
         <Toaster />
       </body>
