@@ -1,14 +1,27 @@
 import type { NextConfig } from 'next';
+import withPWA from 'next-pwa';
+
+const withPWANextConfig = withPWA({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  scope: '/app',
+  // sw: 'service-worker.js', // Uncomment if using a custom service worker
+});
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // ⚠️ Use with caution in production
+  },
+  
+  experimental: {
+    serverActions: {},
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true, // ⚠️ Use with caution in production
   },
   images: {
-    domains: ['placehold.co'], // ✅ Required
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,4 +33,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWANextConfig(nextConfig);

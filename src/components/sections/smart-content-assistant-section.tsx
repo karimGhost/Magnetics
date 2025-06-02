@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lightbulb, Loader2, AlertTriangle, ExternalLink, BookOpen } from 'lucide-react';
-// import { recommendTechArticles, type RecommendTechArticlesOutput } from '@/ai/flows/recommend-tech-articles';
+import { recommendTechArticles, type RecommendTechArticlesOutput } from '@/ai/flows/recommend-tech-articles';
 import { useToast } from "@/hooks/use-toast";
 
 export function SmartContentAssistantSection() {
@@ -25,24 +25,24 @@ export function SmartContentAssistantSection() {
     setError(null);
     setRecommendations(null);
 
-    // try {
-    //   const result = await recommendTechArticles({ keywords });
-    //   if (result && result.articleTitles && result.articleTitles.length > 0) {
-    //     setRecommendations(result);
-    //   } else {
-    //     setError("No relevant articles found for your keywords. Try different terms.");
-    //   }
-    // } catch (err) {
-    //   console.error("Error fetching recommendations:", err);
-    //   setError("Sorry, something went wrong while fetching recommendations. Please try again later.");
-    //   toast({
-    //     title: "Error",
-    //     description: "Failed to fetch recommendations.",
-    //     variant: "destructive",
-    //   });
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    try {
+      const result = await recommendTechArticles({ keywords });
+      if (result && result.articleTitles && result.articleTitles.length > 0) {
+        setRecommendations(result);
+      } else {
+        setError("No relevant articles found for your keywords. Try different terms.");
+      }
+    } catch (err) {
+      console.error("Error fetching recommendations:", err);
+      setError("Sorry, something went wrong while fetching recommendations. Please try again later.");
+      toast({
+        title: "Error",
+        description: "Failed to fetch recommendations.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

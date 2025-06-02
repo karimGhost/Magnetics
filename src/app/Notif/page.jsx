@@ -13,7 +13,7 @@ export default function NotificationPage() {
   const [notifications, setNotifications] = useState([]);
 const {user, users} = useUserAuth();
 const userId =  user?.uid;
-const username = users?.find((i) => i.uid === user.uid)?.username
+const username = users?.find((i) => i?.uid === user?.uid)?.username
 
   useEffect(() => {
     const notifRef = ref(dbmessage, `notif/${username}`);

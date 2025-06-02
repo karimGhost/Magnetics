@@ -427,9 +427,9 @@ userd.uid === user.uid ? " " :
               </div>
               <div className="flex items-center gap-2 text-gray-600 text-sm">
                 <Icons.Mail className="w-4 h-4 text-green-500" />
-                <span>{userd.email}</span>
+                <span>{userd.email.length > 15 ?  userd.email.slice(0, 15) + '...'  :  userd.email}</span>
               </div>
-              <div className="text-xs text-gray-400 mt-1">UID: {userd.uid}</div>
+              <div className="text-xs text-gray-400 mt-1">UID: {userd.uid.length > 15 ?  userd.uid.slice(0, 15) + '...'  :  userd.uid}</div>
             </div>
           </li>
         </div>
