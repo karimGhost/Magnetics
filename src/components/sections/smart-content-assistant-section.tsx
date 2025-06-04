@@ -1,16 +1,39 @@
+// components/SmartContentAssistantSection.tsx
+// Place this file in `components/SmartContentAssistantSection.tsx`
+
 "use client";
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lightbulb, Loader2, AlertTriangle, ExternalLink, BookOpen } from 'lucide-react';
-import { recommendTechArticles, type RecommendTechArticlesOutput } from '@/ai/flows/recommend-tech-articles';
-import { useToast } from "@/hooks/use-toast";
+// This import is crucial for your client-side fetch helper
+import { recommendTechArticles, type RecommendTechArticlesOutput } from '@/ai/flows/recommend-tech-articles'; // Your client-side fetch helper
+
+// You need to define the client-side `recommendTechArticles` function as it was provided in your initial prompt.
+// This function acts as a wrapper for your API call.
+async function recommendTechArticlesClient({ keywords }: { keywords: string }): Promise<RecommendTechArticlesOutput> {
+  const res = await fetch('/api/recommend-tech-articles', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ keywords }),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.message || 'API error');
+  }
+  return res.json();
+}
+
+
+import { useToast } from "@/hooks/use-toast"; // Ensure you have this hook from Shadcn UI
 
 export function SmartContentAssistantSection() {
   const [keywords, setKeywords] = useState('');
-  const [recommendations, setRecommendations] = useState(null);
+  const [recommendations, setRecommendations] = useState<RecommendTechArticlesOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -23,21 +46,22 @@ export function SmartContentAssistantSection() {
     }
     setIsLoading(true);
     setError(null);
-    setRecommendations(null);
+    setRecommendations(null); // Clear previous recommendations
 
     try {
-      const result = await recommendTechArticles({ keywords });
+      // Call the client-side fetch helper
+      const result = await recommendTechArticlesClient({ keywords });
       if (result && result.articleTitles && result.articleTitles.length > 0) {
         setRecommendations(result);
       } else {
         setError("No relevant articles found for your keywords. Try different terms.");
       }
-    } catch (err) {
+    } catch (err: any) { // Use any for error type if you're not strictly typing
       console.error("Error fetching recommendations:", err);
-      setError("Sorry, something went wrong while fetching recommendations. Please try again later.");
+      setError(`Sorry, something went wrong while fetching recommendations: ${err.message || 'Unknown error'}. Please try again later.`);
       toast({
         title: "Error",
-        description: "Failed to fetch recommendations.",
+        description: `Failed to fetch recommendations: ${err.message || 'Unknown error'}`,
         variant: "destructive",
       });
     } finally {
@@ -53,7 +77,7 @@ export function SmartContentAssistantSection() {
             <Lightbulb className="inline-block w-4 h-4 mr-1 mb-0.5" />
             Quick Help
           </div>
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-primary">Magnetics Ai Content Assistant</h2>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-primary">Magnetics AI Content Assistant</h2>
           <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
             Looking for tech tips, repair guides, or articles? Enter some keywords, and our AI assistant will find relevant content for you.
           </p>
@@ -96,7 +120,7 @@ export function SmartContentAssistantSection() {
             </CardFooter>
           )}
 
-          {recommendations && (
+          {recommendations && recommendations.articleTitles.length > 0 && (
             <CardFooter className="flex flex-col items-start border-t px-6 py-4 space-y-4">
               <h3 className="text-lg font-semibold text-foreground">Recommended For You:</h3>
               <div className="w-full space-y-3">
@@ -109,8 +133,9 @@ export function SmartContentAssistantSection() {
                     {recommendations.articleDescriptions[index] && (
                       <p className="text-sm text-muted-foreground mt-1">{recommendations.articleDescriptions[index]}</p>
                     )}
+                    {/* Link to Google Search for the article */}
                     <a 
-                      href={`https://www.google.com/search?q=${encodeURIComponent(title)}`} 
+                      href={`https://www.google.com/search?q=${encodeURIComponent(title + " tech article")}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-xs text-accent hover:underline mt-2 inline-flex items-center"

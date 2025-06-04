@@ -61,7 +61,7 @@ export function TechnicianDisplaySection() {
         </div>
         <div className="mx-auto grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {users.map((tech) => (
-            <Card key={tech.name}  onClick={() => router.push(`/Profiles?id=${tech.id}`)} className="shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 flex flex-col text-center">
+            <Card key={tech.username}  onClick={() => router.push(`/Profiles?id=${tech.id}`)} className="shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 flex flex-col text-center">
               <CardHeader  className="items-center pt-6">
                 <Avatar className="w-24 h-24 mb-4 border-4 border-primary shadow-md">
                   <AvatarImage src={tech.dp} alt={tech.username} data-ai-hint={tech.dp} />

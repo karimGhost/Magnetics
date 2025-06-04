@@ -12,11 +12,10 @@ export default function InstallPrompt() {
 
   useEffect(() => {
     if (isInStandaloneMode()){
+
       setisin(true)
-return;
-
-    } ; // Don't show if already installed
-
+     return; // Don't show if already installed
+    }
     const dismissed = localStorage.getItem("install-dismissed");
     if (dismissed === "true") return;
 
@@ -29,28 +28,34 @@ return;
     window.addEventListener("beforeinstallprompt", handler);
     return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
+const handleInstall = async () => {
+  if (!deferredPrompt) return;
 
-  const handleInstall = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response to install prompt: ${outcome}`);
-      if (outcome === "accepted") {
-        localStorage.setItem("mobile", "true");
-      } else {
-        localStorage.setItem("install-dismissed", "true");
-      }
-      setDeferredPrompt(null);
-      setShowInstall(false);
-    }
-  };
+  deferredPrompt.prompt();
 
-  if (!showInstall) return null;
+  const userChoice = await deferredPrompt.userChoice;
+  if (!userChoice) return;
+
+  const { outcome } = userChoice;
+  console.log(`User response to install prompt: ${outcome}`);
+
+  if (outcome === "accepted") {
+    localStorage.setItem("mobile", "true");
+  } else {
+    localStorage.setItem("install-dismissed", "true");
+  }
+
+  setDeferredPrompt(null);
+  setShowInstall(false);
+};
+
+
+  // if (!showInstall) return null;
 
   return (
 
     <>
-     { isin 
+     { isin
     
   ?
 <></>
@@ -59,7 +64,8 @@ return;
 
     <button
       onClick={handleInstall}
-      className="fixed bottom-4 right-4 p-3 rounded-lg bg-black text-white shadow-xl"
+      style={{zIndex:"99"}}
+      className="fixed  bottom-4 right-4 p-3 rounded-lg bg-black text-white shadow-xl"
     >
       Add to Home Screen
     </button>

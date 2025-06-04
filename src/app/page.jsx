@@ -45,12 +45,15 @@ if(!user?.user?.email){
   return(
     <>
   
-     <div style={{marginTop:"70px"}}>
-   { isin ? <></> :   <InstallPrompt />  }
+    
 
 
  <TechnicianList   />
+ <div style={{marginTop:"70px"}}>
+      <div style={{position:"absolute",top:"200px", zIndex:"259"}}>
+         { isin ? <></> :   <InstallPrompt />  }
 
+      </div>
    
      </div>
 
