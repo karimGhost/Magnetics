@@ -1,4 +1,3 @@
-// next.config.js
 import withPWA from 'next-pwa';
 
 /** @type {import('next').NextConfig} */
@@ -28,13 +27,27 @@ const nextConfig = {
   experimental: {
     serverActions: {},
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.magneticsrepair.co.ke',
+          },
+        ],
+        destination: 'https://magneticsrepair.co.ke/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const withPWAConfig = withPWA({
-  dest: 'public', // PWA-specific config
+  dest: 'public',
   register: true,
   skipWaiting: true,
-  // disable: process.env.NODE_ENV === 'development', // disable PWA in dev
 });
 
-export default withPWAConfig(nextConfig); // ✅ Wrap nextConfig
+export default withPWAConfig(nextConfig);
