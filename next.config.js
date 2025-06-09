@@ -34,7 +34,7 @@ const withPWAConfig = withPWA({
   dest: 'public', // PWA-specific config
   register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development', // disable PWA in dev
+  // disable: process.env.NODE_ENV === 'development', // disable PWA in dev
 });
 
 export default withPWAConfig(nextConfig); // ✅ Wrap nextConfig

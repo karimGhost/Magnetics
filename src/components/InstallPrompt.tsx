@@ -9,46 +9,54 @@ export default function InstallPrompt() {
   const isInStandaloneMode = () =>
     window.matchMedia('(display-mode: standalone)').matches ||
     (window.navigator as any).standalone === true;
+useEffect(() => {
+  console.log("Checking install prompt readiness");
 
-  useEffect(() => {
-    if (isInStandaloneMode()){
+  if (isInStandaloneMode()) {
+    console.log("App is in standalone mode");
+    setisin(true);
+    return;
+  }
 
-      setisin(true)
-     return; // Don't show if already installed
-    }
-    const dismissed = localStorage.getItem("install-dismissed");
-    if (dismissed === "true") return;
+  const dismissed = localStorage.getItem("install-dismissed");
+  if (dismissed === "true") {
+    console.log("User previously dismissed install");
+    return;
+  }
 
-    const handler = (e: any) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setShowInstall(true);
-    };
+  const handler = (e: any) => {
+    console.log("✅ beforeinstallprompt event fired");
+    e.preventDefault();
+    setDeferredPrompt(e);
+    setShowInstall(true);
+  };
 
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, []);
+  window.addEventListener("beforeinstallprompt", handler);
+  return () => window.removeEventListener("beforeinstallprompt", handler);
+}, []);
 const handleInstall = async () => {
-  if (!deferredPrompt) return;
+  console.log("Install button clicked");
+  if (!deferredPrompt) {
+    console.log("❌ No deferredPrompt available");
+    return;
+  }
 
   deferredPrompt.prompt();
 
-  const userChoice = await deferredPrompt.userChoice;
-  if (!userChoice) return;
+  const result = await deferredPrompt.userChoice;
+  console.log("User choice result:", result);
 
-  const { outcome } = userChoice;
-  console.log(`User response to install prompt: ${outcome}`);
-
-  if (outcome === "accepted") {
+  if (result.outcome === "accepted") {
+    console.log("✅ User accepted the install prompt");
     localStorage.setItem("mobile", "true");
   } else {
+    console.log("❌ User dismissed the install prompt");
     localStorage.setItem("install-dismissed", "true");
   }
 
   setDeferredPrompt(null);
   setShowInstall(false);
 };
-
 
   // if (!showInstall) return null;
 

@@ -43,6 +43,8 @@ if(user){
 
   // UseEffect to control the popup visibility based on user state
 useEffect(() => {
+  console.log("Standalone mode?", window.matchMedia("(display-mode: standalone)").matches);
+
   const storedClient = localStorage.getItem("clientUser");
   if (storedClient) {
     try {
@@ -64,7 +66,13 @@ useEffect(() => {
 //   return <LoginPopup user={clientName?.username} />;
 
 //  }
-
+useEffect(() => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("✅ Service worker registered"))
+      .catch(err => console.error("❌ Service worker error", err));
+  }
+}, []);
 
   return (
     <>
@@ -74,16 +82,18 @@ useEffect(() => {
 
  <div className="topbottom" style={{position:"fixed", top:"0", zIndex:"199", right:"0", display:"flex", flexDirection:"row", padding:"20px"}}>
       <main className="pt-[140px]">
-        <InstallPrompt />
 { 
    <Navbtn  login={login} setLogin ={ setLogin} />
 }
    
+
    <ScrollToTop />
 
     </main>
     
     </div>   
+             {/* {    <InstallPrompt />  } */}
+
        {childrenWithProps}
     </>
   );
