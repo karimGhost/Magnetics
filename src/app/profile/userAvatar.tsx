@@ -8,7 +8,7 @@ import useUserAuth from '@/hooks/useUserAuth';
 const UserAvatar = ({user, username, editMode }: {user:any;  username: string; editMode: boolean }) => {
 
   const [localUser, setLocalUser] = useState();
-    const fileInputRef = useRef<HTMLInputElement>();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 const { users} =useUserAuth();
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -68,7 +68,7 @@ const { users} =useUserAuth();
       <input
         type="file"
         accept="image/*"
-        ref={fileInputRef}
+        ref={fileInputRef }
         style={{ display: 'none' }}
         onChange={handleImageUpload}
       />

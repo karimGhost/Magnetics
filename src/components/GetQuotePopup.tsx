@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-
+import { Button } from './ui/buttonn';
 
 import {
   Select,
@@ -21,10 +21,17 @@ import {
 import { ref, set, push } from 'firebase/database';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { dbmessage } from '@/lib/firebasedb';
 import useUserAuth from '@/hooks/useUserAuth';
-export default function GetQuotePopup({open, setOpen}) {
+
+
+type GetQuotePopupProps = {
+  open: boolean;
+  setOpen: (value: boolean) => void;
+};
+
+export default function GetQuotePopup({ open, setOpen }: GetQuotePopupProps) {
   // const [open, setOpen] = useState(false);
 
   // const handleSubmit = (e: React.FormEvent) => {

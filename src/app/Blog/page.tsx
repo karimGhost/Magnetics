@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/buttonn';
 import { useState } from 'react';
 import useUserAuth from '@/hooks/useUserAuth';
 import { Navbtn } from '@/components/Navbtn';
-export default function BlogPage({login, setLogin}) {
+export default function BlogPage() {
   const {user} = useUserAuth();
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
 

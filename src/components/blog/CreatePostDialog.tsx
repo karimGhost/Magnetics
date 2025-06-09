@@ -7,7 +7,7 @@ import * as z from 'zod';
 import type { Post } from '@/types';
 import { v2 as cloudinary } from 'cloudinary';
 import { updateDoc } from 'firebase/firestore';
-import { Button } from "@/components/ui/button";
+import { Button } from '../ui/buttonn';
 import {
   Dialog,
   DialogContent,

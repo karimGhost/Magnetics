@@ -4,14 +4,13 @@ import React, { useState } from 'react';
 import type { Comment } from '@/types';
 import CommentItem from './CommentItem';
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { ScrollArea } from '@/components/ui/scroll-area';
 import useUserAuth from '@/hooks/useUserAuth';
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db2, storage , dbmessage} from '@/lib/firebasedb'; // adjust path to your Firebase setupi
 import { ref, set, push } from 'firebase/database';
-
+import { Button } from '../ui/buttonn';
 interface CommentSectionProps {
   postId: string;
   postowner: string;

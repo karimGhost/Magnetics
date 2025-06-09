@@ -269,7 +269,7 @@ Your electronics service provider.
   </div>
 
 
-     { isin ? <></> :   <InstallPrompt />  }
+     {/* { isin ? <></> :   <InstallPrompt />  } */}
 
 </>
 
