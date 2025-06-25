@@ -8,7 +8,10 @@ import useUserAuth from "@/hooks/useUserAuth";
 import { Navbtn } from "@/components/Navbtn";
 // import BlogList from "@/components/Blogs/BlogList";
 import TechnicianList from "@/components/Tech/TechnicianList";
-import InstallPrompt from "@/components/InstallPrompt";
+
+
+
+
 export default function HomePage() {
 
   const [openSetup, setOpenSetup] = useState(false);

@@ -69,6 +69,18 @@ image:"/Image/6.png",
   },
 ];
 
+
+
+export const metadata = {
+  title: "Our Services – Electronics & Appliance Repair Kenya",
+  description: "We repair TVs, fridges, sound systems, phones, and more. Get expert diagnosis and fast service at Magnetics Repair.",
+  keywords: ["TV repair Kenya", "fridge repair Nairobi", "home appliance service"],
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://magneticsrepair.co.ke/services",
+  },
+};
+
 export function ServicesHighlightSection() {
 
     const [selected, setSelected] = useState(null);

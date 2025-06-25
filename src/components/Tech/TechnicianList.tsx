@@ -16,6 +16,16 @@ import { Footer } from '@/components/layout/footer';
 
 import { CardContent } from '../ui/card';
 import Link from 'next/link';
+
+export const metadata = {
+  title: "About Us – Magnetics Repair Kenya",
+  description: "Learn about Magnetics Repair, our mission, and why we're trusted by thousands across Kenya for reliable electronics and appliance repair.",
+  keywords: ["about Magnetics Repair", "electronics technicians Kenya", "repair company info"],
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://magneticsrepair.co.ke/about",
+  },
+};
 export default function TechnicianList() {
   return (
 

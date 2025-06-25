@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://magneticsrepair.co.ke
+
+# Sitemaps
+Sitemap: https://magneticsrepair.co.ke/sitemap.xml

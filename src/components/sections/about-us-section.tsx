@@ -2,6 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Info, Target, Eye } from 'lucide-react';
 import Image from 'next/image';
 
+export const metadata = {
+  title: "Contact Magnetics Repair – Get in Touch Today",
+  description: "Reach out to Magnetics Repair for inquiries, service booking, and expert help with your electronics or appliances.",
+  keywords: ["contact Magnetics Repair", "electronics repair contact", "book repair Kenya"],
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://magneticsrepair.co.ke/contact",
+  },
+};
 export function AboutUsSection() {
   return (
     <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
