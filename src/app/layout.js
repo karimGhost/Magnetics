@@ -24,7 +24,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
            <head>
-
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1948682636540486"
+     crossorigin="anonymous"></script>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
   <title>Magnetics Repair – Expert Electronics & Appliance Repair in Kenya</title>

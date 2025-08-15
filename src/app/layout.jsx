@@ -24,6 +24,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+      
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1948682636540486"
+     crossorigin="anonymous"/>
          <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
