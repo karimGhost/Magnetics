@@ -183,28 +183,28 @@ router.push('/')
   <>
   {/* Header */}
   <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b">
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4">
-      <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3">
-        <div className="flex items-center justify-center space-x-3">
-           <Image
-          alt="Magnetics" 
-              width={200} 
-              height={300} 
-              style={{    marginTop:"-45px",
-    marginBottom: "-60px"
-}}
+    <div className="max-w-6xl mx-auto px-2 sm:px-6 ">
+     <div className="flex flex-col items-center justify-center text-center space-y-2 " style={{height:"80px"}}>
+  <div className="relative" style={{ width: "200px", height: "80px" }}>
+    <Image
+      alt="Magnetics"
+      src="/Image/Logo.png"
+      fill
+      className="object-contain"
+      priority
+      sizes="200px"
+    />
+  </div>
 
-         src={"/Image/Logo.png"}/>
-        </div>
-        <p className="text-sm sm:text-base text-muted-foreground" style={{marginTop:"25px",  marginBottom:"-10px"}}>
-Your electronics service provider.
-        </p>
-      </div>
+  <p className="text-sm sm:text-base text-muted-foreground -mt-2">
+    Your electronics service provider.
+  </p>
+</div>
     </div>
   </header>
 
   {/* Icon Nav Bar Below Header */}
-  <div className="fixed top-[90px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm sm:top-[100px]" style={{zIndex:"99",  marginTop:"-24px"}}>
+  <div className="fixed top-[105px] right-4 flex items-center gap-4 z-40 bg-white px-3 py-2 rounded-xl shadow-sm  sm:top-[100px]" style={{zIndex:"99",  marginTop:"-24px"}}>
     {/* Home */}
     <Icons.HomeIcon
       onClick={() => router.push('/')}

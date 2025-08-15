@@ -29,7 +29,7 @@ export const metadata = {
 export default function TechnicianList() {
   return (
 
-  <div className="flex flex-col min-h-screen justify" style={{ alignItems:"center", marginTop:"150px"}}>
+<div className="flex flex-col min-h-screen items-center -mt-[150px] lg:-mt-[200px] ">
   
       <main className="flex-grow">
         <HeroSection />

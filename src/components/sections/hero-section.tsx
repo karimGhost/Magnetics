@@ -6,6 +6,7 @@ import GetQuotePopup from '../GetQuotePopup';
 import { motion } from 'framer-motion';
 
 import { useState } from 'react';
+import TechHeading from './TechHeading';
 
 
 const text = "Expert Tech Repair, Lightning Fast.";
@@ -40,6 +41,15 @@ const [open, setOpen] = useState(false)
   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-primary">
                 Expert Tech Repair, Lightning Fast.
               </h1>
+              {/* <TechHeading
+            text="Expert Tech Repair, Lightning Fast."
+  size={64}          // per-letter font size
+  gap={6}            // spacing between letters
+  duration={1.2}     // seconds per letter
+  stagger={0.12}     // delay between letters starting
+  wireColor="#10b981" // glow/wire color
+  baseColor="#1f2937" //  
+              /> */}
               <p className="max-w-[600px] text-muted-foreground md:text-xl">
                 At Magnetics , we revive your devices with precision and accuracy. From computers, smartphones to complex electronics, trust our certified technicians.
               </p>
