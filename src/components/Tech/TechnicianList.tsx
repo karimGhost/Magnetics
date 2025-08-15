@@ -29,7 +29,7 @@ export const metadata = {
 export default function TechnicianList() {
   return (
 
-<div className="flex flex-col min-h-screen items-center -translate-y-36 lg:-translate-y-48">
+<div className="flex flex-col min-h-screen items-center -translate-y-36 lg:-translate-y-48  shift-up">
   
       <main className="flex-grow">
         <HeroSection />
