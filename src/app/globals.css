@@ -318,11 +318,11 @@ justify-content: center;
 
 
 .shift-up {
-  transform: translateY(-9rem); /* same as -translate-y-36 */
+  transform: translateY(-9rem) !important; /* same as -translate-y-36 */
 }
 
 @media (min-width: 1024px) {
   .shift-up {
-    transform: translateY(-12rem); /* same as -translate-y-48 */
+    transform: translateY(-12rem) !important; /* same as -translate-y-48 */
   }
 }
