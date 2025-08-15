@@ -52,12 +52,9 @@ if(!user?.user?.email){
 
 
  <TechnicianList   />
- <div style={{marginTop:"70px"}}>
-      <div style={{position:"absolute",top:"200px", zIndex:"259"}}>
 
-      </div>
    
-     </div>
+   
 
 </>
   )
