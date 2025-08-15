@@ -4,7 +4,7 @@ import LoginPopup from "@/components/LoginPopup"; // Import the LoginPopup compo
 import { auth, user } from "@/lib/firebase";
 import LayoutWrapper from './LayoutWrapper'; // client component
 import InstallPrompt from '@/components/InstallPrompt';
-
+import GoogleAd from "@/components/GoogleAd";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
       >
               {!user && <LoginPopup />}
 
+  <GoogleAd />
 
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>

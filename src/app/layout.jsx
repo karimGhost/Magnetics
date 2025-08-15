@@ -4,6 +4,7 @@ import './globals.css';
 import LayoutWrapper from './LayoutWrapper'; // client component
 import { Toaster } from "@/components/ui/toaster";
 import InstallPrompt from '@/components/InstallPrompt';
+import GoogleAd from '@/components/GoogleAd';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -54,6 +55,8 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+     <GoogleAd />
+
         <LayoutWrapper>{children}</LayoutWrapper>
         <Toaster />
       </body>
