@@ -41,7 +41,9 @@ const username = users?.find((i) => i?.uid === user?.uid)?.username
     await remove(ref(db, `notif/${username}/${notifId}`));
   };
   return (
-    <div className="container py-10">
+ 
+        
+    <div style={{marginTop:"100px"}} className=" py-10 container mx-auto px-4 md:px-6">
       <h2 className="text-3xl font-bold mb-6 text-primary">Your Notifications</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {notifications.map((notif) => {

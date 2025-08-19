@@ -94,7 +94,6 @@ useEffect(() => {
     
     </div>   
              {/* {    <InstallPrompt />  } */}
-     <GoogleAd />
 
        {childrenWithProps}
     </>

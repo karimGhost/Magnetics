@@ -36,8 +36,9 @@ suffix: "+",
 
 export function AchievementsSection() {
    return (
-    <section id="achievements" className="w-full py-12 md:py-24 lg:py-32 bg-background">
-      <div className="container px-4 md:px-6">
+    <section   id="achievements" className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-primary/10 via-background to-background">
+  <div className="container mx-auto px-4 md:px-6">
+        
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <div className="inline-block rounded-lg bg-primary/10 px-3 py-1 text-sm text-primary font-medium">
             Our Milestones

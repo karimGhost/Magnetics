@@ -16,6 +16,7 @@ import { Footer } from '@/components/layout/footer';
 
 import { CardContent } from '../ui/card';
 import Link from 'next/link';
+import GoogleAd from '../GoogleAd';
 
 export const metadata = {
   title: "About Us – Magnetics Repair Kenya",
@@ -29,10 +30,11 @@ export const metadata = {
 export default function TechnicianList() {
   return (
 
-<div className="flex flex-col min-h-screen items-center -translate-y-36 lg:-translate-y-48  shift-up">
+<div style={{margin:"auto"}} className='w-100 mx-auto'>
   
-      <main className="flex-grow">
         <HeroSection />
+             <GoogleAd />
+
         <Separators decorative />
         <AboutUsSection />
         <Separators decorative />
@@ -45,7 +47,7 @@ export default function TechnicianList() {
         <TechnicianDisplaySection />
         <Separators decorative />
         <SmartContentAssistantSection />
-      </main>
+    
    <Footer /> 
     </div>
   );

@@ -55,7 +55,6 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-     <GoogleAd />
 
         <LayoutWrapper>{children}</LayoutWrapper>
         <Toaster />

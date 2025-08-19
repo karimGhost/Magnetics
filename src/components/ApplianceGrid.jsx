@@ -29,7 +29,7 @@ export default function ApplianceGrid({selected, setSelected}) {
     <DialogTitle>{selected?.name}</DialogTitle>
     <DialogDescription>
       <Image
-        src={selected?.image || ""}
+        src={selected?.imageSrc || ""}
         alt={selected?.name}
         width={600}
         height={400}

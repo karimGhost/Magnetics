@@ -47,12 +47,18 @@ setisin(true)
 if(!user?.user?.email){
   return(
     <>
-  
+      <div  className="mt-100 mx-auto ">
+
     
+<main style={{marginTop:"100px"}} >  
 
 
  <TechnicianList   />
 
+        
+      </main>
+
+</div>
   
 
 </>
