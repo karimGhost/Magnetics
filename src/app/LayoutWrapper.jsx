@@ -8,6 +8,7 @@ import LoginPopup from "@/components/LoginPopup";
 import { Navbtn } from "@/components/Navbtn";
 import ScrollToTop from "@/components/ScrollToTop";
 import InstallPrompt from "@/components/InstallPrompt";
+import GoogleAd from "@/components/GoogleAd";
 export default function LayoutWrapper({ children }) {
   const {user} = useUserAuth();
 
@@ -93,6 +94,7 @@ useEffect(() => {
     
     </div>   
              {/* {    <InstallPrompt />  } */}
+     <GoogleAd />
 
        {childrenWithProps}
     </>

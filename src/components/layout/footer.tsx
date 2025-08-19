@@ -6,7 +6,7 @@ import Image from 'next/image';
 export function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-<footer className="w-full bg-muted text-muted-foreground py-8">
+<footer className="w-full bg-muted text-muted-foreground py-8 " >
   <div className="container max-w-screen-xl mx-auto">
     {/* Top Section */}
     <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8 text-center md:text-left">
