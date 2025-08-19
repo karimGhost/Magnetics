@@ -14,7 +14,7 @@ export default function BlogPage() {
 
 
   return (
-    <div className="min-h-screen flex flex-col mt-5" style={{marginTop:"90px"}}>
+    <div className="min-h-screen flex flex-col " style={{marginTop:"-130px"}}>
    
 
 
