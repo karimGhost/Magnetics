@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.magnetics.twa",
+        "sha256_cert_fingerprints": ["B1:3E:AD:B5:5B:6B:2B:A0:62:AA:30:62:8E:DB:4C:F7:1E:6A:27:D0:8C:51:73:12:96:D0:0B:0B:D1:76:19:3F"]
+      }
+    }]
