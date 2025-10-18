@@ -61,7 +61,7 @@ export function AchievementsSection() {
   );
 }
 
-function AnimatedCard({ achievement }) {
+function AnimatedCard({ achievement }: any) {
   const { ref, inView } = useInView({ triggerOnce: true });
 
   return (

@@ -1,14 +1,21 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
+import type {NextConfig} from 'next';
+
+const withPWA = require('next-pwa')({
+  dest: 'public'
+})
+
+module.exports = withPWA({
+    reactStrictMode: true,
+
+  /* config options here */
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: {
-    domains: ['placehold.co', 'res.cloudinary.com'],
+    images: {
+    domains: ['placehold.co','picsum.photos', 'res.cloudinary.com', 'lh3.googleusercontent.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,9 +27,18 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
+      {
+  protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
-  async redirects() {
+
+
+
+async redirects() {
     return [
       {
         source: '/:path*',
@@ -37,6 +53,7 @@ const nextConfig = {
       },
     ];
   },
-};
 
-module.exports = nextConfig;
+
+})
+

@@ -1,12 +1,12 @@
 "use client";
 
 import type React from 'react';
-import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { Icons } from '../icons';
 import useUserAuth from '@/hooks/useUserAuth';
 import { useEffect } from 'react';
 import { Navbtn } from '../Navbtn';
+import { Button } from '../ui/buttonn';
 interface AppHeaderProps {
   onOpenCreatePost: () => void;
 }

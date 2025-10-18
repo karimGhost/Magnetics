@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/buttonn';
 import Link from 'next/link';
 import { Zap, ChevronRight } from 'lucide-react';
 import GetQuotePopup from '../GetQuotePopup';

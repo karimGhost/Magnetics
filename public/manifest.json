@@ -1,23 +1,54 @@
 {
   "name": "Magnetics APP",
-  "short_name": "MG",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "short_name": "Magnetics",
   "description": "Magnetics Repair , Your trusted partner for all electronic repair needs. We bring your devices back to life!",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "any",
+    "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "categories": [
+    "social",
+    "lifestyle",
+    "family",
+    "communication",
+    "repair",
+    "diy"
+  ],
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icons/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "magnetics mobile home screen"
+    },
+    {
+      "src": "/screenshots/desktop1.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "magnetics desktop view"
+    }
+  ],
+  "prefer_related_applications": false
 }
-
-

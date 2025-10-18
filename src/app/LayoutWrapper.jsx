@@ -43,21 +43,21 @@ if(user){
  }, [])
 
   // UseEffect to control the popup visibility based on user state
-useEffect(() => {
-  console.log("Standalone mode?", window.matchMedia("(display-mode: standalone)").matches);
+// useEffect(() => {
+//   console.log("Standalone mode?", window.matchMedia("(display-mode: standalone)").matches);
 
-  const storedClient = localStorage.getItem("clientUser");
-  if (storedClient) {
-    try {
-      const parsed = JSON.parse(storedClient);
-      setClientNames(parsed); // This should be an object now
-    } catch (err) {
-      console.error("Invalid JSON in clientUser:", err);
-    }
-  }else{
-    setClientNames(null)
-  }
-}, []);
+//   const storedClient = localStorage.getItem("clientUser");
+//   if (storedClient) {
+//     try {
+//       const parsed = JSON.parse(storedClient);
+//       setClientNames(parsed); // This should be an object now
+//     } catch (err) {
+//       console.error("Invalid JSON in clientUser:", err);
+//     }
+//   }else{
+//     setClientNames(null)
+//   }
+// }, []);
 
 
 

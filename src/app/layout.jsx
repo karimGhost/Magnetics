@@ -1,7 +1,7 @@
 // app/layout.jsx
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import LayoutWrapper from './LayoutWrapper'; // client component
+import LayoutWrapper from './LayoutWrapper';
 import { Toaster } from "@/components/ui/toaster";
 import InstallPrompt from '@/components/InstallPrompt';
 import GoogleAd from '@/components/GoogleAd';
@@ -25,10 +25,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-      
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1948682636540486"
-     crossorigin="anonymous"/>
-         <script
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1948682636540486"
+          crossOrigin="anonymous"
+        />
+
+        {/* ✅ JSON-LD structured data (valid) */}
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -41,21 +45,45 @@ export default function RootLayout({ children }) {
                 "@type": "PostalAddress",
                 addressCountry: "KE",
               },
-              description: "Trusted repair services for electronics, fridges, TVs, and appliances across Kenya.",
+              description:
+                "Trusted repair services for electronics, fridges, TVs, and appliances across Kenya.",
             }),
           }}
         />
-          <link rel="manifest" href="/manifest.json" />
-      
+
+        {/* ✅ Separate script for Service Worker registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/pwabuilder-sw.js')
+                    .then(() => console.log('✅ Service Worker registered successfully'))
+                    .catch(err => console.error('❌ Service Worker registration failed:', err));
+                });
+              } else {
+                console.log('Service Worker not registered (development mode)');
+              }
+            `,
+          }}
+        />
+
+        <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
-          <title>Magnetics Repair – Expert Electronics & Appliance Repair in Kenya</title>
-  <meta name="description" content="Trusted repair services for electronics, fridges, TVs, and appliances across Kenya. Quick, affordable, and professional." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://magneticsrepair.co.ke" />
+
+        <title>
+          Magnetics Repair – Expert Electronics & Appliance Repair in Kenya
+        </title>
+        <meta
+          name="description"
+          content="Trusted repair services for electronics, fridges, TVs, and appliances across Kenya. Quick, affordable, and professional."
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://magneticsrepair.co.ke" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <LayoutWrapper>{children}</LayoutWrapper>
         <Toaster />
       </body>
