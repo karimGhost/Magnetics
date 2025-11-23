@@ -31,8 +31,12 @@ export function Footer() {
           Quick Links
         </h3>
         <Link href="/about" className="hover:text-primary">About Us</Link>
+
         <Link href="/services" className="hover:text-primary">Services</Link>
         <Link href="/contact" className="hover:text-primary">Contact</Link>
+       <Link href="/contact" className="hover:text-primary">Contact</Link>
+        <Link href="/privacypolicy" className="hover:text-primary">Privacy-policy</Link>
+
       </div>
 
       {/* Social Links */}
